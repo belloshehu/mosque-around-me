@@ -7,7 +7,7 @@ import { styles } from "../styles";
 
 const SearchBar = () => {
   return (
-    <div>
+    <div className="w-full bg-gradient-to-tr">
       <Formik
         initialValues={{
           service: "",
@@ -26,7 +26,7 @@ const SearchBar = () => {
           country: Yup.string().required(),
         })}>
         <Form>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-5">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-5 w-full">
             <div className="flex gap-2">
               <Field
                 name="activity"
