@@ -29,7 +29,9 @@ const Header = () => {
 
       {/* auth buttons */}
       <ul className="flex gap-2 items-center list-none">
-        <button className={styles.button}>Become an admin</button>
+        <Link href={"/admin/mosque"} className={styles.button}>
+          Become an admin
+        </Link>
       </ul>
 
       {/* <button className={styles.button}>login</button>

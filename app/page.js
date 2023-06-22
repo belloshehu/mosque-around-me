@@ -10,7 +10,7 @@ export default function Home() {
     <div
       className={`${poppins.className} flex min-h-screen flex-col items-center justify-start gap-5 `}>
       <h4
-        className={`${righteous.className} text-xl md:text-3xl text-center font-bold mt-5`}>
+        className={`${righteous.className} text-xl md:text-3xl text-center font-bold mt-5 text-transparent bg-clip-text bg-gradient-radial from-cyan-600 to-yellow-700 `}>
         Search for mosques, islamic events, Jum'ah and eid prayers and many more
       </h4>
       <SearchBar />

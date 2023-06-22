@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Link from "next/link";
@@ -13,9 +12,10 @@ const LoginForm = () => {
           email: "",
           password: "",
         }}
-        onSubmit={(values, { setSubmitting, e }) => {
-          e.preventDefault();
+        onSubmit={async (values, { setSubmitting }) => {
+          //   e.preventDefault();
           console.log("submitting..", values);
+          await fetch("/api/auth/login");
         }}
         validationSchema={Yup.object({
           email: Yup.string()
@@ -51,9 +51,9 @@ const LoginForm = () => {
               />
             </div>
 
-            <Link href="#" className={`${styles.button} w-full`}>
+            <button type="submit" className={`${styles.button} w-full`}>
               Login
-            </Link>
+            </button>
           </div>
         </Form>
       </Formik>

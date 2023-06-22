@@ -10,34 +10,35 @@ const SearchBar = () => {
     <div className="w-full bg-gradient-to-tr">
       <Formik
         initialValues={{
-          service: "",
+          activity: "",
           town: "",
           state: "",
           country: "",
         }}
-        onSubmit={(values, { setSubmitting, e }) => {
-          e.preventDefault();
+        onSubmit={async (values, { setSubmitting }) => {
           console.log("submitting..", values);
+          const response = await fetch("http://localhost:3000/api/mosques");
+          const mosques = await response.json();
+          console.log("mosques: ", mosques);
         }}
         validationSchema={Yup.object({
-          service: Yup.string().required(),
+          activity: Yup.string().required(),
           town: Yup.string().required(),
           state: Yup.string().required(),
           country: Yup.string().required(),
         })}>
         <Form>
           <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-5 w-full">
-            <div className="flex gap-2">
+            <div className="flex gap-2  w-full">
               <Field
                 name="activity"
                 as="select"
                 className={styles.input}
                 placeholder="activity: e.g, prayer">
-                <option value="Eid prayer" selected>
-                  Eid prayer
-                </option>
-                <option value="Juma'ah prayer">Juma'ah prayer</option>
-                <option value="Lecturer">Lecture</option>
+                <option value="eid">Select activiy</option>
+                <option value="eid">Eid prayer</option>
+                <option value="juma">Juma'ah prayer</option>
+                <option value="program">Lecture</option>
               </Field>
               <Field
                 name="town"
@@ -47,7 +48,7 @@ const SearchBar = () => {
               />
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full">
               <Field
                 name="state"
                 type="text"
@@ -61,9 +62,9 @@ const SearchBar = () => {
                 placeholder="country"
               />
             </div>
-            <Link href="#" className={styles.button}>
+            <button type="submit" className={styles.button}>
               Search
-            </Link>
+            </button>
           </div>
         </Form>
       </Formik>
