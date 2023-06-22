@@ -21,11 +21,11 @@ const Header = () => {
       </div>
 
       {/* nave links */}
-      <nav className="list-none md:flex gap-5 items-center hidden md:visible">
+      {/* <nav className="list-none md:flex gap-5 items-center hidden md:visible">
         {links.map((link) => (
           <NaveLink {...link} key={link.path} />
         ))}
-      </nav>
+      </nav> */}
 
       {/* auth buttons */}
       <ul className="flex gap-2 items-center list-none">

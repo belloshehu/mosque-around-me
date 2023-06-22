@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { FaMapMarkerAlt, FaCalendar, FaClock } from "react-icons/fa";
 import { Righteous } from "next/font/google";

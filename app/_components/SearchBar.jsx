@@ -4,8 +4,19 @@ import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Link from "next/link";
 import { styles } from "../styles";
+import { Router } from "next/router";
+import { useSearchParams } from "next/navigation";
+import { useDispatch } from "react-redux";
+import {
+  setMosques,
+  setSearchResultTitle,
+} from "../GlobalRedux/features/mosque/mosqueSlice";
+import { FaSpinner } from "react-icons/fa";
 
 const SearchBar = () => {
+  const searchParams = useSearchParams();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <div className="w-full bg-gradient-to-tr">
       <Formik
@@ -16,10 +27,27 @@ const SearchBar = () => {
           country: "",
         }}
         onSubmit={async (values, { setSubmitting }) => {
-          console.log("submitting..", values);
-          const response = await fetch("http://localhost:3000/api/mosques");
+          // create a title/heading for search result such as "Eid in kano, kano, Nigeria"
+          setIsLoading(true);
+          const { activity, town, state, country } = values;
+          const resultTitle = `${activity} in ${town}, ${state}, ${country}`;
+          dispatch(setSearchResultTitle(resultTitle));
+
+          // converts {a: 10, b: 2, c: 'hell'} to a=10&b=2&c=hello
+          const url = new URLSearchParams(values);
+          const queryParams = url.toString();
+
+          const response = await fetch(
+            `http://localhost:3000/api/mosques/search?${queryParams}`,
+            {
+              next: {
+                revalidate: 60,
+              },
+            }
+          );
           const mosques = await response.json();
-          console.log("mosques: ", mosques);
+          dispatch(setMosques(mosques));
+          setIsLoading(false);
         }}
         validationSchema={Yup.object({
           activity: Yup.string().required(),
@@ -62,8 +90,15 @@ const SearchBar = () => {
                 placeholder="country"
               />
             </div>
-            <button type="submit" className={styles.button}>
-              Search
+            <button
+              type="submit"
+              className={styles.button}
+              disabled={isLoading}>
+              {isLoading ? (
+                <FaSpinner className={`${isLoading ? "animate-spin" : ""}`} />
+              ) : (
+                Search
+              )}
             </button>
           </div>
         </Form>
