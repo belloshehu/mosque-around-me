@@ -18,13 +18,17 @@ const Mosque = ({
   return (
     <Link
       href={`/mosque/${id}`}
-      className="flex flex-col items-center gap-1 border-[1px] rounded-md w-full hover:scale-105 duration-150 transition-all">
-      <Image src={image} height={300} className="w-full" />
-      <h3
-        className={`${righteous.className} font-semibold text-transparent bg-clip-text text-slate-700 text-xl`}>
-        {name}
-      </h3>
-      <div className="flex flex-col gap-2 p-5 lg:px-7 bg-slate-50 w-full text-slate-600">
+      className="relative flex flex-col items-center gap-1 border-[1px] rounded-md h-full w-full group hover:scale-105 duration-150 transition-all">
+      <Image
+        src={image}
+        height={500}
+        className="w-full aspect-square  h-full object-contain"
+      />
+      <div className="absolute top-0 h-full hover:bg-opacity-0 hover:text-black  z-10 left-0 flex flex-col transition-all duration-250 justify-end items-center gap-2 p-5 lg:px-7 bg-opacity-50 bg-black w-full text-white">
+        <h3
+          className={`${righteous.className} absolute top-0 font-semibold  text-center text-xl`}>
+          {name}
+        </h3>
         <div className="flex items-center justify-center text-center gap-2">
           <FaMapMarkerAlt className="" />
           <p>{address}</p>
@@ -35,7 +39,7 @@ const Mosque = ({
           <span>{country}</span>
         </div>
 
-        <div className="flex justify-around items-center bg-white w-full p-2">
+        <div className="flex justify-around items-center bg-white bg-opacity-60 group-hover:bg-slate-400 w-full p-2">
           <div className="flex gap-1 items-center text-purple-700">
             <FaCalendar />
             <span>{date}</span>
