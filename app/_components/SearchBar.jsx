@@ -1,11 +1,8 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import Link from "next/link";
 import { styles } from "../styles";
-import { Router } from "next/router";
-import { useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import {
   setMosques,
@@ -14,7 +11,6 @@ import {
 import { FaSpinner } from "react-icons/fa";
 
 const SearchBar = () => {
-  const searchParams = useSearchParams();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   return (
@@ -63,7 +59,7 @@ const SearchBar = () => {
                 as="select"
                 className={styles.input}
                 placeholder="activity: e.g, prayer">
-                <option value="eid">Select activiy</option>
+                <option value="">Select activiy</option>
                 <option value="eid">Eid prayer</option>
                 <option value="juma">Juma'ah prayer</option>
                 <option value="program">Lecture</option>
@@ -92,12 +88,11 @@ const SearchBar = () => {
             </div>
             <button
               type="submit"
-              className={styles.button}
+              className={`${styles.button} flex gap-2 items-center`}
               disabled={isLoading}>
-              {isLoading ? (
+              Search
+              {isLoading && (
                 <FaSpinner className={`${isLoading ? "animate-spin" : ""}`} />
-              ) : (
-                Search
               )}
             </button>
           </div>
