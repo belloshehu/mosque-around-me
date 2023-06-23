@@ -5,14 +5,15 @@ const righteous = Righteous({ subsets: ["latin"], weight: ["400"] });
 
 const Brand = () => {
   return (
-    <div className="border-2 p-1 rounded-md">
-      <Link href={"/"}>
+    <Link href={"/"} className="w-fit">
+      <div className="text-center text-white ">
         <h1
-          className={`${righteous.className} font-bold text-xl text-white lg:text-3xl `}>
+          className={`${righteous.className} border-2 rounded-md font-bold text-xl text-white lg:text-2xl `}>
           MAM
         </h1>
-      </Link>
-    </div>
+        <p className="text-xs">Mosquearoundme</p>
+      </div>
+    </Link>
   );
 };
 

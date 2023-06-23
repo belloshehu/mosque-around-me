@@ -88,7 +88,7 @@ const SearchBar = () => {
             </div>
             <button
               type="submit"
-              className={`${styles.button} flex gap-2 items-center`}
+              className={`${styles.button} flex gap-2 items-center justify-center`}
               disabled={isLoading}>
               Search
               {isLoading && (

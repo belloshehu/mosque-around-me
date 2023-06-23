@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Brand from "./Brand";
 import Link from "next/link";
@@ -8,7 +9,6 @@ const Footer = () => {
     <footer className="flex flex-col md:flex-row justify-start gap-5 md:gap-10 bg-purple-800 text-white p-5 md:p-24 ">
       <div className="text-center">
         <Brand />
-        <p>Mosquearoundme</p>
       </div>
       <div className="text-sm">
         <h3 className="text-lg font-semibold mb-2 text-slate-400">About us</h3>
