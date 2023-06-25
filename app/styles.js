@@ -6,4 +6,6 @@ export const styles = {
   button:
     "p-2 px-6 bg-gradient-to-tr from-cyan-600 via-blue-400 to-amber-600 w-full text-center md:max-w-fit my-2 text-white rounded-md shadow-md group-hover:bg-gradient-radial transition-all duration-200",
   underlinedLink: "hover:underline",
+  buttonFluid:
+    "p-2 px-6 bg-gradient-to-tr w-full from-cyan-600 via-blue-400 to-amber-600 text-center  my-2 text-white rounded-md shadow-md group-hover:bg-gradient-radial transition-all duration-200",
 };

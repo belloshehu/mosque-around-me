@@ -1,8 +1,10 @@
 "use client";
+import { signIn } from "next-auth/react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import Link from "next/link";
 import { styles } from "../styles";
+import Link from "next/link";
+import { toast } from "react-hot-toast";
 
 const LoginForm = () => {
   return (
@@ -13,9 +15,21 @@ const LoginForm = () => {
           password: "",
         }}
         onSubmit={async (values, { setSubmitting }) => {
-          //   e.preventDefault();
-          console.log("submitting..", values);
-          await fetch("/api/auth/login");
+          signIn("credentials", {
+            ...values,
+            redirect: false,
+          })
+            .then((callback) => {
+              if (callback.error) {
+                toast.error(callback.error);
+              }
+              if (!callback.error && callback.ok) {
+                toast.success("Logged in successfully");
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         }}
         validationSchema={Yup.object({
           email: Yup.string()
@@ -51,9 +65,15 @@ const LoginForm = () => {
               />
             </div>
 
-            <button type="submit" className={`${styles.button} w-full`}>
-              Login
+            <button type="submit" className={`${styles.buttonFluid}`}>
+              Submit
             </button>
+            <div className="flex justify-center items-center gap-1">
+              <p>Have not account? </p>
+              <Link href="/auth/signup" className="underline">
+                Signup
+              </Link>
+            </div>
           </div>
         </Form>
       </Formik>

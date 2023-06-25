@@ -1,9 +1,34 @@
 "use client";
 import React from "react";
 import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, useField } from "formik";
 import Link from "next/link";
 import { styles } from "../styles";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+
+const PhoneNumberInput = ({ label, ...props }) => {
+  const [field, meta, helpers] = useField(props.name);
+
+  return (
+    <div>
+      <label htmlFor={props.id || props.name}>{label}</label>
+      <PhoneInput
+        type="text"
+        className={props.styleValue}
+        defaultCountry={props.defaultCountry}
+        {...field}
+        {...props}
+        onChange={(value) => {
+          helpers.setValue(value);
+        }}
+      />
+      {meta.error && meta.touched ? (
+        <div className="text-red-600">{meta.error}</div>
+      ) : null}
+    </div>
+  );
+};
 
 const SignupForm = () => {
   return (
@@ -14,18 +39,28 @@ const SignupForm = () => {
           phoneNumber: "",
           firstName: "",
           otherName: "",
-          terms: "",
+          //   terms: "",
+          phoneNumber: "",
           password: "",
           passwordRepeat: "",
         }}
-        onSubmit={(values, { setSubmitting, e }) => {
-          e.preventDefault();
+        onSubmit={async (values, { setSubmitting }) => {
           console.log("submitting..", values);
+          const response = await fetch("/api/auth/signup", {
+            method: "POST",
+            body: JSON.stringify({
+              ...values,
+            }),
+          });
+
+          const data = await response.json();
+          console.log(data);
         }}
         validationSchema={Yup.object({
           email: Yup.string()
             .email("Invalid email address")
             .required("Email is required"),
+          phoneNumber: Yup.string().required("Phone number is required"),
           password: Yup.string()
             .min(8, "Must be at least 8 characters")
             .required("Password required")
@@ -36,7 +71,7 @@ const SignupForm = () => {
           passwordRepeat: Yup.string()
             .required("Confirm password required")
             .oneOf([Yup.ref("password"), null], "Passwords must match"),
-          terms: Yup.string().required("You must accept the terms to proceed"),
+          //   terms: Yup.string().required("You must accept the terms to proceed"),
         })}>
         <Form>
           <div className="flex flex-col items-center justify-center gap-2 md:gap-5 w-full">
@@ -71,6 +106,16 @@ const SignupForm = () => {
             </div>
 
             <div className="flex flex-col gap-2 w-full">
+              <PhoneNumberInput
+                label="Phone number"
+                defaultCountry="NG"
+                name="phoneNumber"
+                placeholder="Phone number"
+                styleValue={styles.input}
+              />
+            </div>
+
+            <div className="flex flex-col gap-2 w-full">
               <label htmlFor="password">Password</label>
               <Field
                 name="password"
@@ -89,9 +134,15 @@ const SignupForm = () => {
               />
             </div>
 
-            <Link href="#" className={`${styles.button} w-full`}>
+            <button type="submit" className={`${styles.buttonFluid}`}>
               Submit
-            </Link>
+            </button>
+            <div className="flex justify-center items-center gap-1">
+              <p>Have an account? </p>
+              <Link href="/auth/login" className="underline">
+                Login
+              </Link>
+            </div>
           </div>
         </Form>
       </Formik>
