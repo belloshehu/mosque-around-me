@@ -5,6 +5,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { styles } from "../styles";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
+import Image from "next/image";
+import googleIcon from "../_images/google.png";
+import { CustomInputField } from "./CustomInputField";
 
 const LoginForm = () => {
   return (
@@ -45,29 +48,38 @@ const LoginForm = () => {
         })}>
         <Form>
           <div className="flex flex-col items-center justify-center gap-2 md:gap-5 w-full">
-            <div className="flex flex-col  gap-2 w-full">
-              <label htmlFor="email">Email</label>
-              <Field
-                name="email"
-                type="email"
-                className={styles.input}
-                placeholder="email"
-              />
-            </div>
+            <CustomInputField
+              name="email"
+              label="Email"
+              placeholder="Email"
+              type="email"
+            />
 
-            <div className="flex flex-col gap-2 w-full">
-              <label htmlFor="password">Password</label>
-              <Field
-                name="password"
-                type="password"
-                className={styles.input}
-                placeholder="password"
-              />
-            </div>
+            <CustomInputField
+              name="password"
+              label="Password"
+              placeholder="Password"
+              type="password"
+            />
 
             <button type="submit" className={`${styles.buttonFluid}`}>
               Submit
             </button>
+
+            <div className="flex flex-col lg:flex-row p-0 w-full">
+              <button
+                onClick={() => signIn("google")}
+                className={`${styles.buttonFluidPlain} flex gap-2 items-center justify-center text-black bg-purple-900 w-full shadow-lg`}>
+                <Image
+                  src={googleIcon}
+                  width={10}
+                  height={10}
+                  className="w-[30px]"
+                  alt="google-icon"
+                />
+                Sign in with Google
+              </button>
+            </div>
             <div className="flex justify-center items-center gap-1">
               <p>Have not account? </p>
               <Link href="/auth/signup" className="underline">

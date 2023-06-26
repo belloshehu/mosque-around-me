@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const MONGODB_URI =
   process.env.SERVER === "dev"
     ? "mongodb://127.0.0.1:27017/mosque-around-me"
-    : process.env.DATABASE_URI;
+    : process.env.MONGODB_URI;
 
 console.log(MONGODB_URI);
 

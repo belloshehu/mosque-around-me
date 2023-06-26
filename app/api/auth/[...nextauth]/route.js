@@ -3,13 +3,28 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import User from "../../models/User";
 import bcrypt from "bcryptjs";
 import dbConnect from "../../lib/dbConnect";
+import GoogleProvider from "next-auth/providers/google";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import clientPromise from "../../lib/mongodb";
 
 const handler = NextAuth({
-  session: {
-    strategy: "jwt",
+  adapter: MongoDBAdapter(clientPromise, {
+    databaseName: "mosque-around-me",
+    collections: { Accounts: "accounts", Sessions: "sessions", Users: "users" },
+  }),
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      console.log("user: ", user);
+      console.log("account: ", account);
+      console.log(profile);
+      return true;
+    },
   },
-
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     CredentialsProvider({
       name: "credentials",
       async authorize(credentials, req) {

@@ -20,7 +20,6 @@ const UserSchema = new mongoose.Schema(
     },
     phoneNumber: {
       type: String,
-      required: [true, "Please provide phone number"],
     },
     email: {
       type: String,
@@ -31,12 +30,34 @@ const UserSchema = new mongoose.Schema(
       required: [true, "Please provide an email"],
       unique: [true, "Someone is alreay using this email"],
     },
+    authProvider: {
+      type: String,
+      default: "credentials",
+    },
     password: {
       type: String,
       minlength: 8,
       required: [true, "Please provide password"],
     },
     location: {
+      type: String,
+      minlength: 3,
+      trim: true,
+      default: "my town",
+    },
+    lga: {
+      type: String,
+      minlength: 3,
+      trim: true,
+      default: "my town",
+    },
+    state: {
+      type: String,
+      minlength: 3,
+      trim: true,
+      default: "my town",
+    },
+    country: {
       type: String,
       minlength: 3,
       trim: true,
@@ -54,7 +75,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       length: 4,
     },
-    photo: String,
+    image: String,
     role: {
       type: String,
       required: [true, "Please provide user role"],
@@ -80,21 +101,6 @@ UserSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
-
-// UserSchema.methods.getJWT = function () {
-//   const token = jwt.sign(
-//     {
-//       id: this._id,
-//       email: this.email,
-//       role: this.role,
-//     },
-//     process.env.JWT_SECRET,
-//     {
-//       expiresIn: process.env.JWT_EXPIRATION,
-//     }
-//   );
-//   return token;
-// };
 
 UserSchema.methods.comparePassword = async function (userPassword) {
   const isMatch = await bcrypt.compare(userPassword, this.password);

@@ -9,23 +9,19 @@ const righteous = Righteous({ subsets: ["latin"], weight: ["400"] });
 
 const Header = () => {
   const { data } = useSession();
-  console.log(data?.user);
+  console.log(data);
   return (
     <header className="w-full p-2 px-5 md:p-20 md:py-3 flex justify-between items-center bg-gradient-to-r from-yellow-900 via-purple-700 to-cyan-800">
       <Brand />
 
       {data?.user ? (
         <div className="text-white flex gap-2 items-center">
-          <p>Hi, {data.user.email} </p>
+          <p>Hi, {data?.user.name || data?.user.email} </p>
           <button onClick={() => signOut()} className="border-b-2 ">
             Logout
           </button>
         </div>
-      ) : (
-        <Link href={"/auth/login"} className="border-2 p-2 px-4 rounded-md">
-          Login
-        </Link>
-      )}
+      ) : null}
 
       {/* nav link to become mosque administrator */}
       <ul className="flex gap-2 items-center list-none">
