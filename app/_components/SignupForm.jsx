@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
 import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage, useField } from "formik";
+import { Formik, Form, useField } from "formik";
 import Link from "next/link";
 import { styles } from "../styles";
 import "react-phone-number-input/style.css";

@@ -8,18 +8,11 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../lib/mongodb";
 
 const handler = NextAuth({
-  adapter: MongoDBAdapter(clientPromise, {
-    databaseName: "mosque-around-me",
-    collections: { Accounts: "accounts", Sessions: "sessions", Users: "users" },
-  }),
-  callbacks: {
-    async signIn({ user, account, profile }) {
-      console.log("user: ", user);
-      console.log("account: ", account);
-      console.log(profile);
-      return true;
-    },
-  },
+  // adapter: MongoDBAdapter(clientPromise, {
+  //   databaseName: "mosque-around-me",
+  //   collections: { Accounts: "accounts", Sessions: "sessions", Users: "users" },
+  // }),
+
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
