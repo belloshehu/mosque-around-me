@@ -2,7 +2,7 @@
 import { FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../GlobalRedux/features/modal/modalSlice";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { styles } from "../styles";
 import Link from "next/link";
 
@@ -25,18 +25,26 @@ const Sidebar = () => {
       />
       <div
         className={`${styles.gradientCyanBlueAmber} p-5 w-4/5 h-full text-white bg-opacity-100 overflow-y-auto flex flex-col justify-start gap-10`}>
-        <h2 className="text-center text-xl font-semibold lg:font-bold text-slate-100 border-slate-400 border-b-4 pb-2">
-          Hi, {session?.user?.email}
-        </h2>
+        {session?.user && (
+          <h2 className="text-center text-xl font-semibold lg:font-bold text-slate-100 border-slate-400 border-b-4 pb-2">
+            Hi,{" "}
+            {session?.user?.firstName ||
+              session?.user?.name ||
+              session?.user?.email}
+          </h2>
+        )}
 
         <ul className="list-none p-0 place-self-start flex-1">
-          <li>
-            <Link
-              href={"/dashboard"}
-              className="hover:ml-5 transition-all duration-150 hover:border-b-2 pb-2">
-              Dashboard
-            </Link>
-          </li>
+          {session?.user && (
+            <li>
+              <Link
+                href={"/dashboard"}
+                onClick={closeModalHandler}
+                className="hover:ml-5 transition-all duration-150 hover:border-b-2 pb-2">
+                Dashboard
+              </Link>
+            </li>
+          )}
         </ul>
         <div className="flex justify-around gap-4 items-center w-full justify-self-end">
           {!session?.user ? (

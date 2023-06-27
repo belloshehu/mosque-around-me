@@ -1,13 +1,13 @@
 "use client";
 import { signIn } from "next-auth/react";
 import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import { styles } from "../styles";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 import googleIcon from "../_images/google.png";
-import { CustomInputField } from "./CustomInputField";
+import CustomInputField from "./CustomInputField";
 
 const LoginForm = () => {
   return (

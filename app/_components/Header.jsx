@@ -7,11 +7,13 @@ import { useSession, signOut } from "next-auth/react";
 import { FaBars } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { openModal } from "../GlobalRedux/features/modal/modalSlice";
+import avatarImage from "../_images/avatar.jpg";
+import Image from "next/image";
 
 const righteous = Righteous({ subsets: ["latin"], weight: ["400"] });
 
 const Header = () => {
-  const { data } = useSession();
+  const { data: session } = useSession();
   const dispatch = useDispatch();
 
   return (
@@ -24,11 +26,28 @@ const Header = () => {
           Become an admin
         </Link>
 
-        <Link
-          href={"/auth/login"}
-          className={`${styles.buttonFluidPlain} hidden lg:inline lg:visible mr-2 border-2 py-2 hover:text-slate-300 text-slate-100`}>
-          login
-        </Link>
+        {session?.user ? (
+          <>
+            {/* <button
+              onClick={() => signOut()}
+              className={`${styles.buttonFluidPlain} hidden lg:inline lg:visible mr-2 border-2 py-2 hover:text-slate-300 text-slate-100`}>
+              logout
+            </button> */}
+            <Link href={"/dashboard"}>
+              <Image
+                src={avatarImage}
+                placeholder="empty"
+                className="w-10 h-10 rounded-full ring-4 ring-purple-950"
+              />
+            </Link>
+          </>
+        ) : (
+          <Link
+            href={"/auth/login"}
+            className={`${styles.buttonFluidPlain} hidden lg:inline lg:visible mr-2 border-2 py-2 hover:text-slate-300 text-slate-100`}>
+            login
+          </Link>
+        )}
         <FaBars
           className="visible inline lg:hidden text-white text-5xl cursor-pointer align-top"
           onClick={() => dispatch(openModal())}
