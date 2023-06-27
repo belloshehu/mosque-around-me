@@ -2,7 +2,7 @@
 import { ErrorMessage, Field } from "formik";
 import { styles } from "../styles";
 
-export const CustomInputField = ({ ...props }) => {
+const CustomInputField = ({ ...props }) => {
   return (
     <div className="flex flex-col  gap-2 w-full">
       <label htmlFor={props.name}>{props.label}</label>
@@ -19,3 +19,5 @@ export const CustomInputField = ({ ...props }) => {
     </div>
   );
 };
+
+export default CustomInputField;

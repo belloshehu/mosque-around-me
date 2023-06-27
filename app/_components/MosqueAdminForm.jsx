@@ -1,126 +1,110 @@
 "use client";
-import React from "react";
 import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import Link from "next/link";
+import { Formik, Form } from "formik";
 import { styles } from "../styles";
+import CustomInputField from "./CustomInputField";
+import PhoneNumberField from "./PhoneNumberField";
+import CustomSelectField from "./CustomSelectField";
 
 const MosqueAdminForm = () => {
   return (
-    <div className="w-full lg:w-1/3 bg-gradient-to-tr">
+    <div className="w-full lg:w-1/3 bg-gradient-to-tr lg:border-2 lg:p-10 rounded-md">
       <Formik
         initialValues={{
-          email: "",
-          phoneNumber: "",
-          fullname: "",
+          // email: "",
+          // phoneNumber: "",
+          // fullName: "",
+          address: "",
           state: "",
           city: "",
           country: "",
           mosqueName: "",
           positionInMosque: "",
         }}
-        onSubmit={(values, { setSubmitting, e }) => {
-          e.preventDefault();
+        onSubmit={(values, { setSubmitting }) => {
           console.log("submitting..", values);
         }}
         validationSchema={Yup.object({
-          email: Yup.string()
-            .email("Invalid email address")
-            .required("Email is required"),
-          password: Yup.string()
-            .min(8, "Must be at least 8 characters")
-            .required("Password required")
-            .matches(/[a-z]+/, "Must contain atleast one lowercase character")
-            // .matches(/[A-Z]+/, "One uppercase character")
-            // .matches(/[@$!%*#?&]+/, "One special character")
-            .matches(/\d+/, "Must contain atleast one number"),
-          passwordRepeat: Yup.string()
-            .required("Confirm password required")
-            .oneOf([Yup.ref("password"), null], "Passwords must match"),
-          terms: Yup.string().required("You must accept the terms to proceed"),
+          // fullName: Yup.string().required("Fullname required"),
+          address: Yup.string().required("Address required"),
+          city: Yup.string().required("City required"),
+          state: Yup.string().required("State required"),
+          country: Yup.string().required("Country required"),
+          mosqueName: Yup.string().required("Mosque name required"),
+          // phoneNumber: Yup.string().required("Phone number required"),
+          positionInMosque: Yup.string().required("Position required"),
+          // email: Yup.string()
+          //   .email("Invalid email address")
+          //   .required("Email is required"),
         })}>
         <Form>
           <div className="flex flex-col items-center justify-center gap-2 md:gap-5 w-full">
-            <div className="flex flex-col  gap-2 w-full">
-              <label htmlFor="fullName">Full name</label>
-              <Field
-                name="fullName"
+            {/* <CustomInputField
+              name="fullName"
+              label="Full name"
+              placeholder="Full name"
+              type="text"
+            />
+            <CustomInputField
+              name="email"
+              label="Email"
+              placeholder="Email"
+              type="email"
+            /> */}
+
+            {/* <PhoneNumberField
+              label="Phone number"
+              defaultCountry="NG"
+              name="phoneNumber"
+              placeholder="Phone number"
+              styleValue={styles.input}
+            /> */}
+
+            <CustomInputField
+              name="mosqueName"
+              label="Mosque name"
+              placeholder="Your mosque name"
+              type="text"
+            />
+            <CustomSelectField
+              name="positionInMosque"
+              label="Position (In the mosque)">
+              <option value="">Select a position</option>
+              <option value="imam">Imam</option>
+              <option value="muaddhin">Muaddhin</option>
+              <option value="follower">Follower</option>
+            </CustomSelectField>
+
+            <CustomInputField
+              name="address"
+              label="Address"
+              placeholder="Your address"
+              type="text"
+            />
+            <CustomInputField
+              name="city"
+              label="City"
+              placeholder="Your city"
+              type="text"
+            />
+            <div className="flex flex-col lg:flex-row items-center  gap-2 w-full">
+              <CustomInputField
+                name="state"
+                label="State/Region"
+                placeholder="Your State"
                 type="text"
-                className={styles.input}
-                placeholder="Full name"
               />
-            </div>
-            <div className="flex flex-col  gap-2 w-full">
-              <label htmlFor="email">Email</label>
-              <Field
-                name="email"
-                type="email"
-                className={styles.input}
-                placeholder="email"
-              />
-            </div>
-            <div className="flex flex-col gap-2 w-full">
-              <label htmlFor="phoneNumber">Phone number</label>
-              <Field
-                name="phoneNumber"
-                type="tel"
-                className={styles.input}
-                placeholder="Phone number"
-              />
-            </div>
-            <div className="flex flex-col gap-2 w-full">
-              <label htmlFor="passwordRepeat">City</label>
-              <Field
-                name="city"
+              <CustomInputField
+                name="country"
+                label="Country"
+                placeholder="Country"
                 type="text"
-                className={styles.input}
-                placeholder="Confirm password"
-              />
-            </div>
-            <div className="flex flex-row items-center  gap-2 w-full">
-              <div className="flex flex-col  gap-2 w-full">
-                <label htmlFor="state">State</label>
-                <Field
-                  name="state"
-                  type="text"
-                  className={styles.input}
-                  placeholder="State"
-                />
-              </div>
-              <div className="flex flex-col  gap-2 w-full">
-                <label htmlFor="country">Country</label>
-                <Field
-                  name="otherName"
-                  type="text"
-                  className={styles.input}
-                  placeholder="Country"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col  gap-2 w-full">
-              <label htmlFor="country">Mosque name</label>
-              <Field
-                name="mosqueName"
-                type="text"
-                className={styles.input}
-                placeholder="Mosque name"
               />
             </div>
 
-            <div className="flex flex-col  gap-2 w-full">
-              <label htmlFor="positionInMosque">Admin type</label>
-              <Field
-                name="positionInMosque"
-                as="select"
-                className={styles.input}>
-                <option value="imam">Imam</option>
-                <option value="muaddhin">Muaddhin</option>
-                <option value="follower">Follower</option>
-              </Field>
-            </div>
-            <Link href="#" className={`${styles.button} w-full`}>
+            <button type="submit" className={`${styles.buttonFluid}`}>
               Submit
-            </Link>
+            </button>
           </div>
         </Form>
       </Formik>

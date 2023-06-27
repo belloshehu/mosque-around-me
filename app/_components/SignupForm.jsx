@@ -1,41 +1,15 @@
 "use client";
 import * as Yup from "yup";
-import { Formik, Form, useField } from "formik";
+import { Formik, Form } from "formik";
 import Link from "next/link";
 import { styles } from "../styles";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import Image from "next/image";
 import googleIcon from "../_images/google.png";
-import { CustomInputField } from "./CustomInputField";
+import CustomInputField from "./CustomInputField";
 import { signIn } from "next-auth/react";
-
-const PhoneNumberInput = ({ label, ...props }) => {
-  const [field, meta, helpers] = useField(props.name);
-
-  return (
-    <div>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <PhoneInput
-        type="text"
-        className={`flex gap-4 ${props.styleValue}`}
-        defaultCountry={props.defaultCountry}
-        {...field}
-        {...props}
-        onChange={(value) => {
-          helpers.setValue(value);
-        }}
-      />
-      {meta.error && meta.touched ? (
-        <div>
-          <small className="text-red-500">{meta.error}</small>
-        </div>
-      ) : null}
-    </div>
-  );
-};
+import PhoneNumberField from "./PhoneNumberField";
 
 const SignupForm = () => {
   return (
@@ -106,15 +80,13 @@ const SignupForm = () => {
               type="email"
             />
 
-            <div className="flex flex-col gap-2 w-full">
-              <PhoneNumberInput
-                label="Phone number"
-                defaultCountry="NG"
-                name="phoneNumber"
-                placeholder="Phone number"
-                styleValue={styles.input}
-              />
-            </div>
+            <PhoneNumberField
+              label="Phone number"
+              defaultCountry="NG"
+              name="phoneNumber"
+              placeholder="Phone number"
+              styleValue={styles.input}
+            />
 
             <div className="flex flex-col lg:flex-row gap-0 lg:gap-2 w-full">
               <CustomInputField
