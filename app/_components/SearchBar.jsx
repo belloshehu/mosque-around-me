@@ -26,7 +26,7 @@ const SearchBar = () => {
     city: null,
   });
 
-  const handleSelect = (e) => {
+  const SelectHandler = (e) => {
     const fieldName = e.target.name;
     if (fieldName === "country") {
       const countryCode = e.target.value;
@@ -131,7 +131,7 @@ const SearchBar = () => {
           state: Yup.string().required(),
           country: Yup.string().required(),
         })}>
-        <Form onChange={handleSelect}>
+        <Form onChange={SelectHandler}>
           <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-5 w-full  lg:w-4/5 mx-auto">
             <div className="flex gap-2  w-full">
               <Field
@@ -144,11 +144,7 @@ const SearchBar = () => {
                 <option value="juma">Juma'ah prayer</option>
                 <option value="program">Lecture</option>
               </Field>
-              <Field
-                name="city"
-                as="select"
-                className={styles.input}
-                placeholder="city">
+              <Field name="city" as="select" className={styles.input}>
                 <option value={""}>Select city</option>
                 {countryStateCity?.cities?.map(({ name }) => (
                   <option key={name} value={name}>
@@ -159,11 +155,7 @@ const SearchBar = () => {
             </div>
 
             <div className="flex gap-2 w-full">
-              <Field
-                name="state"
-                as="select"
-                className={styles.input}
-                placeholder="state">
+              <Field name="state" as="select" className={styles.input}>
                 <option value={""}>Select state</option>
                 {countryStateCity?.states?.map(({ name, isoCode }) => (
                   <option key={isoCode} value={isoCode}>
