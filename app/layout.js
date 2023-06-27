@@ -7,7 +7,7 @@ import AuthContextProvider from "./context/AuthContext";
 import { ToastBar } from "react-hot-toast";
 import ToasterContext from "./context/ToasterContext";
 const inter = Inter({ subsets: ["latin"] });
-
+import Sidebar from "./_components/Sidebar";
 export const metadata = {
   title: "Mosquearoundme",
   description: "Get mosques, events and programs, around you",
@@ -17,7 +17,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
+      <body className={`${inter.className} relative`}>
         <Providers>
           <AuthContextProvider>
             <Header />
@@ -26,6 +26,7 @@ export default function RootLayout({ children }) {
               {children}
             </main>
             <Footer />
+            <Sidebar />
           </AuthContextProvider>
         </Providers>
       </body>
