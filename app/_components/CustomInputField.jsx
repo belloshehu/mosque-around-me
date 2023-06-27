@@ -9,7 +9,7 @@ const CustomInputField = ({ ...props }) => {
       <Field
         name={props.name}
         type={props.type || "text"}
-        className={styles.input}
+        className={`${styles.input} focus:border-4`}
         placeholder={props.placeholder}
       />
       <ErrorMessage

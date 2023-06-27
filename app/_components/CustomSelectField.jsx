@@ -6,10 +6,10 @@ const CustomSelectField = ({ label, ...props }) => {
   return (
     <div className="flex flex-col  gap-2 w-full">
       <label htmlFor={props.name}>{label}</label>
-      {/* <Field name={props.name} component="select" className={styles.input}>
-        {props.children}
-      </Field> */}
-      <select {...field} {...props} className={styles.input}>
+      <select
+        {...field}
+        {...props}
+        className={`${styles.input} focus:border-4`}>
         {props.children}
       </select>
       {meta.error && meta.touched ? (

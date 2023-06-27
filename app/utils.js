@@ -14,6 +14,7 @@ export const useSelecCountryStateCitytHandler = (event) => {
     city: null,
   });
 };
+
 export const SelectHandler = (e) => {
   const fieldName = e.target.name;
   if (fieldName === "country") {

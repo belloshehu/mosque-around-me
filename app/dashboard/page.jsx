@@ -35,7 +35,7 @@ const DashboardPage = async () => {
           Eid prayer
         </h3>
         <div>
-          <Link href={"/prayer/form"} className={styles.buttonFluid}>
+          <Link href={"/eid/create"} className={styles.buttonFluid}>
             Add Eid ground/mosque
           </Link>
         </div>
