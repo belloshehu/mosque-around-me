@@ -37,7 +37,7 @@ const Header = () => {
               <Image
                 src={avatarImage}
                 placeholder="empty"
-                className="w-10 h-10 rounded-full ring-4 ring-purple-950"
+                className=" hidden lg:inline lg:visible w-10 h-10 rounded-full ring-4 ring-purple-950"
               />
             </Link>
           </>

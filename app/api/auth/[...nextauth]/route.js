@@ -6,8 +6,7 @@ import dbConnect from "../../lib/dbConnect";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../lib/mongodb";
-
-const handler = NextAuth({
+export const authOption = {
   // adapter: MongoDBAdapter(clientPromise, {
   //   databaseName: "mosque-around-me",
   //   collections: { Accounts: "accounts", Sessions: "sessions", Users: "users" },
@@ -45,6 +44,8 @@ const handler = NextAuth({
     signIn: "/auth/login",
   },
   secret: process.env.NEXT_AUTH_SECRET,
-});
+};
+
+const handler = NextAuth(authOption);
 
 export { handler as GET, handler as POST };

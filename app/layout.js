@@ -17,11 +17,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} relative`}>
+      <body className={`${inter.className} relative flex flex-col`}>
         <Providers>
           <AuthContextProvider>
             <Header />
-            <main className="p-5 lg:px-32 lg:py-16">
+            <main className="p-5 lg:px-32 lg:py-16 flex-1">
               <ToasterContext />
               {children}
             </main>

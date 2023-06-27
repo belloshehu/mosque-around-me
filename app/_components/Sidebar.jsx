@@ -5,6 +5,8 @@ import { closeModal } from "../GlobalRedux/features/modal/modalSlice";
 import { useSession, signOut } from "next-auth/react";
 import { styles } from "../styles";
 import Link from "next/link";
+import avatarImage from "../_images/avatar.jpg";
+import Image from "next/image";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -26,12 +28,21 @@ const Sidebar = () => {
       <div
         className={`${styles.gradientCyanBlueAmber} p-5 w-4/5 h-full text-white bg-opacity-100 overflow-y-auto flex flex-col justify-start gap-10`}>
         {session?.user && (
-          <h2 className="text-center text-xl font-semibold lg:font-bold text-slate-100 border-slate-400 border-b-4 pb-2">
-            Hi,{" "}
-            {session?.user?.firstName ||
-              session?.user?.name ||
-              session?.user?.email}
-          </h2>
+          <div className="flex gap-2 items-center">
+            <Link href={"/dashboard"}>
+              <Image
+                src={avatarImage}
+                placeholder="empty"
+                className="w-10 h-10 rounded-full ring-4 ring-purple-950"
+              />
+            </Link>
+            <h2 className="text-center text-slate-100 border-slate-400 border-b-4 pb-2">
+              Hi,{" "}
+              {session?.user?.firstName ||
+                session?.user?.name ||
+                session?.user?.email}
+            </h2>
+          </div>
         )}
 
         <ul className="list-none p-0 place-self-start flex-1">

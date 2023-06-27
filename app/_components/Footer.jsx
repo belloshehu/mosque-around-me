@@ -6,7 +6,7 @@ import { styles } from "../styles";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col md:flex-row justify-start gap-5 md:gap-10 bg-purple-800 text-white p-5 md:p-24 ">
+    <footer className="flex flex-col md:flex-row justify-start gap-5 md:gap-10 bg-purple-800 text-white p-5 md:p-24 justify-self-end">
       <div className="text-center">
         <Brand />
       </div>
