@@ -12,7 +12,7 @@ const AdminUserSchema = new mongoose.Schema(
       type: String,
       required: [true, "Address required"],
       minlength: [5, "Address must be more than 5 characters"],
-      maxlength: [5, "Address must not be more than 30 characters"],
+      maxlength: [30, "Address must not be more than 30 characters"],
     },
     city: {
       type: String,
@@ -29,7 +29,7 @@ const AdminUserSchema = new mongoose.Schema(
       required: [true, "Country required"],
       minlength: [2, "Country must be 2 or more characters"],
     },
-    monsqueName: {
+    mosqueName: {
       type: String,
       required: [true, "Mosque name required"],
       minlength: [5, "Country must be 5 or more characters"],
@@ -55,7 +55,9 @@ const AdminUserSchema = new mongoose.Schema(
       type: String,
       enum: {
         values: ["mosqueAdmin", "others"],
+        message: "{VALUE} is not a valid admin type",
       },
+      default: "mosqueAdmin",
     },
   },
   { timestamps: true }

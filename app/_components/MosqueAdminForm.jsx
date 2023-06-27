@@ -10,8 +10,11 @@ import { Country, State, City } from "country-state-city";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { updateFormSuccess } from "../GlobalRedux/features/form/formSlice";
+import { useDispatch } from "react-redux";
 
 const MosqueAdminForm = () => {
+  const dispatch = useDispatch();
   const { data: session } = useSession();
   const [countryStateCity, setCountryStateCity] = useState({
     countries: Country.getAllCountries(),
@@ -19,8 +22,6 @@ const MosqueAdminForm = () => {
     cities: [],
   });
 
-  // const dispatch = useDispatch();
-  // const [isLoading, setIsLoading] = useState(false);
   const [selectedValues, setSelectedValues] = useState({
     country: null,
     state: null,
@@ -113,6 +114,8 @@ const MosqueAdminForm = () => {
             .then(() => {
               toast.success("Applied successfully");
               resetForm();
+              // set form success to show success message
+              dispatch(updateFormSuccess(true));
             })
             .catch((error) => {
               toast.error(error.response.data || "Something went wrong");

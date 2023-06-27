@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "../lib/dbConnect";
 import User from "../models/User";
-import { AdminUser } from "../models/admin";
+import AdminUser from "../models/admin";
 
 export async function POST(request) {
   try {
@@ -42,6 +42,19 @@ export async function POST(request) {
     // throw new Error("User is not authenticated");
     return new NextResponse("User is not authenticated", { status: 400 });
   }
-  const adminUser = await Admin;
-  return NextResponse.json({ admin: { ...requestBody } });
+  const adminUser = await AdminUser.create({
+    mosqueName,
+    position: positionInMosque,
+    address,
+    city,
+    state,
+    country,
+    user: existingUser._id,
+  });
+  return NextResponse.json({
+    adminUser,
+    message: "Successfully applied",
+    success: true,
+    status: 201,
+  });
 }
