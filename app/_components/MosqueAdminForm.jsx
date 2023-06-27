@@ -4,11 +4,15 @@ import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { styles } from "../styles";
 import CustomInputField from "./CustomInputField";
-import PhoneNumberField from "./PhoneNumberField";
+import { FaSpinner } from "react-icons/fa";
 import CustomSelectField from "./CustomSelectField";
 import { Country, State, City } from "country-state-city";
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 
 const MosqueAdminForm = () => {
+  const { data: session } = useSession();
   const [countryStateCity, setCountryStateCity] = useState({
     countries: Country.getAllCountries(),
     states: [],
@@ -89,9 +93,6 @@ const MosqueAdminForm = () => {
     <div className="w-full lg:w-1/3 bg-gradient-to-tr lg:border-2 lg:p-10 rounded-md">
       <Formik
         initialValues={{
-          // email: "",
-          // phoneNumber: "",
-          // fullName: "",
           address: "",
           state: "",
           city: "",
@@ -99,17 +100,26 @@ const MosqueAdminForm = () => {
           mosqueName: "",
           positionInMosque: "",
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          const city = selectedValues.city.name;
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
           const state = selectedValues.state.name;
           const country = selectedValues.country.name;
 
           // set new values using the state and country names respectively
-          const newValues = { ...values, state, country };
+          const newValues = { ...values, state, country, user: session.user };
           console.log("submitting..", newValues);
+          setSubmitting(true);
+          axios
+            .post("/api/admin", newValues)
+            .then(() => {
+              toast.success("Applied successfully");
+              resetForm();
+            })
+            .catch((error) => {
+              toast.error(error.response.data || "Something went wrong");
+            });
+          setSubmitting(false);
         }}
         validationSchema={Yup.object({
-          // fullName: Yup.string().required("Fullname required"),
           address: Yup.string().required("Address required"),
           city: Yup.string().required("City required"),
           state: Yup.string().required("State required"),
@@ -117,60 +127,70 @@ const MosqueAdminForm = () => {
           mosqueName: Yup.string().required("Mosque name required"),
           positionInMosque: Yup.string().required("Position required"),
         })}>
-        <Form onChange={selectHandler}>
-          <div className="flex flex-col items-center justify-center gap-2 md:gap-5 w-full">
-            <CustomInputField
-              name="mosqueName"
-              label="Mosque name"
-              placeholder="Your mosque name"
-              type="text"
-            />
-            <CustomSelectField
-              name="positionInMosque"
-              label="Position (In the mosque)">
-              <option value="">Select a position</option>
-              <option value="imam">Imam</option>
-              <option value="muaddhin">Muaddhin</option>
-              <option value="follower">Follower</option>
-            </CustomSelectField>
+        {({ isSubmitting }) => (
+          <Form onChange={selectHandler}>
+            <div className="flex flex-col items-center justify-center gap-2 md:gap-5 w-full">
+              <CustomInputField
+                name="mosqueName"
+                label="Mosque name"
+                placeholder="Your mosque name"
+                type="text"
+              />
+              <CustomSelectField
+                name="positionInMosque"
+                label="Position (In the mosque)">
+                <option value="">Select a position</option>
+                <option value="imam">Imam</option>
+                <option value="muaddhin">Muaddhin</option>
+                <option value="follower">Follower</option>
+              </CustomSelectField>
 
-            <CustomInputField
-              name="address"
-              label="Address"
-              placeholder="Your/mosque address"
-              type="text"
-            />
-            <CustomSelectField name="country" label="Country">
-              <option value="">Select country</option>
-              {countryStateCity.countries.map(({ name, isoCode }) => (
-                <option value={isoCode} key={isoCode}>
-                  {name}
-                </option>
-              ))}
-            </CustomSelectField>
+              <CustomInputField
+                name="address"
+                label="Address"
+                placeholder="Your/mosque address"
+                type="text"
+              />
+              <CustomSelectField name="country" label="Country">
+                <option value="">Select country</option>
+                {countryStateCity.countries.map(({ name, isoCode }) => (
+                  <option value={isoCode} key={isoCode}>
+                    {name}
+                  </option>
+                ))}
+              </CustomSelectField>
 
-            <CustomSelectField name="state" label="State">
-              <option value="">Select state</option>
-              {countryStateCity.states.map(({ name, isoCode }) => (
-                <option value={isoCode} key={isoCode}>
-                  {name}
-                </option>
-              ))}
-            </CustomSelectField>
-            <CustomSelectField name="city" label="City">
-              <option value="">Select city</option>
-              {countryStateCity.cities.map(({ name }) => (
-                <option value={name} key={name}>
-                  {name}
-                </option>
-              ))}
-            </CustomSelectField>
+              <CustomSelectField name="state" label="State">
+                <option value="">Select state</option>
+                {countryStateCity.states.map(({ name, isoCode }) => (
+                  <option value={isoCode} key={isoCode}>
+                    {name}
+                  </option>
+                ))}
+              </CustomSelectField>
+              <CustomSelectField name="city" label="City">
+                <option value="">Select city</option>
+                {countryStateCity.cities.map(({ name }) => (
+                  <option value={name} key={name}>
+                    {name}
+                  </option>
+                ))}
+              </CustomSelectField>
 
-            <button type="submit" className={`${styles.buttonFluid}`}>
-              Submit
-            </button>
-          </div>
-        </Form>
+              <button
+                type="submit"
+                className={`${styles.buttonFluid} flex gap-2 items-center justify-center`}
+                disabled={isSubmitting}>
+                Submit
+                {isSubmitting && (
+                  <FaSpinner
+                    className={`${isSubmitting ? "animate-spin" : ""}`}
+                  />
+                )}
+              </button>
+            </div>
+          </Form>
+        )}
       </Formik>
     </div>
   );
