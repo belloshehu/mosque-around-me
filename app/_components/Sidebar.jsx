@@ -58,7 +58,10 @@ const Sidebar = () => {
           )}
         </ul>
         <div className="flex flex-col  justify-around gap-4 items-center w-full justify-self-end">
-          <Link href={"/admin/mosque"} className={styles.button}>
+          <Link
+            href={"/admin/mosque"}
+            onClick={closeModalHandler}
+            className={styles.button}>
             Become an admin
           </Link>
           {!session?.user ? (
