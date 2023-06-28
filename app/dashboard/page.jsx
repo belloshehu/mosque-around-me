@@ -23,7 +23,9 @@ const DashboardPage = async () => {
         Dashboard
       </h1>
       <div className="flex flex-col gap-4 text-left">
-        <h3 className="text-lg border-b-2 border-slate-500 mb-4">Mosques</h3>
+        <h3 className="text-lg border-b-2 border-slate-500 mb-4 text-purple-800">
+          Mosques
+        </h3>
         <div>
           <Link href={"/mosque/form"} className={styles.buttonFluid}>
             Add mosque
@@ -31,7 +33,7 @@ const DashboardPage = async () => {
         </div>
       </div>
       <div className="flex flex-col gap-4 text-left">
-        <h3 className="text-lg border-b-2 border-slate-500 mb-4 w-fit">
+        <h3 className="text-lg border-b-2 border-slate-500 mb-4 w-fit text-purple-800">
           Eid prayer
         </h3>
         <div>
@@ -41,7 +43,7 @@ const DashboardPage = async () => {
         </div>
       </div>
       <div className="flex flex-col gap-4 text-left">
-        <h3 className="text-lg border-b-2 border-slate-500 mb-4">
+        <h3 className="text-lg border-b-2 border-slate-500 mb-4 text-purple-800">
           Admin application
         </h3>
         <div>

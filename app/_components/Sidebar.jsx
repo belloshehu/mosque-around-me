@@ -57,7 +57,10 @@ const Sidebar = () => {
             </li>
           )}
         </ul>
-        <div className="flex justify-around gap-4 items-center w-full justify-self-end">
+        <div className="flex flex-col  justify-around gap-4 items-center w-full justify-self-end">
+          <Link href={"/admin/mosque"} className={styles.button}>
+            Become an admin
+          </Link>
           {!session?.user ? (
             <>
               <Link

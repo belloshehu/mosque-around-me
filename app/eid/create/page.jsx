@@ -28,7 +28,7 @@ const CreateEidPage = () => {
       {isSuccess ? (
         <Success
           titleText={"Success"}
-          message="You have successfully applied for mosque admin position"
+          message="You have successfully added Eid prayer"
         />
       ) : (
         <EidForm />

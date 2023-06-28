@@ -156,7 +156,7 @@ const EidForm = () => {
                 type="text"
               />
               <CustomInputField
-                name="Time"
+                name="time"
                 label="Time"
                 placeholder="Eid prayer time"
                 type="time"
