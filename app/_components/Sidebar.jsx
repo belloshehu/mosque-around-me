@@ -1,5 +1,5 @@
 "use client";
-import { FaTimes } from "react-icons/fa";
+import { LiaTimesSolid } from "react-icons/lia";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../GlobalRedux/features/modal/modalSlice";
 import { useSession, signOut } from "next-auth/react";
@@ -21,9 +21,9 @@ const Sidebar = () => {
       className={`${
         isOpened ? "visible" : "hidden"
       } inline w-full h-screen fixed bg-black bg-opacity-70 top-0 left-0 z-10 shadow-[0_35px_60px_1000px_rgba(0,0,0,0.8)] `}>
-      <FaTimes
+      <LiaTimesSolid
         className="text-white absolute z-20 top-2 right-2 text-3xl"
-        onClick={() => dispatch(closeModal())}
+        onClick={closeModalHandler}
       />
       <div
         className={`${styles.gradientCyanBlueAmber} p-5 w-4/5 h-full text-white bg-opacity-100 overflow-y-auto flex flex-col justify-start gap-10`}>
@@ -37,7 +37,7 @@ const Sidebar = () => {
               />
             </Link>
             <h2 className="text-center text-slate-100 border-slate-400 border-b-4 pb-2">
-              Hi,{" "}
+              Hi,
               {session?.user?.firstName ||
                 session?.user?.name ||
                 session?.user?.email}

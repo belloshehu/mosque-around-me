@@ -3,8 +3,8 @@ import Link from "next/link";
 import { Righteous } from "next/font/google";
 import { styles } from "../styles";
 import Brand from "./Brand";
-import { useSession, signOut } from "next-auth/react";
-import { FaBars } from "react-icons/fa";
+import { useSession } from "next-auth/react";
+import { CiMenuFries } from "react-icons/ci";
 import { useDispatch } from "react-redux";
 import { openModal } from "../GlobalRedux/features/modal/modalSlice";
 import avatarImage from "../_images/avatar.jpg";
@@ -50,7 +50,7 @@ const Header = () => {
             login
           </Link>
         )}
-        <FaBars
+        <CiMenuFries
           className="visible inline lg:hidden text-white text-5xl cursor-pointer align-top"
           onClick={() => dispatch(openModal())}
         />
