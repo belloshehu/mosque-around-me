@@ -4,6 +4,7 @@ import H3Title from "../../_components/H3Title";
 import { useSession } from "next-auth/react";
 import Success from "../../_components/Success";
 import EidForm from "../../_components/EidForm";
+import { redirect } from "next/navigation";
 
 const CreateEidPage = () => {
   // redirect to this page after login
