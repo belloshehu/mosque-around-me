@@ -11,13 +11,13 @@ const Dropdown = () => {
   return (
     <div
       className={`${poppins.className} absolute z-20 top-16 right-0 w-fit h-fit px border-md text-black bg-slate-200 text-xs transition-all duration-150`}>
-      <header className="bg-slate-600 p-5 text-white flex gap-2 w-full">
+      <header className="bg-slate-600 p-5 py-2 text-white flex gap-2 w-full">
         <small className="w-full p-0">
           {session?.user.name || session?.user.email}
         </small>
       </header>
 
-      <ul className="list-none my-4 flex flex-col gap-5 p-5">
+      <ul className="list-none my-2 flex flex-col gap-5 p-5">
         {userLinks.map((link) => (
           <NavLink key={link.path} {...link} />
         ))}

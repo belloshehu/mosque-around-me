@@ -14,6 +14,7 @@ import {
 import avatarImage from "../_images/avatar.jpg";
 import Image from "next/image";
 import Dropdown from "./Dropdown";
+import NavLinkList from "./NavLinkList";
 
 const Header = () => {
   const { data: session } = useSession();
@@ -22,7 +23,7 @@ const Header = () => {
   return (
     <header className="w-full p-2 px-5 md:p-20 md:py-3 flex justify-between items-center bg-gradient-to-r from-yellow-900 via-purple-700 to-cyan-800">
       <Brand />
-
+      <NavLinkList />
       {/* nav link to become mosque administrator */}
       <div className="flex gap-2 p-0 items-center">
         <Link

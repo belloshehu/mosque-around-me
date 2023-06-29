@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const NaveLink = ({ linkText, path }) => {
+const NavLink = ({ linkText, path }) => {
   const pathName = usePathname();
   const arr = pathName.split("/");
   const currentPath = arr[arr.length - 1]; // the current path,  e.g: repos
@@ -22,4 +22,4 @@ const NaveLink = ({ linkText, path }) => {
   );
 };
 
-export default NaveLink;
+export default NavLink;

@@ -6,16 +6,12 @@ export const links = [
     path: "/programs",
   },
   {
-    linkText: "About",
-    path: "/about",
-  },
-  {
     linkText: "Services",
     path: "/services",
   },
   {
-    linkText: "Dashboard",
-    path: "/dashboard",
+    linkText: "About",
+    path: "/about",
   },
 ];
 
