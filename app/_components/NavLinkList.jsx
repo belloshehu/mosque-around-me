@@ -3,7 +3,7 @@ import NavLink from "./NavLink";
 
 const NavLinkList = () => {
   return (
-    <ul className="list-none gap-5 flex text-white">
+    <ul className=" hidden lg:inline-flex lg:visible list-none gap-5 text-white">
       {links.map((link) => (
         <NavLink key={link.path} {...link} />
       ))}

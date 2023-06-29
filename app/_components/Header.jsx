@@ -32,12 +32,12 @@ const Header = () => {
           Become an admin
         </Link>
 
-        {session?.user ? (
-          <div className="relative flex items-center gap-2 text-white">
+        {session ? (
+          <div className="relative hidden lg:inline-flex lg:visible items-center gap-2 text-white">
             <Image
               src={avatarImage}
               placeholder="empty"
-              className=" hidden lg:inline lg:visible w-10 h-10 rounded-full ring-4 ring-purple-950"
+              className="hidden lg:inline lg:visible w-10 h-10 rounded-full ring-4 ring-purple-950"
             />
             <small className="text-xm">
               {session?.user.name || "Welcome back"}
