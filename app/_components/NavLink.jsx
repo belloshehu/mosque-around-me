@@ -11,7 +11,7 @@ const NaveLink = ({ linkText, path }) => {
     <li>
       <Link
         href={path}
-        className={` text-white hover:underline ${
+        className={` hover:underline ${
           linkText.toLowerCase() === currentPath.toLowerCase()
             ? "border-b-4 border-white"
             : ""

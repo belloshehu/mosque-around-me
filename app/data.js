@@ -2,7 +2,7 @@ import mosqueImage from "./_images/bread1.jpg";
 
 export const links = [
   {
-    linkText: "programs",
+    linkText: "Programs",
     path: "/programs",
   },
   {
@@ -10,8 +10,27 @@ export const links = [
     path: "/about",
   },
   {
-    linkText: "services",
+    linkText: "Services",
     path: "/services",
+  },
+  {
+    linkText: "Dashboard",
+    path: "/dashboard",
+  },
+];
+
+export const userLinks = [
+  {
+    linkText: "My programs",
+    path: "/user/programs",
+  },
+  {
+    linkText: "My mosques",
+    path: "/user/mosques",
+  },
+  {
+    linkText: "Dashboard",
+    path: "/dashboard",
   },
 ];
 
