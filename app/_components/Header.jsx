@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { Righteous } from "next/font/google";
 import { styles } from "../styles";
 import Brand from "./Brand";
 import { useSession } from "next-auth/react";
@@ -21,7 +20,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const { dropDownOpen } = useSelector((store) => store.modal);
   return (
-    <header className="w-full p-2 px-5 md:p-20 md:py-3 flex justify-between items-center bg-gradient-to-r from-yellow-900 via-purple-700 to-cyan-800">
+    <header
+      className={` w-full p-2 px-5 md:p-20 md:py-3 flex justify-between items-center bg-gradient-to-r from-yellow-900 via-purple-700 to-cyan-800`}>
       <Brand />
       <NavLinkList />
       {/* nav link to become mosque administrator */}

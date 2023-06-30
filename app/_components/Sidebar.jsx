@@ -7,6 +7,8 @@ import { styles } from "../styles";
 import Link from "next/link";
 import avatarImage from "../_images/avatar.jpg";
 import Image from "next/image";
+import { userLinks } from "../data";
+import DropdownLink from "./DropdownLink";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -45,7 +47,17 @@ const Sidebar = () => {
           </div>
         )}
 
-        <ul className="list-none p-0 place-self-start flex-1">
+        <ul className="list-none my-2 flex flex-col gap-5 p-5 flex-1">
+          {userLinks.map((link) => (
+            <DropdownLink
+              key={link.path}
+              {...link}
+              closeModalDropdown={closeModal}
+            />
+          ))}
+        </ul>
+
+        {/* <ul className="list-none p-0 place-self-start flex-1">
           {session?.user && (
             <li>
               <Link
@@ -56,7 +68,7 @@ const Sidebar = () => {
               </Link>
             </li>
           )}
-        </ul>
+        </ul> */}
         <div className="flex flex-col  justify-around gap-4 items-center w-full justify-self-end">
           <Link
             href={"/admin/mosque"}

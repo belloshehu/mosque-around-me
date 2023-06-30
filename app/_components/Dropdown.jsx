@@ -4,6 +4,7 @@ import { styles } from "../styles";
 import { links, userLinks } from "../data";
 import DropdownLink from "./DropdownLink";
 import { Poppins } from "next/font/google";
+import { toggleDropdown } from "../GlobalRedux/features/modal/modalSlice";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["200", "400", "700"] });
 const Dropdown = () => {
@@ -19,7 +20,11 @@ const Dropdown = () => {
 
       <ul className="list-none my-2 flex flex-col gap-5 p-5">
         {userLinks.map((link) => (
-          <DropdownLink key={link.path} {...link} />
+          <DropdownLink
+            key={link.path}
+            {...link}
+            closeModalDropdown={toggleDropdown}
+          />
         ))}
       </ul>
       <div className="px-5">

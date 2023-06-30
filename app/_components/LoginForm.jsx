@@ -81,7 +81,7 @@ const LoginForm = () => {
               </button>
             </div>
             <div className="flex justify-center items-center gap-1">
-              <p>Have not account? </p>
+              <p>Have no account? </p>
               <Link href="/auth/signup" className="underline">
                 Signup
               </Link>
