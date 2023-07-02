@@ -4,7 +4,7 @@ import { styles } from "../styles";
 import Brand from "./Brand";
 import { useSession } from "next-auth/react";
 import { CiMenuFries } from "react-icons/ci";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import {
   openModal,
@@ -43,12 +43,12 @@ const Header = () => {
               {session?.user.name || "Welcome back"}
             </small>
             {dropDownOpen ? (
-              <FaChevronUp
+              <BsChevronUp
                 className="text-3xl cursor-pointer transition-all duration-150"
                 onClick={() => dispatch(toggleDropdown())}
               />
             ) : (
-              <FaChevronDown
+              <BsChevronDown
                 className="text-3xl cursor-pointer transition-all duration-150"
                 onClick={() => dispatch(toggleDropdown())}
               />

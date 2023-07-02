@@ -57,18 +57,6 @@ const Sidebar = () => {
           ))}
         </ul>
 
-        {/* <ul className="list-none p-0 place-self-start flex-1">
-          {session?.user && (
-            <li>
-              <Link
-                href={"/dashboard"}
-                onClick={closeModalHandler}
-                className="hover:ml-5 transition-all duration-150 hover:border-b-2 pb-2">
-                Dashboard
-              </Link>
-            </li>
-          )}
-        </ul> */}
         <div className="flex flex-col  justify-around gap-4 items-center w-full justify-self-end">
           <Link
             href={"/admin/mosque"}
