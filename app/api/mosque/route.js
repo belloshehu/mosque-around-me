@@ -9,14 +9,14 @@ export async function POST(request) {
   // connect to database
   await dbConnect();
   const requestBody = await request.json();
-  const { mosqueName, city, state, country, address } = requestBody;
+  const { name, city, state, country, address } = requestBody;
 
   const session = await getServerSession(authOption);
 
   if (!session) {
     return new NextResponse("Unthentication required", { status: 400 });
   }
-  if (!mosqueName) {
+  if (!name) {
     return new NextResponse("Mosque name is required", { status: 400 });
   }
   if (!address) {
@@ -40,6 +40,7 @@ export async function POST(request) {
 
   const mosque = await Mosque.create({
     ...requestBody,
+    image: "",
     user: existingUser._id,
   });
 
@@ -49,4 +50,11 @@ export async function POST(request) {
     success: true,
     status: 201,
   });
+}
+
+export async function GET(request) {
+  await dbConnect();
+  const mosques = await Mosque.find({});
+
+  return NextResponse.json({ mosques });
 }

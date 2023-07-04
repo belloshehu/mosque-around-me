@@ -11,10 +11,11 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { updateFormSuccess } from "../GlobalRedux/features/form/formSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const MosqueForm = () => {
   const dispatch = useDispatch();
+  const { mosqueImage } = useSelector((store) => store.mosque);
   const { data: session } = useSession();
   const [countryStateCity, setCountryStateCity] = useState({
     countries: Country.getAllCountries(),
@@ -98,7 +99,7 @@ const MosqueForm = () => {
           state: "",
           city: "",
           country: "",
-          mosqueName: "",
+          name: "",
           imamName: "",
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -126,14 +127,14 @@ const MosqueForm = () => {
           city: Yup.string().required("City required"),
           state: Yup.string().required("State required"),
           country: Yup.string().required("Country required"),
-          mosqueName: Yup.string().required("Mosque name required"),
+          name: Yup.string().required("Mosque name required"),
           imamName: Yup.string(),
         })}>
-        {({ isSubmitting }) => (
+        {({ isSubmitting, touched, values, setFieldValue }) => (
           <Form onChange={selectHandler}>
             <div className="flex flex-col items-center justify-center gap-2 md:gap-5 w-full">
               <CustomInputField
-                name="mosqueName"
+                name="name"
                 label="Mosque name"
                 placeholder="Name of the mosque"
                 type="text"
@@ -144,6 +145,12 @@ const MosqueForm = () => {
                 placeholder="Name of the Imam"
                 type="text"
               />
+              {/* <FileInputField
+                clickHandler={() => setShowPhotoUploader(true)}
+                name="image"
+                label="Mosque image"
+                labelStyle="p-2 px-4 w-full bg-purple-950 text-white text-center"
+              /> */}
               <CustomInputField
                 name="address"
                 label="Address"

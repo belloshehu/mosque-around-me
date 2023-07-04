@@ -1,17 +1,16 @@
-"use client";
+import Mosque from "./Eid";
+import { getMosques } from "../utils/api";
 
-import React from "react";
-// import { mosques } from "../data";
-import Mosque from "./Mosque";
-import { useSelector } from "react-redux";
+const MosqueList = async () => {
+  const mosques = await getMosques();
 
-const MosqueList = () => {
-  const { mosques } = useSelector((store) => store.mosque);
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-4 gap-4 w-full my-5 lg:my-10">
-      {mosques.map((mosque) => (
-        <Mosque key={mosque.id} {...mosque} />
-      ))}
+    <section className="grid text-center grid-cols-1 lg:grid-cols-4 gap-4 w-full my-5 lg:my-10">
+      {mosques ? (
+        mosques.map((mosque) => <Mosque key={mosque._id} {...mosque} />)
+      ) : (
+        <p className="text-center">No mosques found</p>
+      )}
     </section>
   );
 };

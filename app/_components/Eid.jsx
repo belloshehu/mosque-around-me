@@ -1,16 +1,27 @@
+"use client";
 import Image from "next/image";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaCalendar, FaClock } from "react-icons/fa";
 import { Righteous } from "next/font/google";
 const righteous = Righteous({ subsets: ["latin"], weight: ["400"] });
 import Link from "next/link";
 
-const Mosque = ({ name, image, address, city, state, country, _id }) => {
+const Eid = ({
+  name,
+  image,
+  address,
+  city,
+  state,
+  country,
+  date,
+  time,
+  id,
+}) => {
   return (
     <Link
-      href={`/mosque/${_id}`}
+      href={`/mosque/${id}`}
       className="relative flex flex-col items-center gap-1 border-[1px] rounded-md h-full w-full group hover:scale-105 duration-150 transition-all">
       <Image
-        src={image || ""}
+        src={image}
         alt={name}
         height={400}
         className="w-full aspect-square  h-full object-contain"
@@ -26,9 +37,20 @@ const Mosque = ({ name, image, address, city, state, country, _id }) => {
           <span>{state},</span>
           <span>{country}</span>
         </div>
+
+        <div className="absolute top-0 right-0  flex justify-around bg-white bg-opacity-60 w-full p-2">
+          <div className="flex gap-1 items-center text-purple-700">
+            <FaCalendar />
+            <span>{date}</span>
+          </div>
+          <div className="flex gap-1 items-center text-purple-700">
+            <FaClock />
+            <span>{time}</span>
+          </div>
+        </div>
       </div>
     </Link>
   );
 };
 
-export default Mosque;
+export default Eid;

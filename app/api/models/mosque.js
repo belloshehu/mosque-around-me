@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { string } from "yup";
 
 const MosqueSchema = new mongoose.Schema(
   {
@@ -28,14 +29,17 @@ const MosqueSchema = new mongoose.Schema(
       required: [true, "Country required"],
       minlength: [2, "Country must be 2 or more characters"],
     },
-    mosqueName: {
+    name: {
       type: String,
       required: [true, "Mosque name required"],
       minlength: [5, "Country must be 5 or more characters"],
       unique: true,
       unique: [true, "Mosque already added"],
     },
-
+    image: {
+      type: String,
+      default: "",
+    },
     imamName: {
       // Imam who regualrly leads prayer at the mosque
       type: String,
