@@ -11,7 +11,7 @@ const Dropdown = () => {
   const { data: session } = useSession();
   return (
     <div
-      className={`${poppins.className} absolute z-20 top-16 -right-20 w-fit h-fit px border-md text-black bg-slate-200 text-xs transition-all duration-150`}>
+      className={`${poppins.className} absolute z-20 top-16 -right-20 w-fit h-fit px border-md text-black bg-slate-200 text-sm transition-all duration-150`}>
       <header className="bg-cyan-800 p-5 py-2 text-white flex gap-2 w-full">
         <small className="w-full p-0">
           {session?.user.name || session?.user.email}

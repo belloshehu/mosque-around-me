@@ -27,7 +27,7 @@ const Header = () => {
       {/* nav link to become mosque administrator */}
       <div className="flex gap-2 p-0 items-center">
         <Link
-          href={"/admin/mosque"}
+          href={"/admin/application"}
           className={`${styles.button} hidden lg:inline lg:visible`}>
           Become an admin
         </Link>

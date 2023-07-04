@@ -22,13 +22,16 @@ const DashboardPage = async () => {
       <h1 className="text-purple-900 text-xl lg:text-3xl font-semibold lg:font-bold">
         Dashboard
       </h1>
+      <p className="p-4 py-2 bg-purple-950 text-white">{session?.user.name}</p>
       <div className="flex flex-col lg:flex-row gap-5 justify-around w-full">
         <div className="flex flex-col gap-4 text-left  my-5 lg:my-10">
           <h3 className="text-lg border-b-4 border-slate-500 mb-4 text-purple-800">
             Mosques
           </h3>
           <div>
-            <Link href={"/mosque/form"} className={styles.buttonFluid}>
+            <Link
+              href={"/mosque/create"}
+              className={`${styles.buttonFluidPlain} bg-purple-950 `}>
               Add mosque
             </Link>
           </div>
@@ -38,7 +41,9 @@ const DashboardPage = async () => {
             Eid prayer
           </h3>
           <div>
-            <Link href={"/eid/create"} className={styles.buttonFluid}>
+            <Link
+              href={"/eid/create"}
+              className={`${styles.buttonFluidPlain} bg-purple-950 `}>
               Add Eid ground/mosque
             </Link>
           </div>
@@ -48,7 +53,9 @@ const DashboardPage = async () => {
             Admin application
           </h3>
           <div>
-            <Link href={"/admin/mosque"} className={styles.buttonFluid}>
+            <Link
+              href={"/admin/mosque"}
+              className={`${styles.buttonFluidPlain} bg-purple-950 `}>
               Apply for mosque admin
             </Link>
           </div>
