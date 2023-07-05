@@ -1,15 +1,17 @@
+"use client";
 import { Suspense } from "react";
-import { getServerSession } from "next-auth/next";
+// import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
-import { authOption } from "../api/auth/[...nextauth]/route";
+// import { authOption } from "../api/auth/[...nextauth]/route";
 import Link from "next/link";
 import { styles } from "../styles";
 import { getMosques } from "../utils/api";
+import { useSession } from "next-auth/react";
 
 const DashboardPage = async () => {
   // redirect to this page after login
+  const session = await useSession();
   const mosques = await getMosques();
-  const session = await getServerSession(authOption);
 
   if (!session) {
     redirect("/auth/login?callbackUrl=/dashboard");
@@ -19,7 +21,7 @@ const DashboardPage = async () => {
       <h1 className="text-purple-900 text-xl lg:text-3xl font-semibold lg:font-bold">
         Dashboard
       </h1>
-      <p className="p-4 py-2 bg-purple-950 text-white">{session?.user.name}</p>
+      <p className="p-4 py-2 bg-purple-950 text-white">{session?.user?.name}</p>
       <div className="flex flex-col lg:flex-row gap-5 justify-around w-full">
         <article className="flex flex-col gap-4 text-left  my-5 lg:my-10">
           <div className="flex items-center justify-between">

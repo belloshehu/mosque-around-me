@@ -54,7 +54,7 @@ export async function POST(request) {
 
 export async function GET(request) {
   await dbConnect();
-  const mosques = await Mosque.find({});
+  const mosques = await Mosque.find({}).populate("user");
 
   return NextResponse.json({ mosques });
 }

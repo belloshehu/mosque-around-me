@@ -1,10 +1,12 @@
 "use client";
 import axios from "axios";
 import mosqueImage from "../../_images/mosque.png";
+import avatarImage from "../../_images/avatar.jpg";
 import Image from "next/image";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaEdit, FaMapMarkerAlt, FaPen, FaPenAlt } from "react-icons/fa";
 import { styles } from "../../styles";
 import Link from "next/link";
+import MosqueAdmin from "../../_components/MosqueAdmin";
 
 const getMosque = async (id) => {
   let mosque = null;
@@ -22,41 +24,60 @@ const MosqueDetailPage = async ({ params }) => {
   const mosque = await getMosque(params.id);
   return (
     <div className="min-h-screen w-full">
-      <header className="h-[200px] lg:h-[300px] w-full relative">
+      <header className="h-[250px] lg:h-[400px] w-full relative text-white rounded-md">
+        <FaPen className="absolute top-5 right-5 z-10 bg-slate-400 p-1 w-10 h-10 rounded-full text-xl lg:text-3xl" />
         <Image
-          src={mosqueImage}
+          src={mosque?.image || mosqueImage}
           alt="mosque"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-md"
         />
-        <div className="flex flex-col gap-3 text-white justify-center items-center text-center w-full h-full bg-black bg-opacity-70 absolute top-0 left-0 ">
-          <h2 className="font-bold text-white text-xl lg:text-3xl">
-            {mosque.name}
+        <Image
+          src={mosque?.image || mosqueImage}
+          alt="mosque"
+          className="absolute left-5 -bottom-5 ring-0  rounded-full z-10 object-cover bg-slate-300 w-[70px] h-[70px] lg:w-[150px] lg:h-[150px]"
+        />
+        <div className="flex flex-col gap-3 text-white justify-center items-center text-center w-full h-full bg-black bg-opacity-60 absolute top-0 left-0 rounded-md">
+          <h2 className="font-bold lg:font-extrabold text-white text-2xl lg:text-5xl">
+            {mosque?.name}
           </h2>
-          <div className="flex gap-2 items-center">
-            <FaMapMarkerAlt className="text-2xl text-purple-600" />
-            <p>{mosque.address}</p>
+          <div className="flex gap-2 items-center text-xl">
+            <FaMapMarkerAlt className="text-2xl text-white" />
+            <p>{mosque?.address}</p>
           </div>
           <div className="flex gap-2 items-center">
             <small>
-              {mosque.city}, {mosque.state}, {mosque.country}
+              {mosque?.city}, {mosque?.state}, {mosque?.country}
             </small>
           </div>
         </div>
+        <div className="absolute -bottom-7 lg:bottom-5 right-0 flex gap-2 justify-center items-center bg-purple-950 p-2 rounded-l-md">
+          <Image
+            src={mosque?.user?.image || avatarImage}
+            alt={mosque?.user.firstName}
+            className="w-10 h-10 lg:w-20 lg:h-20 ring-2 ring-purple-950 rounded-full"
+          />
+          <div className="flex flex-col">
+            <small>
+              {mosque?.user.firstName} {mosque?.user.otherName}
+            </small>
+            <small>{mosque?.user?.phoneNumber}</small>
+            <small className="text-slate-400 text-sm place-self-end text-left italic">
+              Mosque Admin
+            </small>
+          </div>
+        </div>
+        {/* <MosqueAdmin user={mosque.user} /> */}
       </header>
       {/* body */}
 
       <div className="flex flex-col gap-5 justify-around w-full">
         <article className="flex flex-col gap-4 text-left  my-5 lg:my-10">
-          <h3 className="text-lg border-b-4 border-slate-500 mb-4 w-fit text-purple-800">
-            Prayer Time table
-          </h3>
-          <div>
-            <Link
-              href={"/timetable/create"}
-              className={`${styles.buttonFluidPlain} bg-purple-950 `}>
-              Add time table
-            </Link>
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg border-b-4 border-slate-500 mb-4 text-purple-800">
+              Prayer time table
+            </h3>
           </div>
+          <div>{/* time table here */}</div>
         </article>
         <article className="flex flex-col gap-4 text-left  my-5 lg:my-10">
           <div className="flex items-center justify-between">
@@ -64,13 +85,7 @@ const MosqueDetailPage = async ({ params }) => {
               Programs
             </h3>
           </div>
-          <div className="">
-            <Link
-              href={"/program/create"}
-              className={`${styles.buttonFluidPlain} bg-purple-950 `}>
-              Add program
-            </Link>
-          </div>
+          <div className="">{/* list of programs here */}</div>
         </article>
       </div>
     </div>

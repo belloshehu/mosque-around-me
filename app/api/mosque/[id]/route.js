@@ -6,7 +6,7 @@ export async function GET(request, { params }) {
   await dbConnect();
 
   const id = params.id;
-  const mosque = await Mosque.findOne({ _id: id });
+  const mosque = await Mosque.findOne({ _id: id }).populate("user");
 
   return NextResponse.json({ mosque });
 }
