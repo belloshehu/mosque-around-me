@@ -3,14 +3,16 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { Righteous } from "next/font/google";
 const righteous = Righteous({ subsets: ["latin"], weight: ["400"] });
 import Link from "next/link";
+import mosqueImage from "../_images/mosque.png";
 
 const Mosque = ({ name, image, address, city, state, country, _id }) => {
+  console.log(_id);
   return (
     <Link
       href={`/mosque/${_id}`}
       className="relative flex flex-col items-center gap-1 border-[1px] rounded-md h-full w-full group hover:scale-105 duration-150 transition-all">
       <Image
-        src={image || ""}
+        src={image || mosqueImage}
         alt={name}
         height={400}
         className="w-full aspect-square  h-full object-contain"

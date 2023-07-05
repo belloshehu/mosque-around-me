@@ -18,7 +18,7 @@ const Eid = ({
 }) => {
   return (
     <Link
-      href={`/mosque/${id}`}
+      href={`/mosque/${_id}`}
       className="relative flex flex-col items-center gap-1 border-[1px] rounded-md h-full w-full group hover:scale-105 duration-150 transition-all">
       <Image
         src={image}

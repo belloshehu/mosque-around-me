@@ -1,4 +1,3 @@
-"use client";
 import { Suspense } from "react";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
@@ -12,7 +11,6 @@ const DashboardPage = async () => {
   const mosques = await getMosques();
   const session = await getServerSession(authOption);
 
-  console.log(mosques);
   if (!session) {
     redirect("/auth/login?callbackUrl=/dashboard");
   }

@@ -1,4 +1,4 @@
-import Mosque from "./Eid";
+import Mosque from "./Mosque";
 import { getMosques } from "../utils/api";
 
 const MosqueList = async () => {
