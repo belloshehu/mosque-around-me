@@ -5,6 +5,7 @@ const modalSlice = createSlice({
   initialState: {
     isOpened: false,
     dropDownOpen: false,
+    isFormVisible: false,
   },
   reducers: {
     openModal: (state) => {
@@ -20,8 +21,15 @@ const modalSlice = createSlice({
         state.dropDownOpen = true;
       }
     },
+    showForm: (state) => {
+      state.isFormVisible = true;
+    },
+    hideForm: (state) => {
+      state.isFormVisible = false;
+    },
   },
 });
 
-export const { openModal, closeModal, toggleDropdown } = modalSlice.actions;
+export const { openModal, closeModal, toggleDropdown, showForm, hideForm } =
+  modalSlice.actions;
 export default modalSlice.reducer;

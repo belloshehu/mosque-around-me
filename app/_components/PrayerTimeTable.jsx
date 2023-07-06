@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 const PrayerTimeTable = ({ prayers, user }) => {
   const { data: session } = useSession();
   return (
-    <div>
+    <div className="overflow-x-auto">
       <table className="table-auto border-2 ">
         <thead className="bg-purple-950 text-white">
           <tr>

@@ -9,34 +9,52 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { updateFormSuccess } from "../GlobalRedux/features/form/formSlice";
 import { prayers } from "../data";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const PrayerForm = ({ mosqueId }) => {
+  const { editSelectedPrayer } = useSelector((store) => store.prayer);
+
   const dispatch = useDispatch();
   return (
-    <div className="w-full lg:w-1/3 bg-gradient-to-tr lg:border-2 lg:p-10 rounded-md">
+    <div className="w-full bg-white lg:w-1/3 bg-gradient-to-tr lg:border-2 lg:p-10 rounded-md">
       <Formik
         initialValues={{
-          title: "",
-          iqaamaTime: "",
-          adhaanTime: "",
-          imamName: "",
+          title: editSelectedPrayer?.title || "",
+          iqaamaTime: editSelectedPrayer.iqaamaTime || "",
+          adhaanTime: editSelectedPrayer?.adhaanTime || "",
+          imamName: editSelectedPrayer.imamName || "",
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           // set new values using the state and country names respectively
           const newValues = { ...values, mosqueId };
           setSubmitting(true);
-          axios
-            .post("/api/prayer", newValues)
-            .then(() => {
-              toast.success("Prayer added successfully");
-              resetForm();
-              // set form success to show success message
-              dispatch(updateFormSuccess(true));
-            })
-            .catch((error) => {
-              toast.error(error.response.data || "Something went wrong");
-            });
+
+          if (editSelectedPrayer) {
+            // update if form is opened with data in it
+            axios
+              .patch("/api/prayer", newValues)
+              .then(() => {
+                toast.success("Prayer saved successfully");
+                resetForm();
+                // set form success to show success message
+                dispatch(updateFormSuccess(true));
+              })
+              .catch((error) => {
+                toast.error(error.response.data || "Something went wrong");
+              });
+          } else {
+            axios
+              .post("/api/prayer", newValues)
+              .then(() => {
+                toast.success("Prayer added successfully");
+                resetForm();
+                // set form success to show success message
+                dispatch(updateFormSuccess(true));
+              })
+              .catch((error) => {
+                toast.error(error.response.data || "Something went wrong");
+              });
+          }
           setSubmitting(false);
         }}
         validationSchema={Yup.object({

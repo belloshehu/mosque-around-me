@@ -3,15 +3,23 @@ import axios from "axios";
 import mosqueImage from "../../_images/mosque.png";
 import avatarImage from "../../_images/avatar.jpg";
 import Image from "next/image";
-import { FaMapMarkerAlt, FaPen } from "react-icons/fa";
+import { FaBell, FaMapMarkerAlt, FaPen } from "react-icons/fa";
 import { styles } from "../../styles";
 import Link from "next/link";
 import PrayerTimeTable from "../../_components/PrayerTimeTable";
+import { useSession } from "next-auth/react";
+import PrayerForm from "../../_components/PrayerForm";
+import ModalWrapper from "../../_components/ModalWrapper";
+import { useSelector } from "react-redux";
 
 const getMosque = async (id) => {
   let mosque = null;
   try {
-    const { data } = await axios.get(`http://localhost:3000/api/mosque/${id}`);
+    const { data } = await axios.get(`http://localhost:3000/api/mosque/${id}`, {
+      next: {
+        revalidate: 10,
+      },
+    });
     mosque = await data.mosque;
   } catch (error) {
     console.log(error);
@@ -20,6 +28,9 @@ const getMosque = async (id) => {
 };
 
 const MosqueDetailPage = async ({ params }) => {
+  const { isFormVisible } = useSelector((store) => store.modal);
+
+  const { data: session } = useSession();
   const { id } = params;
   const mosque = await getMosque(id);
 
@@ -73,20 +84,32 @@ const MosqueDetailPage = async ({ params }) => {
 
       <div className="flex flex-col gap-5 justify-around w-full mt-10">
         <article className="flex flex-col gap-4 text-left  my-5 lg:my-10">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col lg:flex-row items-center justify-between">
             <h3 className="text-lg border-b-4 border-slate-500 text-purple-800">
               Prayer time table
             </h3>
 
-            <Link
-              href={`/prayer/create/${mosque?._id}`}
-              className={`${styles.buttonFluidPlain} bg-purple-950 `}>
-              Add prayer
-            </Link>
+            {mosque?.user?.email === session?.user?.email ? (
+              <Link
+                href={`/prayer/create/${mosque?._id}`}
+                className={`${styles.buttonFluidPlain} bg-purple-950 `}>
+                Add prayer
+              </Link>
+            ) : (
+              <button
+                className={`${styles.buttonFluidPlain} bg-purple-950 flex gap-2 items-center`}>
+                <FaBell /> Subscribe for timetable update
+              </button>
+            )}
           </div>
 
           {/* time table here: list of prayers */}
           <PrayerTimeTable prayers={mosque?.prayers} user={mosque.user} />
+          {isFormVisible && (
+            <ModalWrapper>
+              <PrayerForm mosqueId={mosque._id} />
+            </ModalWrapper>
+          )}
         </article>
         <article className="flex flex-col gap-4 text-left  my-5 lg:my-10">
           <div className="flex items-center justify-between">
