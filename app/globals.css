@@ -18,3 +18,7 @@ th,
 td {
   @apply p-4 border-2 border-collapse;
 }
+
+.hover-message {
+  @apply text-sm absolute whitespace-normal scale-0 group-hover:scale-100 -top-5 border-2 -left-16 z-10 py-1 p-2 rounded-full bg-slate-200 text-purple-950 transition-all duration-150;
+}

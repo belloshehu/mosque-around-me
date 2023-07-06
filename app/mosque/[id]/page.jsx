@@ -35,7 +35,7 @@ const MosqueDetailPage = async ({ params }) => {
         <Image
           src={mosque?.image || mosqueImage}
           alt="mosque"
-          className="absolute left-5 -bottom-7 ring-0  rounded-full z-10 object-cover bg-slate-300 w-[70px] h-[70px] lg:w-[150px] lg:h-[150px]"
+          className="absolute left-5 -bottom-10 ring-0  rounded-full z-10 object-cover bg-slate-300 w-[70px] h-[70px] lg:w-[150px] lg:h-[150px]"
         />
         <div className="flex flex-col gap-3 text-white justify-center items-center text-center w-full h-full bg-black bg-opacity-60 absolute top-0 left-0 rounded-md">
           <h2 className="font-bold lg:font-extrabold text-white text-2xl lg:text-5xl">
@@ -51,18 +51,18 @@ const MosqueDetailPage = async ({ params }) => {
             </small>
           </div>
         </div>
-        <div className="absolute -bottom-7 lg:bottom-5 right-0 flex gap-2 justify-center items-center bg-purple-950 p-2 rounded-l-md">
+        <div className="absolute -bottom-10 lg:-bottom-20  text-slate-700 bg-slate-100 lg:bg-none right-0 flex gap-2 justify-center items-center border-0 p-2 rounded-l-md">
           <Image
             src={mosque?.user?.image || avatarImage}
             alt={mosque?.user?.firstName}
-            className="w-10 h-10 lg:w-20 lg:h-20 ring-2 ring-purple-950 rounded-full"
+            className="w-10 h-10 lg:w-10 lg:h-10 ring-2 ring-purple-950 rounded-full"
           />
           <div className="flex flex-col">
             <small>
               {mosque?.user?.firstName} {mosque?.user?.otherName}
             </small>
             <small>{mosque?.user?.phoneNumber}</small>
-            <small className="text-slate-400 text-sm place-self-end text-left italic">
+            <small className="text-slate-400 text-left italic">
               Mosque Admin
             </small>
           </div>
@@ -86,7 +86,7 @@ const MosqueDetailPage = async ({ params }) => {
           </div>
 
           {/* time table here: list of prayers */}
-          <PrayerTimeTable prayers={mosque?.prayers} />
+          <PrayerTimeTable prayers={mosque?.prayers} user={mosque.user} />
         </article>
         <article className="flex flex-col gap-4 text-left  my-5 lg:my-10">
           <div className="flex items-center justify-between">
