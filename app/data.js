@@ -65,3 +65,30 @@ export const mosques = [
     time: "09:30am",
   },
 ];
+
+export const prayers = [
+  {
+    id: "1",
+    title: "Subhi",
+  },
+  {
+    id: "2",
+    title: "Zuhr",
+  },
+  {
+    id: "3",
+    title: "Asr",
+  },
+  {
+    id: "4",
+    title: "Magrib",
+  },
+  {
+    id: "5",
+    title: "Ishaa",
+  },
+  {
+    id: "6",
+    title: "Jumaa",
+  },
+];

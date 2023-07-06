@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import LoginForm from "../../_components/LoginForm";
 import H3Title from "../../_components/H3Title";
 import { useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const session = useSession();

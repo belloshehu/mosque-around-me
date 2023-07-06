@@ -13,3 +13,8 @@
 .error-text {
   color: red !important;
 }
+
+th,
+td {
+  @apply p-4 border-2 border-collapse;
+}

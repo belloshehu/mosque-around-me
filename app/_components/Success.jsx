@@ -10,7 +10,7 @@ const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
 /* COmponent to show success message upon successfull submission */
 
-const Success = ({ titleText, message }) => {
+const Success = ({ titleText, message, redirectUrl, redirectText }) => {
   const dispatch = useDispatch();
   return (
     <div className={`${poppins.className} h-screen w-full flex justify-center`}>
@@ -20,10 +20,10 @@ const Success = ({ titleText, message }) => {
         </h2>
         <p>{message}</p>
         <Link
-          href="/dashboard "
+          href={redirectUrl || "/dashboard"}
           onClick={() => dispatch(updateFormSuccess(false))}
           className={`${styles.buttonFluid}`}>
-          Go to Dashboard
+          {redirectText || "Go to Dashboard"}
         </Link>
       </div>
     </div>
