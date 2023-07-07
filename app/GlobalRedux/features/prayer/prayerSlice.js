@@ -4,18 +4,17 @@ import { createSlice } from "@reduxjs/toolkit";
 const prayerSlice = createSlice({
   name: "prayer",
   initialState: {
-    editSelectedPrayer: null, // prayer to be edited when edit icon is clicked on
+    selectedPrayer: null, // prayer to be edited when edit icon is clicked on
   },
   reducers: {
-    setEditSelectedPrayer: (state, { payload }) => {
-      state.editSelectedPrayer = payload;
+    setSelectedPrayer: (state, { payload }) => {
+      state.selectedPrayer = payload;
     },
-    clearEditSelectedPrayer: (state) => {
-      state.editSelectedPrayer = null;
+    clearSelectedPrayer: (state) => {
+      state.selectedPrayer = null;
     },
   },
 });
 
-export const { setEditSelectedPrayer, clearEditSelectedPrayer } =
-  prayerSlice.actions;
+export const { setSelectedPrayer, clearSelectedPrayer } = prayerSlice.actions;
 export default prayerSlice.reducer;

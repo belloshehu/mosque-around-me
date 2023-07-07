@@ -26,6 +26,5 @@ export async function GET(request, { params }) {
     // },
   ]);
   const mosque = await Mosque.populate(result, "user");
-  console.log(mosque);
   return NextResponse.json({ mosque });
 }

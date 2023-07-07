@@ -1,5 +1,5 @@
 "use client";
-import Prayer from "./Prayer";
+import PrayerTableRow from "./PrayerTableRow";
 import { useSession } from "next-auth/react";
 
 const PrayerTimeTable = ({ prayers, user }) => {
@@ -14,14 +14,14 @@ const PrayerTimeTable = ({ prayers, user }) => {
             <th>Iqaama Time</th>
             <th>Imam</th>
             {/* show action edit and delete actions for admins only */}
-            {session?.user.email === user.email ? (
+            {session?.user?.email === user?.email ? (
               <th colSpan={2}>Action</th>
             ) : null}
           </tr>
         </thead>
         <tbody>
           {prayers?.map((prayer) => (
-            <Prayer key={prayer._id} prayer={prayer} user={user} />
+            <PrayerTableRow key={prayer._id} prayer={prayer} user={user} />
           ))}
         </tbody>
       </table>

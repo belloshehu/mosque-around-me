@@ -5,13 +5,14 @@ import avatarImage from "../../_images/avatar.jpg";
 import Image from "next/image";
 import { FaBell, FaMapMarkerAlt, FaPen } from "react-icons/fa";
 import { styles } from "../../styles";
-import Link from "next/link";
 import PrayerTimeTable from "../../_components/PrayerTimeTable";
 import { useSession } from "next-auth/react";
 import PrayerForm from "../../_components/PrayerForm";
 import ModalWrapper from "../../_components/ModalWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { showForm } from "../../GlobalRedux/features/modal/modalSlice";
+import Prayer from "../../_components/Prayer";
+import ConfirmDelete from "../../_components/ConfirmDelete";
 
 const getMosque = async (id) => {
   let mosque = null;
@@ -29,7 +30,9 @@ const getMosque = async (id) => {
 };
 
 const MosqueDetailPage = async ({ params }) => {
-  const { isFormVisible } = useSelector((store) => store.modal);
+  const { isEditFormVisible, confirmDelete } = useSelector(
+    (store) => store.modal
+  );
   const dispatch = useDispatch();
 
   const { data: session } = useSession();
@@ -107,9 +110,16 @@ const MosqueDetailPage = async ({ params }) => {
 
           {/* time table here: list of prayers */}
           <PrayerTimeTable prayers={mosque?.prayers} user={mosque.user} />
-          {isFormVisible && (
+          {isEditFormVisible && (
             <ModalWrapper>
               <PrayerForm mosqueId={mosque._id} />
+            </ModalWrapper>
+          )}
+          {confirmDelete && (
+            <ModalWrapper>
+              <ConfirmDelete title="Delete prayer">
+                <Prayer />
+              </ConfirmDelete>
             </ModalWrapper>
           )}
         </article>

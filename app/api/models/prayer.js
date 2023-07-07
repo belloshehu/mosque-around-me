@@ -9,6 +9,7 @@ const PrayerSchema = new mongoose.Schema(
         message: "{VALUE} is not a valid prayer name",
       },
       required: [true, "Prayer name required"],
+      unique: [true, "{VALUE} prayer is already added"],
     },
     adhaanTime: {
       type: String,

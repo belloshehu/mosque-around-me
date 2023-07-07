@@ -5,7 +5,8 @@ const modalSlice = createSlice({
   initialState: {
     isOpened: false,
     dropDownOpen: false,
-    isFormVisible: false,
+    isEditFormVisible: false,
+    confirmDelete: false,
   },
   reducers: {
     openModal: (state) => {
@@ -22,14 +23,27 @@ const modalSlice = createSlice({
       }
     },
     showForm: (state) => {
-      state.isFormVisible = true;
+      state.isEditFormVisible = true;
     },
     hideForm: (state) => {
-      state.isFormVisible = false;
+      state.isEditFormVisible = false;
+    },
+    showConfirmDelete: (state) => {
+      state.confirmDelete = true;
+    },
+    hideConfirmDelete: (state) => {
+      state.confirmDelete = false;
     },
   },
 });
 
-export const { openModal, closeModal, toggleDropdown, showForm, hideForm } =
-  modalSlice.actions;
+export const {
+  openModal,
+  closeModal,
+  toggleDropdown,
+  showForm,
+  hideForm,
+  showConfirmDelete,
+  hideConfirmDelete,
+} = modalSlice.actions;
 export default modalSlice.reducer;

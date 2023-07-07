@@ -13,24 +13,24 @@ import { prayers } from "../data";
 import { useDispatch, useSelector } from "react-redux";
 
 const PrayerForm = ({ mosqueId }) => {
-  const { editSelectedPrayer } = useSelector((store) => store.prayer);
+  const { selectedPrayer } = useSelector((store) => store.prayer);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   return (
-    <div className="w-full bg-white lg:w-1/3 bg-gradient-to-tr lg:border-2 lg:p-10 rounded-md">
+    <div className="w-full bg-white lg:w-1/3 bg-gradient-to-tr lg:border-2 p-5 lg:p-10 rounded-md">
       <Formik
         initialValues={{
-          title: editSelectedPrayer?.title || "",
-          iqaamaTime: editSelectedPrayer?.iqaamaTime || "",
-          adhaanTime: editSelectedPrayer?.adhaanTime || "",
-          imamName: editSelectedPrayer?.imamName || "",
+          title: selectedPrayer?.title || "",
+          iqaamaTime: selectedPrayer?.iqaamaTime || "",
+          adhaanTime: selectedPrayer?.adhaanTime || "",
+          imamName: selectedPrayer?.imamName || "",
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           // set new values using the state and country names respectively
           const newValues = { ...values, mosqueId };
           setIsLoading(true);
 
-          if (editSelectedPrayer) {
+          if (selectedPrayer) {
             // update if form is opened with data in it
             axios
               .patch("/api/prayer", newValues)

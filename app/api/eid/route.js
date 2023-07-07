@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "../lib/dbConnect";
 import User from "../models/User";
 import EidPrayer from "../models/eidPrayer";
+import { StatusCodes } from "http-status-codes";
 
 export async function POST(request) {
   // connect to database

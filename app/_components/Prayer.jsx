@@ -1,41 +1,36 @@
 "use client";
-import { FaPen, FaTrash } from "react-icons/fa";
-import { useSession } from "next-auth/react";
-import { useDispatch, useSelector } from "react-redux";
-import { showForm } from "../GlobalRedux/features/modal/modalSlice";
-import { setEditSelectedPrayer } from "../GlobalRedux/features/prayer/prayerSlice";
+import { useSelector } from "react-redux";
 
-const Prayer = ({ prayer, user }) => {
-  const { data: session } = useSession();
-  const { _id, title, adhaanTime, iqaamaTime, imamName } = prayer;
-
-  const dispatch = useDispatch();
-
-  const openEditForm = () => {
-    dispatch(setEditSelectedPrayer(prayer));
-    dispatch(showForm());
-  };
-
+const Prayer = () => {
+  const { selectedPrayer } = useSelector((store) => store.prayer);
+  const { _id, title, adhaanTime, iqaamaTime, imamName } = selectedPrayer;
   return (
-    <tr className="w-full border-2 text-black hover:bg-slate-500 hover:text-white fast-transition">
-      <td>{title}</td>
-      <td>{adhaanTime}</td>
-      <td>{iqaamaTime}</td>
-      <td>{imamName}</td>
-      {/* show action edit and delete buttons for admins only */}
-      {session?.user.email === user.email ? (
-        <>
-          <td className="group relative">
-            <FaPen className="cursor-pointer" onClick={openEditForm} />
-            <span className="hover-message">edit {title}</span>
-          </td>
-          <td className="group relative">
-            <FaTrash className="cursor-pointer" onClick={openEditForm} />
-            <span className="hover-message">delete {title}</span>
-          </td>
-        </>
-      ) : null}
-    </tr>
+    <div className="table border-2 rounded-md p-5 w-full">
+      <div className="table-row ">
+        <p className="table-cell">Title</p>
+        <p className="table-cell text-right bg-purple-950 p-2 text-white border-2 border-white rounded-md">
+          {title}
+        </p>
+      </div>
+      <div className="table-row">
+        <p className="table-cell">Adhaan</p>
+        <p className="table-cell text-right bg-purple-950 p-2 text-white border-2 border-white rounded-md">
+          {adhaanTime}
+        </p>
+      </div>
+      <div className="table-row">
+        <p className="table-cell">Iqaama</p>
+        <p className="table-cell text-right bg-purple-950 p-2 text-white border-2 border-white rounded-md">
+          {iqaamaTime}
+        </p>
+      </div>
+      <div className="table-row">
+        <p className="table-cell">Imam</p>
+        <p className="table-cell text-right bg-purple-950 p-2 text-white border-2 border-white rounded-md">
+          {imamName}
+        </p>
+      </div>
+    </div>
   );
 };
 

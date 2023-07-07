@@ -1,9 +1,9 @@
 "use client";
 import { useSelector } from "react-redux";
-import H3Title from "../../_components/H3Title";
+import H3Title from "../_components/H3Title";
 import { useSession } from "next-auth/react";
-import Success from "../../_components/Success";
-import MosqueForm from "../../_components/MosqueForm";
+import Success from "../_components/Success";
+import MosqueForm from "../_components/MosqueForm";
 
 const CreateMosquePage = () => {
   // redirect to this page after login
