@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { styles } from "../styles";
@@ -13,21 +14,21 @@ import { useDispatch, useSelector } from "react-redux";
 
 const PrayerForm = ({ mosqueId }) => {
   const { editSelectedPrayer } = useSelector((store) => store.prayer);
-
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   return (
     <div className="w-full bg-white lg:w-1/3 bg-gradient-to-tr lg:border-2 lg:p-10 rounded-md">
       <Formik
         initialValues={{
           title: editSelectedPrayer?.title || "",
-          iqaamaTime: editSelectedPrayer.iqaamaTime || "",
+          iqaamaTime: editSelectedPrayer?.iqaamaTime || "",
           adhaanTime: editSelectedPrayer?.adhaanTime || "",
-          imamName: editSelectedPrayer.imamName || "",
+          imamName: editSelectedPrayer?.imamName || "",
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           // set new values using the state and country names respectively
           const newValues = { ...values, mosqueId };
-          setSubmitting(true);
+          setIsLoading(true);
 
           if (editSelectedPrayer) {
             // update if form is opened with data in it
@@ -55,7 +56,7 @@ const PrayerForm = ({ mosqueId }) => {
                 toast.error(error.response.data || "Something went wrong");
               });
           }
-          setSubmitting(false);
+          setIsLoading(false);
         }}
         validationSchema={Yup.object({
           title: Yup.string().required("Title required"),
@@ -95,12 +96,10 @@ const PrayerForm = ({ mosqueId }) => {
               <button
                 type="submit"
                 className={`${styles.buttonFluid} flex gap-2 items-center justify-center`}
-                disabled={isSubmitting}>
+                disabled={isLoading}>
                 Submit
-                {isSubmitting && (
-                  <FaSpinner
-                    className={`${isSubmitting ? "animate-spin" : ""}`}
-                  />
+                {isLoading && (
+                  <FaSpinner className={`${isLoading ? "animate-spin" : ""}`} />
                 )}
               </button>
             </div>

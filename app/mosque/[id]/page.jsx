@@ -10,7 +10,8 @@ import PrayerTimeTable from "../../_components/PrayerTimeTable";
 import { useSession } from "next-auth/react";
 import PrayerForm from "../../_components/PrayerForm";
 import ModalWrapper from "../../_components/ModalWrapper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { showForm } from "../../GlobalRedux/features/modal/modalSlice";
 
 const getMosque = async (id) => {
   let mosque = null;
@@ -29,6 +30,7 @@ const getMosque = async (id) => {
 
 const MosqueDetailPage = async ({ params }) => {
   const { isFormVisible } = useSelector((store) => store.modal);
+  const dispatch = useDispatch();
 
   const { data: session } = useSession();
   const { id } = params;
@@ -90,11 +92,11 @@ const MosqueDetailPage = async ({ params }) => {
             </h3>
 
             {mosque?.user?.email === session?.user?.email ? (
-              <Link
-                href={`/prayer/create/${mosque?._id}`}
-                className={`${styles.buttonFluidPlain} bg-purple-950 `}>
+              <button
+                className={`${styles.buttonFluidPlain} bg-purple-950 `}
+                onClick={() => dispatch(showForm())}>
                 Add prayer
-              </Link>
+              </button>
             ) : (
               <button
                 className={`${styles.buttonFluidPlain} bg-purple-950 flex gap-2 items-center`}>
