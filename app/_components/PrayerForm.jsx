@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { styles } from "../styles";
@@ -11,11 +11,20 @@ import axios from "axios";
 import { updateFormSuccess } from "../GlobalRedux/features/form/formSlice";
 import { prayers } from "../data";
 import { useDispatch, useSelector } from "react-redux";
+import { hideForm } from "../GlobalRedux/features/modal/modalSlice";
+import { clearSelectedPrayer } from "../GlobalRedux/features/prayer/prayerSlice";
 
 const PrayerForm = ({ mosqueId }) => {
   const { selectedPrayer } = useSelector((store) => store.prayer);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearSelectedPrayer());
+    };
+  }, []);
+
   return (
     <div className="w-full bg-white lg:w-1/3 bg-gradient-to-tr lg:border-2 p-5 lg:p-10 rounded-md">
       <Formik
@@ -36,9 +45,7 @@ const PrayerForm = ({ mosqueId }) => {
               .patch("/api/prayer", newValues)
               .then(() => {
                 toast.success("Prayer saved successfully");
-                resetForm();
-                // set form success to show success message
-                dispatch(updateFormSuccess(true));
+                dispatch(hideForm());
               })
               .catch((error) => {
                 toast.error(error.response.data || "Something went wrong");
@@ -56,6 +63,7 @@ const PrayerForm = ({ mosqueId }) => {
                 toast.error(error.response.data || "Something went wrong");
               });
           }
+          dispatch(clearSelectedPrayer());
           setIsLoading(false);
         }}
         validationSchema={Yup.object({

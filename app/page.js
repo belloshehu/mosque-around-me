@@ -12,7 +12,7 @@ export default function Home() {
   const { searchResultTitle, mosques } = useSelector((store) => store.mosque);
   return (
     <div
-      className={`${poppins.className} flex min-h-screen flex-col items-center justify-start gap-5 `}>
+      className={`${poppins.className} flex min-h-screen flex-col items-center justify-start gap-5 overflow-x-hidden `}>
       <h4
         className={`${righteous.className} text-xl md:text-3xl text-center font-bold mt-5 text-transparent bg-clip-text bg-gradient-radial from-cyan-600 to-yellow-700 `}>
         Search for mosques, islamic events, Jum'ah and eid prayers around you

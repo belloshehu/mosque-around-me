@@ -17,6 +17,7 @@ const ConfirmDelete = ({ children, title }) => {
       .delete(`/api/prayer/${selectedPrayer._id}`)
       .then(() => {
         toast.success("Prayer deleted successfully");
+        dispatch(hideConfirmDelete());
       })
       .catch((error) => {
         toast.error(error.response.data || "Something went wrong");
