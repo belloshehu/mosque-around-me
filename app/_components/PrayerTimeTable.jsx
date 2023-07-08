@@ -13,6 +13,7 @@ const PrayerTimeTable = ({ prayers, user }) => {
             <th>Adhaan Time</th>
             <th>Iqaama Time</th>
             <th>Imam</th>
+            <th></th>
             {/* show action edit and delete actions for admins only */}
             {session?.user?.email === user?.email ? (
               <th colSpan={2}>Action</th>
