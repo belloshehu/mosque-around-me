@@ -12,7 +12,7 @@ export async function POST(request, { params }) {
   await dbConnect();
 
   const { serviceId, service, mosqueId } = params;
-  console.log(service, serviceId);
+
   const session = await getServerSession(authOption);
   if (!session) {
     return new NextResponse("Authentication required", {
@@ -85,11 +85,10 @@ export async function POST(request, { params }) {
   });
 }
 
-// update handler
-export async function PATCH(request) {
+export async function PATCH(request, { params }) {
   await dbConnect();
-  const requestBody = await request.json();
-  const { title, adhaanTime, iqaamaTime, mosqueId, imamName } = requestBody;
+
+  const { serviceId, service, mosqueId } = params;
 
   const session = await getServerSession(authOption);
   if (!session) {
@@ -97,87 +96,56 @@ export async function PATCH(request) {
       status: StatusCodes.UNAUTHORIZED,
     });
   }
-  if (!title) {
-    return new NextResponse("Provide prayer title", {
+
+  const user = await User.findOne({ email: session.user.email });
+  if (!user) {
+    // throw new Error("User is not authenticated");
+    return new NextResponse("User is not authenticated", { status: 400 });
+  }
+
+  if (!serviceId) {
+    return new NextResponse("Provide service ID", {
       status: StatusCodes.BAD_REQUEST,
     });
   }
 
-  if (!adhaanTime) {
-    return new NextResponse("Provide Adhaan time", {
-      status: StatusCodes.BAD_REQUEST,
-    });
-  }
-  if (!iqaamaTime) {
-    return new NextResponse("Provide Iqaama time", {
-      status: StatusCodes.BAD_REQUEST,
-    });
-  }
-  console.log(mosqueId);
   if (!mosqueId) {
     return new NextResponse("Provide mosque ID", {
       status: StatusCodes.BAD_REQUEST,
     });
   }
 
-  // get hours and minutes for both Iqaama and Adhaan to ensure that Iqaama time is ahead
-  const [iqaamaHour, iqaamaMinute] = iqaamaTime.split(":");
-  const [adhaanHour, adhaanMinute] = adhaanTime.split(":");
-
-  if (iqaamaHour === adhaanHour && iqaamaMinute < adhaanMinute) {
-    // iqaama comes some minute after adhaan
-    return new NextResponse("Invalid prayer time", {
-      status: StatusCodes.BAD_REQUEST,
-    });
+  const existingPrayer = await Prayer.findOne({ _id: serviceId });
+  if (service === "prayer") {
+    if (!existingPrayer) {
+      return new NextResponse(`Prayer with ID ${serviceId} was found`, {
+        status: StatusCodes.BAD_REQUEST,
+      });
+    }
   }
 
-  const prayer = await Prayer.findOne({ mosque: mosqueId, title });
+  // const existingProgram = await Program.findOne({ _id: serviceId });
+  // if (service === "program") {
+  //   if (!existingProgram) {
+  //     return new NextResponse(`Program with ID ${serviceId} was found`, {
+  //       status: StatusCodes.BAD_REQUEST,
+  //     });
+  //   }
+  // }
 
-  if (!prayer) {
-    return new NextResponse(`Invalid prayer`, {
-      status: StatusCodes.BAD_REQUEST,
-    });
-  }
-
-  prayer.title = title;
-  prayer.adhaanTime = adhaanTime;
-  prayer.iqaamaTime = iqaamaTime;
-  prayer.imamName = imamName;
-
-  await prayer.save();
-
-  return NextResponse.json({
-    message: "Prayer updated successfully",
-    prayer,
-    status: StatusCodes.CREATED,
+  const subscription = await Subscription.findOneAndDelete({
+    service: serviceId,
+    user: user._id,
   });
-}
 
-export async function DELETE(request) {
-  await dbConnect();
-  const session = await getServerSession(authOption);
-  if (!session) {
-    return new NextResponse("Authentication required", {
-      status: StatusCodes.UNAUTHORIZED,
-    });
-  }
-  const { id } = await request.json();
-  console.log("id:", id);
-  if (!id) {
-    return new NextResponse("Prayer ID required", {
-      status: StatusCodes.BAD_REQUEST,
-    });
-  }
-  const prayer = await Prayer.findOneAndDelete({ _id: id });
-  if (!prayer) {
-    return new NextResponse("Prayer not found", {
+  if (!subscription) {
+    return new NextResponse("Subscription not found", {
       status: StatusCodes.NOT_FOUND,
     });
   }
-
   return NextResponse.json({
-    prayer,
-    message: "Prayer deleted successfully",
+    message: "Unsubscribed successfully",
+    subscription,
     status: StatusCodes.OK,
   });
 }

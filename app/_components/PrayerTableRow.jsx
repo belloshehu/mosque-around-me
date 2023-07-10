@@ -1,13 +1,14 @@
 "use client";
+import { useEffect } from "react";
 import { FaBell, FaBellSlash, FaPen, FaTrash } from "react-icons/fa";
 import { useSession } from "next-auth/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   showConfirmDelete,
   showForm,
 } from "../GlobalRedux/features/modal/modalSlice";
 import { setSelectedPrayer } from "../GlobalRedux/features/prayer/prayerSlice";
-import { hasSubscribed, subscribe } from "../utils/subscriptions";
+import { hasSubscribed, subscribe, unSubscribe } from "../utils/subscriptions";
 import { useState } from "react";
 
 const PrayerTableRow = ({ prayer, user, mosque_id }) => {
@@ -38,6 +39,18 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
       setIsLoading(false);
     }
   };
+
+  const handleCancelSubscription = async () => {
+    setIsLoading(true);
+    try {
+      await unSubscribe(mosque_id, "prayer", _id);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <tr className="w-full border-2 text-black hover:bg-slate-500 hover:text-white fast-transition">
       <td>{title}</td>
@@ -48,7 +61,7 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
         {session ? (
           hasSubscribed(subscriptions, session.user._id) ? (
             <button
-              onClick={handleSubscription}
+              onClick={handleCancelSubscription}
               className="flex gap-1 items-center">
               <FaBellSlash className="text-primary" />
               unsubscribe

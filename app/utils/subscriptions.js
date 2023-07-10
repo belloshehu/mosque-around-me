@@ -23,3 +23,18 @@ export const subscribe = async (mosqueId, serviceName, serviceId) => {
       toast.error(error.response.data || "Subscription failed");
     });
 };
+
+export const unSubscribe = async (mosqueId, serviceName, serviceId) => {
+  // handle subscription for a prayer or program with a given ID
+  // serviceName takes 'prayer' or 'program' as value
+  axios
+    .patch(
+      `http://localhost:3000/api/subscription/${mosqueId}/${serviceName}/${serviceId}`
+    )
+    .then(() => {
+      toast.success("Unsubscribed successfully");
+    })
+    .catch((error) => {
+      toast.error(error.response.data || "Failed to unsubscribe");
+    });
+};

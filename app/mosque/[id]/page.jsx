@@ -18,9 +18,7 @@ const getMosque = async (id) => {
   let mosque = null;
   try {
     const { data } = await axios.get(`http://localhost:3000/api/mosque/${id}`, {
-      next: {
-        revalidate: 10,
-      },
+      cache: "no-cache",
     });
     mosque = await data.mosque;
   } catch (error) {
