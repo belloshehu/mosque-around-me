@@ -1,5 +1,5 @@
 "use client";
-import { FaBell, FaPen, FaTrash } from "react-icons/fa";
+import { FaBell, FaBellSlash, FaPen, FaTrash } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,13 +7,14 @@ import {
   showForm,
 } from "../GlobalRedux/features/modal/modalSlice";
 import { setSelectedPrayer } from "../GlobalRedux/features/prayer/prayerSlice";
-import { subscribe } from "../utils/api";
+import { hasSubscribed, subscribe } from "../utils/subscriptions";
 import { useState } from "react";
 
-const PrayerTableRow = ({ prayer, user }) => {
+const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
-  const { _id, title, adhaanTime, iqaamaTime, imamName } = prayer;
+  const { _id, title, adhaanTime, iqaamaTime, imamName, subscriptions } =
+    prayer;
 
   const dispatch = useDispatch();
 
@@ -30,7 +31,7 @@ const PrayerTableRow = ({ prayer, user }) => {
   const handleSubscription = async () => {
     setIsLoading(true);
     try {
-      await subscribe("prayer", _id);
+      await subscribe(mosque_id, "prayer", _id);
     } catch (error) {
       console.log(error);
     } finally {
@@ -44,9 +45,30 @@ const PrayerTableRow = ({ prayer, user }) => {
       <td>{iqaamaTime}</td>
       <td>{imamName}</td>
       <td className="group relative">
-        <button onClick={handleSubscription}>
-          <FaBell className="text-primary" />
-        </button>
+        {session ? (
+          hasSubscribed(subscriptions, session.user._id) ? (
+            <button
+              onClick={handleSubscription}
+              className="flex gap-1 items-center">
+              <FaBellSlash className="text-primary" />
+              unsubscribe
+            </button>
+          ) : (
+            <button
+              onClick={handleSubscription}
+              className="flex gap-1 items-center">
+              <FaBell className="text-primary" />
+              subscribe
+            </button>
+          )
+        ) : (
+          <button
+            onClick={handleSubscription}
+            className="flex gap-1 items-center">
+            <FaBell className="text-primary" />
+            subscribe
+          </button>
+        )}
         <span className="hover-message">Subscribe for {title}</span>
       </td>
       {/* show action edit and delete buttons for admins only */}

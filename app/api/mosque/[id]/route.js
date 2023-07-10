@@ -2,11 +2,16 @@ import { NextResponse } from "next/server";
 import Mosque from "../../models/mosque";
 import dbConnect from "../../lib/dbConnect";
 import mongoose from "mongoose";
+import { StatusCodes } from "http-status-codes";
+import { authOption } from "../../auth/[...nextauth]/route";
+import User from "../../models/User";
+import { getServerSession } from "next-auth/next";
 
 export async function GET(request, { params }) {
   await dbConnect();
 
   const id = params.id;
+
   const result = await Mosque.aggregate([
     {
       $match: {
@@ -18,13 +23,21 @@ export async function GET(request, { params }) {
         from: "prayers",
         localField: "_id",
         foreignField: "mosque",
+        pipeline: [
+          {
+            $lookup: {
+              from: "subscriptions",
+              localField: "_id",
+              foreignField: "service",
+              as: "subscriptions",
+            },
+          },
+        ],
         as: "prayers",
       },
     },
-    // {
-    //   $unwind: "$prayers",
-    // },
   ]);
+
   const mosque = await Mosque.populate(result, "user");
-  return NextResponse.json({ mosque });
+  return NextResponse.json({ mosque: mosque[0] });
 }

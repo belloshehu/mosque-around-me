@@ -11,6 +11,11 @@ const subscriptionSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       required: [true, "service ID required"],
     },
+    mosque: {
+      // Id for the service being subscribed for
+      type: mongoose.Types.ObjectId,
+      required: [true, "mosque ID required"],
+    },
   },
   { timestamps: true }
 );

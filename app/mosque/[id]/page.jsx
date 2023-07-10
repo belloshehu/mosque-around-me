@@ -26,7 +26,7 @@ const getMosque = async (id) => {
   } catch (error) {
     console.log(error);
   }
-  return mosque[0];
+  return mosque;
 };
 
 const MosqueDetailPage = async ({ params }) => {

@@ -35,11 +35,18 @@ export const authOption = {
         if (!isPasswordMatched) {
           throw new Error("Invalid Email or password");
         }
-
         return user;
       },
     }),
   ],
+  callbacks: {
+    async session({ session }) {
+      await dbConnect();
+      const user = await User.findOne({ email: session.user.email });
+      session.user = user;
+      return session;
+    },
+  },
   pages: {
     signIn: "/auth/login",
   },

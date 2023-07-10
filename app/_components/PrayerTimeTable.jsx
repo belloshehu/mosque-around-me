@@ -22,7 +22,12 @@ const PrayerTimeTable = ({ prayers, user }) => {
         </thead>
         <tbody>
           {prayers?.map((prayer) => (
-            <PrayerTableRow key={prayer._id} prayer={prayer} user={user} />
+            <PrayerTableRow
+              key={prayer._id}
+              prayer={prayer}
+              mosque_id={prayer.mosque}
+              user={user}
+            />
           ))}
         </tbody>
       </table>
