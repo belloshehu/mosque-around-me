@@ -14,8 +14,15 @@ import { useState } from "react";
 const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
-  const { _id, title, adhaanTime, iqaamaTime, imamName, subscriptions } =
-    prayer;
+  const {
+    _id,
+    title,
+    adhaanTime,
+    iqaamaTime,
+    imamName,
+    subscriptions: prayerSubscriptions,
+  } = prayer;
+  const [subscriptions, setSubscriptions] = useState(prayerSubscriptions);
 
   const dispatch = useDispatch();
 
@@ -32,7 +39,9 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   const handleSubscription = async () => {
     setIsLoading(true);
     try {
-      await subscribe(mosque_id, "prayer", _id);
+      const { subscription } = await subscribe(mosque_id, "prayer", _id);
+      // add the user subscription instance to the list of the subscriptions
+      setSubscriptions((prev) => [...prev, subscription]);
     } catch (error) {
       console.log(error);
     } finally {
@@ -43,13 +52,19 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   const handleCancelSubscription = async () => {
     setIsLoading(true);
     try {
-      await unSubscribe(mosque_id, "prayer", _id);
+      const { subscription } = await unSubscribe(mosque_id, "prayer", _id);
+      // remove instance of subscription from the list of the subscriptions
+      setSubscriptions((prev) =>
+        prev.filter((item) => item._id !== subscription._id)
+      );
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {}, [subscriptions]);
 
   return (
     <tr className="w-full border-2 text-black hover:bg-slate-500 hover:text-white fast-transition">
