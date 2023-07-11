@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { FaBell, FaBellSlash, FaPen, FaTrash } from "react-icons/fa";
+import { FaPen, FaTrash } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import {
@@ -11,6 +11,7 @@ import { setSelectedPrayer } from "../GlobalRedux/features/prayer/prayerSlice";
 import { hasSubscribed, subscribe, unSubscribe } from "../utils/subscriptions";
 import { useState } from "react";
 import SubscriptionButton from "./SubscriptionButton";
+import CancelSubscriptionButton from "./CancelSubscriptionButton";
 
 const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -76,12 +77,9 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
       <td className="group relative">
         {session ? (
           hasSubscribed(subscriptions, session.user._id) ? (
-            <button
-              onClick={handleCancelSubscription}
-              className="flex gap-1 items-center">
-              <FaBellSlash className="text-primary" />
-              unsubscribe
-            </button>
+            <CancelSubscriptionButton
+              cancelSubscriptionHandler={handleCancelSubscription}
+            />
           ) : (
             <SubscriptionButton subscriptionHandler={handleSubscription} />
           )
