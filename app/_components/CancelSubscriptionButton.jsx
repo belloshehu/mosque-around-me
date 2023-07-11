@@ -1,12 +1,20 @@
-import { FaBellSlash } from "react-icons/fa";
+import { FaBellSlash, FaUsers } from "react-icons/fa";
 
-const CancelSubscriptionButton = ({ cancelSubscriptionHandler }) => {
+const CancelSubscriptionButton = ({
+  cancelSubscriptionHandler,
+  subscriptionCount,
+}) => {
   return (
     <button
       onClick={cancelSubscriptionHandler}
-      className="flex gap-1 items-center">
-      <FaBellSlash className="text-primary" />
-      unsubscribe
+      className="flex gap-4 items-center">
+      <div className="flex items-center gap-1 text-primary">
+        {subscriptionCount} <FaUsers />
+      </div>
+      <div className="flex items-center gap-2 text-white px-2 rounded-full bg-primary">
+        <FaBellSlash className="" />
+        unsubscribe
+      </div>
     </button>
   );
 };
