@@ -10,6 +10,7 @@ import {
 import { setSelectedPrayer } from "../GlobalRedux/features/prayer/prayerSlice";
 import { hasSubscribed, subscribe, unSubscribe } from "../utils/subscriptions";
 import { useState } from "react";
+import SubscriptionButton from "./SubscriptionButton";
 
 const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -82,20 +83,10 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
               unsubscribe
             </button>
           ) : (
-            <button
-              onClick={handleSubscription}
-              className="flex gap-1 items-center">
-              <FaBell className="text-primary" />
-              subscribe
-            </button>
+            <SubscriptionButton subscriptionHandler={handleSubscription} />
           )
         ) : (
-          <button
-            onClick={handleSubscription}
-            className="flex gap-1 items-center">
-            <FaBell className="text-primary" />
-            subscribe
-          </button>
+          <SubscriptionButton subscriptionHandler={handleSubscription} />
         )}
         <span className="hover-message">Subscribe for {title}</span>
       </td>
