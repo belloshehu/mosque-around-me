@@ -11,7 +11,7 @@ const CancelSubscriptionButton = ({
       <div className="flex items-center gap-1 text-primary">
         {subscriptionCount} <FaUsers />
       </div>
-      <div className="flex items-center gap-2 text-white px-2 rounded-full bg-primary">
+      <div className="flex items-center gap-2 text-white px-2 rounded-full bg-slate-400">
         <FaBellSlash className="" />
         unsubscribe
       </div>

@@ -80,12 +80,12 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   useEffect(() => {}, [subscriptions]);
 
   return (
-    <div className="w-full text-black h-full hover:scale-[98%] hover:border-primary relative border-2 fast-transition flex flex-col gap-2 text-center rounded-md">
+    <div className="w-full text-black h-full hover:scale-[98%] hover:border-primary relative border-2 fast-transition flex flex-col gap-2 text-center rounded-full">
       <div className="flex justify-around py-4">
-        <div className="table-cell font-semibold">{title}</div>
-        <div className="table-cell font-semibold">{adhaanTime}</div>
-        <div className="table-cell font-semibold">{iqaamaTime}</div>
-        <div className="table-cell font-semibold">{imamName}</div>
+        <div className="table-cell ">{title}</div>
+        <div className="table-cell ">{adhaanTime}</div>
+        <div className="table-cell">{iqaamaTime}</div>
+        <div className="table-cell">{imamName}</div>
       </div>
 
       <div className="w-full flex justify-around py-1 absolute -bottom-8 z-20">
