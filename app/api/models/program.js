@@ -28,6 +28,10 @@ const ProgramSchema = new mongoose.Schema(
         default: "physical",
       },
     },
+    photo: {
+      type: String,
+      default: "",
+    },
     nature: {
       // nature of program: virtual, hybrid or physical
       type: String,
@@ -42,19 +46,19 @@ const ProgramSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    date: {
+    startDate: {
       // for one-off programs, start date is specified
       type: Date,
     },
     endDate: {
-      // for one-off programs, end date is specified
+      // for one-off programs, end date is specified: this is optional
       type: Date,
     },
     startTime: {
       type: String,
       required: [true, "Start time required"],
     },
-    startStop: {
+    stopTime: {
       type: String,
       required: [true, "Stop time required"],
     },
@@ -76,6 +80,10 @@ const ProgramSchema = new mongoose.Schema(
     },
     customDate: {
       // incase days and start and end date do not match the type of date for the program
+      type: String,
+      default: "",
+    },
+    additionalInfo: {
       type: String,
       default: "",
     },
