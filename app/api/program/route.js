@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "../lib/dbConnect";
 import { StatusCodes } from "http-status-codes";
 import Program from "../models/program";
+import Mosque from "../models/mosque";
 
 export async function POST(request) {
   await dbConnect();
@@ -20,6 +21,7 @@ export async function POST(request) {
     stopTime,
     customDate,
     virtualUrl,
+    mosqueId,
   } = body;
 
   if (!title) {
@@ -28,6 +30,11 @@ export async function POST(request) {
     });
   }
 
+  if (!mosqueId) {
+    return new NextResponse("Provide mosque ID", {
+      status: StatusCodes.BAD_REQUEST,
+    });
+  }
   if (!description) {
     return new NextResponse("Description is required", {
       status: StatusCodes.NOT_FOUND,
@@ -79,7 +86,22 @@ export async function POST(request) {
       });
     }
   }
-  const program = await Program.create(body);
+
+  const existingMosque = await Mosque.findOne({ _id: mosqueId });
+  if (!existingMosque) {
+    return new NextResponse("Mosque does not exist", {
+      status: StatusCodes.NOT_FOUND,
+    });
+  }
+
+  const existingProgram = await Program.findOne({ mosque: mosqueId, title });
+  if (existingProgram) {
+    return new NextResponse(`${title} added already`, {
+      status: StatusCodes.BAD_REQUEST,
+    });
+  }
+
+  const program = await Program.create({ ...body, mosque: mosqueId });
   return NextResponse.json({
     program,
     message: "Program created successfully",

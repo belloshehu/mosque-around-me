@@ -3,6 +3,10 @@ import mongoose from "mongoose";
 
 const ProgramSchema = new mongoose.Schema(
   {
+    mosque: {
+      type: mongoose.Types.ObjectId,
+      required: [true, "Mosque ID required"],
+    },
     title: {
       type: String,
       required: [true, "Program title required"],

@@ -14,6 +14,7 @@ import { showForm } from "../../GlobalRedux/features/modal/modalSlice";
 import Prayer from "../../_components/Prayer";
 import ConfirmDelete from "../../_components/ConfirmDelete";
 import ProgramForm from "../../_components/ProgramForm";
+import ProgramList from "../../_components/ProgramList";
 
 const getMosque = async (id) => {
   let mosque = null;
@@ -21,6 +22,7 @@ const getMosque = async (id) => {
     const { data } = await axios.get(`http://localhost:3000/api/mosque/${id}`, {
       cache: "no-cache",
     });
+    console.log(data.mosque);
     mosque = await data.mosque;
   } catch (error) {
     console.log(error);
@@ -140,14 +142,14 @@ const MosqueDetailPage = async ({ params }) => {
               </button>
             )}
           </div>
-          <div className="">
-            {/* list of programs here */}
-            {programFormVisible && (
-              <ModalWrapper>
-                <ProgramForm mosqueId={mosque._id} />
-              </ModalWrapper>
-            )}
-          </div>
+          {/* list of programs here */}
+
+          <ProgramList programs={mosque?.programs} user={mosque.user} />
+          {programFormVisible && (
+            <ModalWrapper>
+              <ProgramForm mosqueId={mosque._id} />
+            </ModalWrapper>
+          )}
         </article>
       </div>
     </div>

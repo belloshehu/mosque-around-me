@@ -23,37 +23,38 @@ import { useState } from "react";
 import SubscriptionButton from "./SubscriptionButton";
 import CancelSubscriptionButton from "./CancelSubscriptionButton";
 
-const PrayerTableRow = ({ prayer, user, mosque_id }) => {
+const ProgramListItem = ({ program, user, mosque_id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showEditDelete, setShowEditDelete] = useState(false);
   const { data: session } = useSession();
   const {
     _id,
     title,
-    adhaanTime,
-    iqaamaTime,
-    imamName,
-    subscriptions: prayerSubscriptions,
-  } = prayer;
-  const [subscriptions, setSubscriptions] = useState(prayerSubscriptions);
+    description,
+    startDate,
+    stopDate,
+    customDate,
+    subscriptions: programSubscriptions,
+  } = program;
+  const [subscriptions, setSubscriptions] = useState(programSubscriptions);
 
   const dispatch = useDispatch();
 
   const openEditForm = () => {
-    dispatch(setSelectedPrayer(prayer));
+    // dispatch(setSelectedPrayer(prayer));
     dispatch(showForm("prayer"));
     setShowEditDelete(false);
   };
 
   const openPrayerDeleteConfirm = () => {
-    dispatch(setSelectedPrayer(prayer));
+    // dispatch(setSelectedPrayer(prayer));
     dispatch(showConfirmDelete());
   };
 
   const handleSubscription = async () => {
     setIsLoading(true);
     try {
-      const { subscription } = await subscribe(mosque_id, "prayer", _id);
+      const { subscription } = await subscribe(mosque_id, "program", _id);
       // add the user subscription instance to the list of the subscriptions
       setSubscriptions((prev) => [...prev, subscription]);
     } catch (error) {
@@ -66,7 +67,7 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   const handleCancelSubscription = async () => {
     setIsLoading(true);
     try {
-      const { subscription } = await unSubscribe(mosque_id, "prayer", _id);
+      const { subscription } = await unSubscribe(mosque_id, "program", _id);
       // remove instance of subscription from the list of the subscriptions
       setSubscriptions((prev) =>
         prev.filter((item) => item._id !== subscription._id)
@@ -83,10 +84,11 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   return (
     <div className="w-full text-black h-full hover:scale-[98%] hover:border-primary relative border-2 fast-transition flex flex-col gap-2 text-center rounded-full">
       <div className="flex justify-around py-4">
-        <div className="table-cell ">{title}</div>
-        <div className="table-cell ">{adhaanTime}</div>
-        <div className="table-cell">{iqaamaTime}</div>
-        {/* <div className="table-cell">{imamName}</div> */}
+        <div className="table-cell">
+          <p>{title}</p>
+        </div>
+        <div className="table-cell ">{startDate || ""}</div>
+        <div className="table-cell ">{stopDate || ""}</div>
       </div>
 
       <div className="w-full flex justify-around py-1 absolute -bottom-8 z-20">
@@ -147,4 +149,4 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   );
 };
 
-export default PrayerTableRow;
+export default ProgramListItem;

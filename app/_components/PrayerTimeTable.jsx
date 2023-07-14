@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 const PrayerTimeTable = ({ prayers, user }) => {
   const { data: session } = useSession();
   return (
-    <div className="overflow-x-auto h-full w-full">
+    <div className="w-full">
       <div className="flex flex-col gap-10">
         {prayers?.map((prayer) => (
           <PrayerTableRow

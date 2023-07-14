@@ -36,6 +36,24 @@ export async function GET(request, { params }) {
         as: "prayers",
       },
     },
+    {
+      $lookup: {
+        from: "programs",
+        localField: "_id",
+        foreignField: "mosque",
+        pipeline: [
+          {
+            $lookup: {
+              from: "subscriptions",
+              localField: "_id",
+              foreignField: "service",
+              as: "subscriptions",
+            },
+          },
+        ],
+        as: "programs",
+      },
+    },
   ]);
 
   const mosque = await Mosque.populate(result, "user");
