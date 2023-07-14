@@ -7,6 +7,7 @@ import Prayer from "../../../../models/prayer";
 // import Program from '../../../models/Program';
 import Subscription from "../../../../models/subscription";
 import User from "../../../../models/User";
+import Program from "../../../../models/program";
 
 export async function POST(request, { params }) {
   await dbConnect();
@@ -47,36 +48,20 @@ export async function POST(request, { params }) {
     }
   }
 
-  // const existingProgram = await Program.findOne({ _id: serviceId });
-  // if (service === "program") {
-  //   if (!existingProgram) {
-  //     return new NextResponse(`Program with ID ${serviceId} was found`, {
-  //       status: StatusCodes.BAD_REQUEST,
-  //     });
-  //   }
-  // }
+  const existingProgram = await Program.findOne({ _id: serviceId });
+  if (service === "program") {
+    if (!existingProgram) {
+      return new NextResponse(`Program with ID ${serviceId} was found`, {
+        status: StatusCodes.BAD_REQUEST,
+      });
+    }
+  }
 
   const subscription = await Subscription.create({
     user: user._id,
     service: serviceId,
     mosque: mosqueId,
   });
-
-  // add subscription to the prayer's list of subscriptions
-  // if (service === "prayer") {
-  //   existingPrayer.subscriptions = [
-  //     ...existingPrayer.subscriptions,
-  //     subscription._id,
-  //   ];
-  // }
-
-  // // add subscription to the program's list of subsriptions
-  // if (service === "program") {
-  //   existingProgram.subscriptions = [
-  //     ...existingProgram.subscriptions,
-  //     subscription._id,
-  //   ];
-  // }
 
   return NextResponse.json({
     message: "Subscribed successfully",
@@ -124,14 +109,14 @@ export async function PATCH(request, { params }) {
     }
   }
 
-  // const existingProgram = await Program.findOne({ _id: serviceId });
-  // if (service === "program") {
-  //   if (!existingProgram) {
-  //     return new NextResponse(`Program with ID ${serviceId} was found`, {
-  //       status: StatusCodes.BAD_REQUEST,
-  //     });
-  //   }
-  // }
+  const existingProgram = await Program.findOne({ _id: serviceId });
+  if (service === "program") {
+    if (!existingProgram) {
+      return new NextResponse(`Program with ID ${serviceId} was found`, {
+        status: StatusCodes.BAD_REQUEST,
+      });
+    }
+  }
 
   const subscription = await Subscription.findOneAndDelete({
     service: serviceId,
