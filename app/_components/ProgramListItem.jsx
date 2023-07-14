@@ -82,7 +82,7 @@ const ProgramListItem = ({ program, user, mosque_id }) => {
   useEffect(() => {}, [subscriptions]);
 
   return (
-    <div className="w-full text-black h-full hover:scale-[98%] hover:border-primary relative border-2 fast-transition flex flex-col gap-2 text-center rounded-full">
+    <div className="w-full text-black h-full bg-slate-200 shadow-md hover:scale-[98%] hover:border-primary relative border-2 fast-transition flex flex-col gap-4 text-center rounded-full">
       <div className="flex justify-around py-4">
         <div className="table-cell">
           <p>{title}</p>
@@ -91,7 +91,7 @@ const ProgramListItem = ({ program, user, mosque_id }) => {
         <div className="table-cell ">{stopDate || ""}</div>
       </div>
 
-      <div className="w-full flex justify-around py-1 absolute -bottom-8 z-20">
+      <div className="w-full flex justify-around py-1 absolute -bottom-9 z-10">
         <div className="group relative flex w-full justify-start">
           {session ? (
             hasSubscribed(subscriptions, session.user._id) ? (
