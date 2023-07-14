@@ -7,7 +7,7 @@ const SubscriptionButton = ({ subscriptionHandler, subscriptionCount }) => {
         {subscriptionCount} <FaUsers />
       </div>
       <div className="flex items-center gap-2 bg-green-500 text-black px-2 rounded-full">
-        <FaBell className="" />
+        <FaBell className="text-white" />
         subscribe
       </div>
     </button>

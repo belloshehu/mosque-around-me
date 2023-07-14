@@ -31,7 +31,7 @@ const getMosque = async (id) => {
 };
 
 const MosqueDetailPage = async ({ params }) => {
-  const { isEditFormVisible, confirmDelete, programFormVisible } = useSelector(
+  const { prayerFormVisible, confirmDelete, programFormVisible } = useSelector(
     (store) => store.modal
   );
   const dispatch = useDispatch();
@@ -90,7 +90,7 @@ const MosqueDetailPage = async ({ params }) => {
 
       <div className="flex flex-col gap-5 justify-around w-full mt-10">
         <article className="flex flex-col gap-4 text-left  my-5 lg:my-10">
-          <div className="flex flex-col lg:flex-row items-center justify-between">
+          <div className="flex  items-center justify-between">
             <h3 className="text-lg border-b-4 border-slate-500 text-purple-800">
               Prayer time table
             </h3>
@@ -98,20 +98,20 @@ const MosqueDetailPage = async ({ params }) => {
             {mosque?.user?.email === session?.user?.email ? (
               <button
                 className={`${styles.buttonFluidPlain} bg-purple-950 `}
-                onClick={() => dispatch(showForm())}>
+                onClick={() => dispatch(showForm("prayer"))}>
                 Add prayer
               </button>
             ) : (
               <button
                 className={`${styles.buttonFluidPlain} bg-purple-950 flex gap-2 items-center`}>
-                <FaBell /> Subscribe for timetable update
+                <FaBell /> Subscribe for notification
               </button>
             )}
           </div>
 
           {/* time table here: list of prayers */}
           <PrayerTimeTable prayers={mosque?.prayers} user={mosque.user} />
-          {isEditFormVisible && (
+          {prayerFormVisible && (
             <ModalWrapper>
               <PrayerForm mosqueId={mosque._id} />
             </ModalWrapper>
@@ -138,7 +138,7 @@ const MosqueDetailPage = async ({ params }) => {
             ) : (
               <button
                 className={`${styles.buttonFluidPlain} bg-purple-950 flex gap-2 items-center`}>
-                <FaBell /> Subscribe for program notification
+                <FaBell /> Subscribe for notification
               </button>
             )}
           </div>

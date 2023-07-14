@@ -11,7 +11,7 @@ const ModalWrapper = ({ children }) => {
     <div className=" bg-black bg-opacity-80 z-20 w-full h-screen fixed top-0 left-0 shadow-[0_35px_60px_1000px_rgba(0,0,0,0.8)] p-2  flex flex-col items-center justify-center">
       <LiaTimesSolid
         className="text-white absolute z-20 top-2 right-2 text-3xl"
-        onClick={() => dispatch(hideForm())}
+        onClick={() => dispatch(hideForm("all"))}
       />
       {children}
     </div>
