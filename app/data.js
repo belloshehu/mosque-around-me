@@ -92,3 +92,6 @@ export const prayers = [
     title: "Jumaa",
   },
 ];
+
+export const programTypes = ["continous", "one-off"];
+export const programNature = ["hybrid", "virtual", "physical"];

@@ -62,22 +62,6 @@ const ProgramSchema = new mongoose.Schema(
       type: String,
       required: [true, "Stop time required"],
     },
-    days: {
-      // for contious program, days are specified instead of date
-      type: String,
-      enum: {
-        values: [
-          "sunday",
-          "monday",
-          "tuesday",
-          "wednesday",
-          "thursday",
-          "friday",
-          "saturday",
-        ],
-        message: "{VALUE} is not a valid day",
-      },
-    },
     customDate: {
       // incase days and start and end date do not match the type of date for the program
       type: String,

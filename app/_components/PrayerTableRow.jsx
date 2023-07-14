@@ -41,7 +41,8 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
 
   const openEditForm = () => {
     dispatch(setSelectedPrayer(prayer));
-    dispatch(showForm());
+    dispatch(showForm("prayer"));
+    setShowEditDelete(false);
   };
 
   const openPrayerDeleteConfirm = () => {

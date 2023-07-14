@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showForm } from "../../GlobalRedux/features/modal/modalSlice";
 import Prayer from "../../_components/Prayer";
 import ConfirmDelete from "../../_components/ConfirmDelete";
+import ProgramForm from "../../_components/ProgramForm";
 
 const getMosque = async (id) => {
   let mosque = null;
@@ -28,7 +29,7 @@ const getMosque = async (id) => {
 };
 
 const MosqueDetailPage = async ({ params }) => {
-  const { isEditFormVisible, confirmDelete } = useSelector(
+  const { isEditFormVisible, confirmDelete, programFormVisible } = useSelector(
     (store) => store.modal
   );
   const dispatch = useDispatch();
@@ -126,8 +127,27 @@ const MosqueDetailPage = async ({ params }) => {
             <h3 className="text-lg border-b-4 border-slate-500 mb-4 text-purple-800">
               Programs
             </h3>
+            {mosque?.user?.email === session?.user?.email ? (
+              <button
+                className={`${styles.buttonFluidPlain} bg-purple-950 `}
+                onClick={() => dispatch(showForm("program"))}>
+                Add program
+              </button>
+            ) : (
+              <button
+                className={`${styles.buttonFluidPlain} bg-purple-950 flex gap-2 items-center`}>
+                <FaBell /> Subscribe for program notification
+              </button>
+            )}
           </div>
-          <div className="">{/* list of programs here */}</div>
+          <div className="">
+            {/* list of programs here */}
+            {programFormVisible && (
+              <ModalWrapper>
+                <ProgramForm mosqueId={mosque._id} />
+              </ModalWrapper>
+            )}
+          </div>
         </article>
       </div>
     </div>

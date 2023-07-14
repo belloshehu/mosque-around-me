@@ -2,7 +2,7 @@
 import { ErrorMessage, Field } from "formik";
 import { styles } from "../styles";
 
-const CustomInputField = ({ ...props }) => {
+const CustomTextArea = ({ ...props }) => {
   return (
     <div className="flex flex-col  gap-2 w-full">
       <label htmlFor={props.name} className={props?.lableStyle}>
@@ -10,8 +10,9 @@ const CustomInputField = ({ ...props }) => {
       </label>
       <Field
         name={props.name}
-        type={props.type || "text"}
-        className={`${styles.input} focus:border-4 w-full`}
+        // type={props.type || "text"}
+        as={"textarea"}
+        className={`${styles.input} focus:border-4`}
         placeholder={props.placeholder}
       />
       <ErrorMessage
@@ -22,4 +23,4 @@ const CustomInputField = ({ ...props }) => {
   );
 };
 
-export default CustomInputField;
+export default CustomTextArea;

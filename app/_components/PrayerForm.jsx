@@ -45,7 +45,7 @@ const PrayerForm = ({ mosqueId }) => {
               .patch("/api/prayer", newValues)
               .then(() => {
                 toast.success("Prayer saved successfully");
-                dispatch(hideForm());
+                dispatch(hideForm("prayer"));
               })
               .catch((error) => {
                 toast.error(error.response.data || "Something went wrong");
@@ -101,15 +101,25 @@ const PrayerForm = ({ mosqueId }) => {
                 placeholder="Time for Iqaama"
                 type="time"
               />
-              <button
-                type="submit"
-                className={`${styles.buttonFluid} flex gap-2 items-center justify-center`}
-                disabled={isLoading}>
-                Submit
-                {isLoading && (
-                  <FaSpinner className={`${isLoading ? "animate-spin" : ""}`} />
-                )}
-              </button>
+              <div className="flex justify-between w-full gap-10">
+                <button
+                  type="submit"
+                  className={`${styles.buttonFluidPlain} bg-purple-950 flex gap-2 items-center justify-center w-1/2`}
+                  disabled={isLoading}>
+                  Submit
+                  {isLoading && (
+                    <FaSpinner
+                      className={`${isLoading ? "animate-spin" : ""}`}
+                    />
+                  )}
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.buttonFluidPlain} bg-slate-400 text-black w-1/2`}
+                  onClick={() => dispatch(hideForm("prayer"))}>
+                  Cancel
+                </button>
+              </div>
             </div>
           </Form>
         )}

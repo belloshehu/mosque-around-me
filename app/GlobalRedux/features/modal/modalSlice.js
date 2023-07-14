@@ -6,6 +6,7 @@ const modalSlice = createSlice({
     isOpened: false,
     dropDownOpen: false,
     isEditFormVisible: false,
+    programFormVisible: false,
     confirmDelete: false,
   },
   reducers: {
@@ -22,11 +23,19 @@ const modalSlice = createSlice({
         state.dropDownOpen = true;
       }
     },
-    showForm: (state) => {
-      state.isEditFormVisible = true;
+    showForm: (state, { payload }) => {
+      if (payload === "prayer") {
+        state.isEditFormVisible = true;
+      } else if (payload === "program") {
+        state.programFormVisible = true;
+      }
     },
-    hideForm: (state) => {
-      state.isEditFormVisible = false;
+    hideForm: (state, { payload }) => {
+      if (payload === "prayer") {
+        state.isEditFormVisible = false;
+      } else if (payload === "program") {
+        state.programFormVisible = false;
+      }
     },
     showConfirmDelete: (state) => {
       state.confirmDelete = true;
