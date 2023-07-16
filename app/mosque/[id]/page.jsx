@@ -1,4 +1,5 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import mosqueImage from "../../_images/mosque.png";
 import avatarImage from "../../_images/avatar.jpg";
@@ -22,7 +23,6 @@ const getMosque = async (id) => {
     const { data } = await axios.get(`http://localhost:3000/api/mosque/${id}`, {
       cache: "no-cache",
     });
-    console.log(data.mosque);
     mosque = await data.mosque;
   } catch (error) {
     console.log(error);
@@ -34,12 +34,21 @@ const MosqueDetailPage = async ({ params }) => {
   const { prayerFormVisible, confirmDelete, programFormVisible } = useSelector(
     (store) => store.modal
   );
+  const [mosque, setMosque] = useState(null);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const { data: session } = useSession();
   const { id } = params;
-  const mosque = await getMosque(id);
 
+  useEffect(async () => {
+    try {
+      const mosqueData = await getMosque(id);
+      setMosque(mosqueData);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
   return (
     <div className="min-h-screen w-full">
       <header className="h-[250px] lg:h-[400px] w-full relative text-white rounded-md">
@@ -110,10 +119,10 @@ const MosqueDetailPage = async ({ params }) => {
           </div>
 
           {/* time table here: list of prayers */}
-          <PrayerTimeTable prayers={mosque?.prayers} user={mosque.user} />
+          <PrayerTimeTable prayers={mosque?.prayers} user={mosque?.user} />
           {prayerFormVisible && (
             <ModalWrapper>
-              <PrayerForm mosqueId={mosque._id} />
+              <PrayerForm mosqueId={mosque?._id} />
             </ModalWrapper>
           )}
           {confirmDelete && (
@@ -144,10 +153,10 @@ const MosqueDetailPage = async ({ params }) => {
           </div>
           {/* list of programs here */}
 
-          <ProgramList programs={mosque?.programs} user={mosque.user} />
+          <ProgramList programs={mosque?.programs} user={mosque?.user} />
           {programFormVisible && (
             <ModalWrapper>
-              <ProgramForm mosqueId={mosque._id} />
+              <ProgramForm mosqueId={mosque?._id} />
             </ModalWrapper>
           )}
         </article>

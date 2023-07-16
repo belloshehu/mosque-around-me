@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "../lib/dbConnect";
 import User from "../models/User";
+import { sendEmail } from "../../utils/mailer";
 
 export async function POST(request) {
   await dbConnect();
@@ -32,6 +33,7 @@ export async function POST(request) {
   if (existingUser) {
     return new NextResponse("Email already registered", { status: 400 });
   }
+
   const user = await User.create({
     email,
     firstName,
@@ -40,10 +42,13 @@ export async function POST(request) {
     phoneNumber,
   });
 
+  // send email to user's email address
+  await sendEmail({ email, emailType: "VERIFY_EMAIL", userId: user._id });
   return NextResponse.json(
     {
       message: "Signed up successfully",
       user,
+      verificationCodeExpiry: process.env.v_CODE_EXPIRATION,
     },
     { status: 201 }
   );

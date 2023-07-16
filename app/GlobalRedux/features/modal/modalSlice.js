@@ -1,3 +1,4 @@
+"use client";
 const { createSlice } = require("@reduxjs/toolkit");
 
 const modalSlice = createSlice({

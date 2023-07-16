@@ -13,7 +13,7 @@ import { programNature, programTypes } from "../data";
 import { useDispatch, useSelector } from "react-redux";
 import { hideForm } from "../GlobalRedux/features/modal/modalSlice";
 import { clearSelectedPrayer } from "../GlobalRedux/features/prayer/prayerSlice";
-import CustomTextArea from "../_components/CustomTextarea";
+import CustomTextArea from "../_components/CustomTextArea";
 import { clearSelectedProgram } from "../GlobalRedux/features/program/programSlice";
 
 const ProgramForm = ({ mosqueId }) => {

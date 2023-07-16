@@ -10,8 +10,10 @@ import googleIcon from "../_images/google.png";
 import CustomInputField from "./CustomInputField";
 import { signIn } from "next-auth/react";
 import PhoneNumberField from "./PhoneNumberField";
+import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
+  const router = useRouter();
   return (
     <div className="w-full lg:w-1/3 bg-gradient-to-tr">
       <Formik
@@ -28,7 +30,13 @@ const SignupForm = () => {
         onSubmit={async (values, { setSubmitting }) => {
           axios
             .post("/api/signup", values)
-            .then(() => toast.success("Signed up successfully"))
+            .then((res) => {
+              toast.success("Signed up successfully");
+              console.log(res.data);
+              router.push(
+                `/auth/verifyEmail/${res.data.verificationCodeExpiry}`
+              );
+            })
             .catch((error) => {
               toast.error(error.response.data || "Something went wrong");
             });

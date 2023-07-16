@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <AuthContextProvider>
             <Header />
-            <main className="p-5 lg:px-32 lg:py-16 flex-1">
+            <main className="p-5 lg:px-32 lg:py-16 h-auto">
               <ToasterContext />
               {children}
             </main>

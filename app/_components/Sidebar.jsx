@@ -18,6 +18,7 @@ const Sidebar = () => {
   const closeModalHandler = () => {
     dispatch(closeModal());
   };
+
   return (
     <aside
       className={`${

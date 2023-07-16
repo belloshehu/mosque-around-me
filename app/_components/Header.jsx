@@ -21,7 +21,7 @@ const Header = () => {
   const { dropDownOpen } = useSelector((store) => store.modal);
   return (
     <header
-      className={` w-full p-2 px-5 md:p-20 md:py-3 flex justify-between items-center bg-gradient-to-r from-yellow-900 via-purple-700 to-cyan-800`}>
+      className={` w-full p-2 px-5 md:p-20 md:py-3 flex justify-between items-center bg-gradient-to-tr from-slate-400 to-purple-200`}>
       <Brand />
       <NavLinkList />
       {/* nav link to become mosque administrator */}

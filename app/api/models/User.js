@@ -63,7 +63,7 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       default: "my town",
     },
-    verified: {
+    emailVerified: {
       type: Boolean,
       default: false,
     },
@@ -73,8 +73,14 @@ const UserSchema = new mongoose.Schema(
     },
     verificationCode: {
       type: String,
-      length: 4,
+      length: 6,
     },
+    verificationCodeExpiry: Date,
+    forgotPasswordCode: {
+      type: String,
+      length: 6,
+    },
+    forgotPasswordCodeExpiry: Date,
     image: String,
     role: {
       type: String,
