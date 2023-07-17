@@ -13,6 +13,7 @@ const EmailVerificationPage = ({ params }) => {
         form_description={
           "Verification code was sent to your email. Enter the code below"
         }
+        verificationType={"email"}
         expiry={expiry}
       />
     </div>

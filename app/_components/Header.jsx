@@ -40,7 +40,7 @@ const Header = () => {
               className="hidden lg:inline lg:visible w-10 h-10 rounded-full ring-4 ring-purple-950"
             />
             <small className="text-xm">
-              {session?.user.name || "Welcome back"}
+              {session?.user?.name || "Welcome back"}
             </small>
             {dropDownOpen ? (
               <BsChevronUp

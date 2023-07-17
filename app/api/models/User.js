@@ -75,12 +75,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       length: 6,
     },
-    verificationCodeExpiry: Date,
+    verificationCodeExpiry: Number,
     forgotPasswordCode: {
       type: String,
       length: 6,
     },
-    forgotPasswordCodeExpiry: Date,
+    forgotPasswordCodeExpiry: Number,
     image: String,
     role: {
       type: String,

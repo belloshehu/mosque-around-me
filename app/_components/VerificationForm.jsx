@@ -7,21 +7,45 @@ import { secondsToHours, secondsToMinutes } from "../utils/timeConverter";
 import SubmitButton from "./SubmitButton";
 import { FaStopwatch, FaStopwatch20 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-const VerificationForm = ({ form_description, form_heading, expiry }) => {
+const VerificationForm = ({
+  form_description,
+  form_heading,
+  expiry,
+  verificationType,
+}) => {
   const router = useRouter();
-  const [duration, setDuration] = useState(parseInt(expiry));
+  const [duration, setDuration] = useState(expiry);
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!value) {
+      toast.error("Enter verification code");
+      return;
+    }
+    if (value.length < 6) {
+      toast.error("Incomplete verification code");
+      return;
+    }
     try {
       setIsLoading(true);
-      const { data } = await axios.post("/api/auth/verifyemail", {
-        code: value,
-      });
+
+      let res = null;
+      if (verificationType === "email") {
+        res = await axios.post("/api/auth/verifyemail", {
+          code: value,
+        });
+      } else {
+        res = await axios.post("/api/auth/resetpassword", {
+          code: value,
+        });
+      }
+      const { data } = res;
       toast.success(data.message);
-      router.push("/auth/emailVerificationSuccess");
+      router.push(`/auth/verificationsuccess/${verificationType}`);
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data || "Something went wrong");
@@ -37,6 +61,7 @@ const VerificationForm = ({ form_description, form_heading, expiry }) => {
         setDuration((prev) => prev - 1);
       }, 1000);
     }
+
     return () => {
       clearInterval(timer);
     };
@@ -44,24 +69,19 @@ const VerificationForm = ({ form_description, form_heading, expiry }) => {
 
   return (
     <div className="w-full lg:w-1/3">
-      <form
-        action=""
-        onSubmit={handleSubmit}
-        className="flex flex-col items-center h-full w-full">
-        <div className="mt-5 text-center">
-          <h2
-            className={`text-2xl font-bold lg:text-4xl text-center mb-5 text-primary`}>
-            {form_heading}
-          </h2>
-          {duration > 0 ? (
+      {duration > 0 ? (
+        <form
+          action=""
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center h-full w-full">
+          <div className="mt-5 text-center">
+            <h2
+              className={`text-2xl font-bold lg:text-4xl text-center mb-5 text-primary`}>
+              {form_heading}
+            </h2>
             <p>{form_description}</p>
-          ) : (
-            <p>Code has expired. Enter your email to receive another code</p>
-          )}
-        </div>
-
-        {duration > 0 ? (
-          <>
+          </div>
+          <section className="verification-form-body">
             <div className="rounded-md text-center mb-4 p-3 w-full">
               <div className="flex justify-between items-center bg-purple-200 border-2 p-2 rounded-md">
                 <small className="text-purple">Code expires in:</small>
@@ -84,30 +104,27 @@ const VerificationForm = ({ form_description, form_heading, expiry }) => {
                 onChange={setValue}
               />
             </div>
-          </>
-        ) : (
-          <div className="w-full my-3">
-            <input
-              type="email"
-              name="email"
-              value={""}
-              placeholder="Enter your email"
-              className="p-2 w-full outline-none border-primary border-b-2 bg-purple-50 shadow-inner cursor-auto"
-            />
-          </div>
-        )}
-        <div className="flex flex-col justify-center items-center w-full my-5">
-          <button
-            className={`${
-              duration > 0
-                ? "text-blue-500 bg-white"
-                : "bg-purple-950 text-white"
-            } underline mb-5 text-center p-3 w-full`}>
+
+            <div className="text-center my-4">
+              <Link
+                href={`/auth/verificationCode/${verificationType}`}
+                className="text-blue-600 underline">
+                Resend verification code
+              </Link>
+            </div>
+            <SubmitButton isLoading={isLoading} />
+          </section>
+        </form>
+      ) : (
+        <section className="verification-form-body gap-5">
+          <p>Verification code has expired</p>
+          <Link
+            href={`/auth/verificationCode/${verificationType}`}
+            className="bg-primary text-white p-3">
             Resend verification code
-          </button>
-          {duration > 0 && <SubmitButton isLoading={isLoading} />}
-        </div>
-      </form>
+          </Link>
+        </section>
+      )}
     </div>
   );
 };

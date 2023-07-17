@@ -3,7 +3,7 @@ import User from "../api/models/User";
 
 export const sendEmail = async ({ email, emailType, userId }) => {
   try {
-    let verificationCode = Math.floor(Math.random() * 1000000).toString();
+    let verificationCode = Math.random().toString().substring(2, 8);
 
     // ensure no user uses similar code
     const user = await User.findOne({ verificationCode });
@@ -16,7 +16,8 @@ export const sendEmail = async ({ email, emailType, userId }) => {
         userId,
         {
           forgotPasswordCode: verificationCode,
-          forgotPasswordCodeExpiry: process.env.V_CODE_EXPIRATION,
+          forgotPasswordCodeExpiry:
+            Date.now() + parseInt(process.env.V_CODE_EXPIRATION),
         },
         { runValidators: true, new: true }
       );
@@ -25,7 +26,8 @@ export const sendEmail = async ({ email, emailType, userId }) => {
         userId,
         {
           verificationCode: verificationCode,
-          verificationCodeExpiry: process.env.V_CODE_EXPIRATION,
+          verificationCodeExpiry:
+            Date.now() + parseInt(process.env.V_CODE_EXPIRATION),
         },
         { runValidators: true, new: true }
       );

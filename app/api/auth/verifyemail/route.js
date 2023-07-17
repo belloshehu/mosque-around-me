@@ -7,7 +7,7 @@ export async function POST(request) {
   try {
     await dbConnect();
     const { code: verificationCode } = await request.json();
-
+    console.log(verificationCode.length);
     const user = await User.findOne({
       verificationCode,
       verificationCodeExpiry: { $gt: Date.now() },
@@ -25,7 +25,7 @@ export async function POST(request) {
     user.save();
 
     return NextResponse.json(
-      { verificationCode, message: "Email verified" },
+      { message: "Email verified" },
       { status: StatusCodes.OK }
     );
   } catch (error) {

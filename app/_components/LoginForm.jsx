@@ -8,8 +8,13 @@ import { toast } from "react-hot-toast";
 import Image from "next/image";
 import googleIcon from "../_images/google.png";
 import CustomInputField from "./CustomInputField";
+import { useRouter } from "next/navigation";
+import SubmitButton from "./SubmitButton";
+import { useState } from "react";
 
 const LoginForm = () => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <div className="w-full lg:w-1/3 bg-gradient-to-tr">
       <Formik
@@ -18,6 +23,7 @@ const LoginForm = () => {
           password: "",
         }}
         onSubmit={async (values, { setSubmitting }) => {
+          setIsLoading(true);
           signIn("credentials", {
             ...values,
             redirect: false,
@@ -25,13 +31,19 @@ const LoginForm = () => {
             .then((callback) => {
               if (callback.error) {
                 toast.error(callback.error);
+                if (callback.error.toLowerCase() === "email not verified") {
+                  router.push("/auth/verificationCode/email");
+                }
               }
               if (!callback.error && callback.ok) {
+                console.log(callback);
                 toast.success("Logged in successfully");
               }
+              setIsLoading(false);
             })
             .catch((error) => {
               console.log(error);
+              setIsLoading(false);
             });
         }}
         validationSchema={Yup.object({
@@ -62,9 +74,7 @@ const LoginForm = () => {
               type="password"
             />
 
-            <button type="submit" className={`${styles.buttonFluid}`}>
-              Submit
-            </button>
+            <SubmitButton isLoading={isLoading} />
 
             <div className="flex flex-col lg:flex-row p-0 w-full">
               <button

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "../lib/dbConnect";
 import User from "../models/User";
 import { sendEmail } from "../../utils/mailer";
+import { StatusCodes } from "http-status-codes";
 
 export async function POST(request) {
   await dbConnect();
@@ -48,8 +49,8 @@ export async function POST(request) {
     {
       message: "Signed up successfully",
       user,
-      verificationCodeExpiry: process.env.v_CODE_EXPIRATION,
+      verificationCodeExpiry: parseInt(process.env.v_CODE_EXPIRATION) / 1000,
     },
-    { status: 201 }
+    { status: StatusCodes.OK }
   );
 }
