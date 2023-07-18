@@ -18,7 +18,7 @@ const SendVerificationCodePage = ({ params }) => {
             ? "Enter the email you registered with to get verification code to verify your email."
             : "Enter the email you registered with to get verification code to reset your password."
         }
-        verificationType={"email"}
+        verificationType={verificationType}
       />
     </div>
   );

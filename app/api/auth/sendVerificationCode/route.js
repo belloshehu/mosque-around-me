@@ -8,7 +8,7 @@ export async function POST(request) {
   try {
     await dbConnect();
     const { email, verificationType } = await request.json();
-    console.log(email, verificationType);
+
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -17,7 +17,7 @@ export async function POST(request) {
       });
     }
 
-    if (user.emailVerified) {
+    if (user.emailVerified && verificationType == "email") {
       return new NextResponse("Email already verified", {
         status: StatusCodes.BAD_REQUEST,
       });
@@ -25,7 +25,7 @@ export async function POST(request) {
     sendEmail({
       email,
       emailType:
-        verificationType === "email" ? "VERIFY_EMAIL" : "RESET_PASSWORD",
+        verificationType === "email" ? "VERIFY_EMAIL" : "PASSWORD_RESET",
       userId: user._id,
     });
     return NextResponse.json(

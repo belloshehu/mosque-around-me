@@ -26,17 +26,14 @@ const SendVerificationCodeForm = ({
       if (verificationType === "email") {
         router.push(`/auth/verifyEmail/${data.verificationCodeExpiry}`);
       } else {
-        router.push(`/auth/resetpassword/${data.verificationCodeExpiry}`);
+        router.push(`/auth/passwordreset/${data.verificationCodeExpiry}`);
       }
     } catch (error) {
-      console.log(error);
       toast.error(error?.response?.data || "Something went wrong");
     } finally {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {}, []);
 
   return (
     <div className="w-full lg:w-1/3">

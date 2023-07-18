@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "../../models/User";
-import bcrypt from "bcryptjs";
+import bcryptjs from "bcryptjs";
 import dbConnect from "../../lib/dbConnect";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
@@ -29,19 +29,22 @@ export const authOption = {
           throw new Error("Email and password required");
         }
         const user = await User.findOne({ email });
-        console.log(user);
+
+        if (!user) {
+          throw new Error("Invalid email");
+        }
 
         if (!user.emailVerified) {
           throw new Error("Email not verified");
         }
 
-        if (!user) {
-          throw new Error("Invalid Email or password");
-        }
-        const isPasswordMatched = await bcrypt.compare(password, user.password);
+        const isPasswordMatched = await bcryptjs.compare(
+          password,
+          user.password
+        );
 
         if (!isPasswordMatched) {
-          throw new Error("Invalid Email or password");
+          throw new Error("Incorrect password");
         }
         return user;
       },

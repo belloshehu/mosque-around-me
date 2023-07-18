@@ -4,6 +4,7 @@ import H3Title from "../../_components/H3Title";
 import MosqueAdminForm from "../../_components/MosqueAdminForm";
 import { useSession } from "next-auth/react";
 import Success from "../../_components/Success";
+import { redirect } from "next/navigation";
 
 const MosqueAdminPage = () => {
   // redirect to this page after login

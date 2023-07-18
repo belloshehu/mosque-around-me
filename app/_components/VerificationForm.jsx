@@ -3,11 +3,11 @@ import ReactInputVerificationCode from "react-input-verification-code";
 import { toast } from "react-hot-toast";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { secondsToHours, secondsToMinutes } from "../utils/timeConverter";
 import SubmitButton from "./SubmitButton";
-import { FaStopwatch, FaStopwatch20 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Timer from "./Timer";
+import CodeExpired from "./CodeExpired";
 
 const VerificationForm = ({
   form_description,
@@ -47,25 +47,11 @@ const VerificationForm = ({
       toast.success(data.message);
       router.push(`/auth/verificationsuccess/${verificationType}`);
     } catch (error) {
-      console.log(error);
       toast.error(error?.response?.data || "Something went wrong");
     } finally {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    let timer = null;
-    if (duration > 0) {
-      timer = setInterval(() => {
-        setDuration((prev) => prev - 1);
-      }, 1000);
-    }
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, [duration]);
 
   return (
     <div className="w-full lg:w-1/3">
@@ -82,19 +68,7 @@ const VerificationForm = ({
             <p>{form_description}</p>
           </div>
           <section className="verification-form-body">
-            <div className="rounded-md text-center mb-4 p-3 w-full">
-              <div className="flex justify-between items-center bg-purple-200 border-2 p-2 rounded-md">
-                <small className="text-purple">Code expires in:</small>
-                <h3 className="text-sm text-center">
-                  {secondsToHours(duration)}{" "}
-                  <span className="text-slate-600">hours</span> :{" "}
-                  {secondsToMinutes(duration)}{" "}
-                  <span className="text-slate-600">mins</span> : {duration % 60}{" "}
-                  <span className="text-slate-600">secs</span>
-                </h3>
-                <FaStopwatch className="text-green-600 text-lg animate-ping" />
-              </div>
-            </div>
+            <Timer duration={duration} setDuration={setDuration} />
             <div className="custom-styles">
               <ReactInputVerificationCode
                 length={6}
@@ -116,14 +90,7 @@ const VerificationForm = ({
           </section>
         </form>
       ) : (
-        <section className="verification-form-body gap-5">
-          <p>Verification code has expired</p>
-          <Link
-            href={`/auth/verificationCode/${verificationType}`}
-            className="bg-primary text-white p-3">
-            Resend verification code
-          </Link>
-        </section>
+        <CodeExpired verificationType={verificationType} />
       )}
     </div>
   );
