@@ -1,5 +1,5 @@
 import mosqueImage from "./_images/bread1.jpg";
-
+import { FaHeart, FaSearch, FaUser, FaBell } from "react-icons/fa";
 export const links = [
   {
     linkText: "Programs",
@@ -95,3 +95,22 @@ export const prayers = [
 
 export const programTypes = ["continous", "one-off"];
 export const programNature = ["hybrid", "virtual", "physical"];
+
+export const menuitems = [
+  {
+    icon: <FaSearch />,
+    id: 1,
+  },
+  {
+    icon: <FaHeart />,
+    id: 0,
+  },
+  {
+    icon: <FaBell />,
+    id: 3,
+  },
+  {
+    icon: <FaUser />,
+    id: 2,
+  },
+];
