@@ -1,5 +1,13 @@
 import mosqueImage from "./_images/bread1.jpg";
-import { FaHeart, FaSearch, FaUser, FaBell } from "react-icons/fa";
+import {
+  FaHeart,
+  FaSearch,
+  FaUser,
+  FaBell,
+  FaPray,
+  FaPrayingHands,
+  FaBookOpen,
+} from "react-icons/fa";
 export const links = [
   {
     linkText: "Programs",
@@ -109,8 +117,31 @@ export const menuitems = [
     icon: <FaBell />,
     id: 3,
   },
+  // {
+  //   icon: <FaUser />,
+  //   id: 2,
+  // },
+];
+
+export const categories = [
   {
-    icon: <FaUser />,
+    id: 0,
+    text: "daily prayers",
+    icon: <FaPray />,
+  },
+  {
+    id: 1,
+    text: "Jum'at prayer",
+    icon: <FaPrayingHands />,
+  },
+  {
     id: 2,
+    text: "programs",
+    icon: <FaBookOpen />,
+  },
+  {
+    id: 3,
+    text: "Eid prayer",
+    icon: <FaPray />,
   },
 ];

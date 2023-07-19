@@ -23,8 +23,8 @@ export default function RootLayout({ children }) {
         <Providers>
           <AuthContextProvider>
             {/* <Header /> */}
-            <ToasterContext />
             <main className="flex">
+              <ToasterContext />
               <SideMenubar />
               <section className="w-full">{children}</section>
             </main>

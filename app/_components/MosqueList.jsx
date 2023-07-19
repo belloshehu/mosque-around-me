@@ -1,10 +1,22 @@
 "use client";
 import Mosque from "./Mosque";
 import { getMosques } from "../utils/api";
+import { useEffect, useState } from "react";
 
-const MosqueList = async () => {
-  const mosques = await getMosques();
-  console.log(mosques);
+const MosqueList = () => {
+  const [mosques, setMosques] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(async () => {
+    setIsLoading(true);
+    const mosquesData = await getMosques();
+    setMosques(mosquesData);
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading mosques....</div>;
+  }
   if (!mosques) {
     <section className="text-center w-full my-5 lg:my-10">
       <p className="text-center">No mosques found</p>
