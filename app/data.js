@@ -190,3 +190,18 @@ export const notificationPageTabsData = [
     heading: "Hidden",
   },
 ];
+
+export const profilePageTabsData = [
+  {
+    id: "1",
+    heading: "Mosques",
+  },
+  {
+    id: "2",
+    heading: "Programs",
+  },
+  {
+    id: "3",
+    heading: "Application",
+  },
+];

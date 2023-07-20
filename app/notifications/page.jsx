@@ -7,8 +7,12 @@ const Program = () => {
     <div>
       <h2 className="text-2xl font-bold text-primary">Notifications</h2>
       <TabCollection tabDataArray={notificationPageTabsData}>
-        <div>Visible nofitications</div>
-        <div>Hidden nofitications</div>
+        <div>
+          <p>You have no nofitications</p>
+        </div>
+        <div>
+          <p>You have no hidden nofitications</p>
+        </div>
       </TabCollection>
     </div>
   );

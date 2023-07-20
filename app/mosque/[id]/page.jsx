@@ -42,13 +42,10 @@ const MosqueDetailPage = async ({ params }) => {
   const { id } = params;
 
   useEffect(async () => {
-    try {
-      const mosqueData = await getMosque(id);
-      setMosque(mosqueData);
-    } catch (error) {
-      console.log(error);
-    }
+    const mosqueData = await getMosque(id);
+    setMosque(mosqueData);
   }, []);
+
   return (
     <div className="min-h-screen w-full">
       <header className="h-[250px] lg:h-[400px] w-full relative text-white rounded-md">
