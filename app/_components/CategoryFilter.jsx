@@ -6,7 +6,7 @@ const CategoryFilter = () => {
   return (
     <div className="w-full flex flex-col">
       <div className="flex gap-3 w-full">
-        <h3>Filter by</h3>
+        <h3>Filter by category</h3>
       </div>
       <div className="w-full flex gap-1 overflow-x-auto py-1">
         {categories.map((item) => (

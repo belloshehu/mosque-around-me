@@ -1,12 +1,48 @@
-import { FaUser } from "react-icons/fa";
+"use client";
+import Link from "next/link";
+import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
+import { useSession, signOut } from "next-auth/react";
+import Image from "next/image";
 
 const UserMenuItem = () => {
+  const { data: session } = useSession();
   return (
-    <div className="place-self-end">
-      <div className="hover:bg-purple-400 hover:scale-110 text-xl transition-slow hover:text-white text-purple-600 rounded-md p-4">
-        <FaUser />
-      </div>
-    </div>
+    <ul className="flex flex-col items-center place-self-end mx-auto list-none gap-3">
+      <li className={`text-sm px-5 text-black flex gap-2 items-center`}>
+        {session?.user?.image ? (
+          <Image
+            src={session?.user?.image}
+            className="h-10 w-10 rounded-full ring-2"
+          />
+        ) : (
+          <div className="h-10 w-10 ring-2 ring-purple-600 rounded-full flex items-center justify-center">
+            <h3 className="text-center text-xl font-bold text-purple-800">
+              {session?.user?.firstName.slice(0, 1)}
+              {session?.user?.otherName.slice(0, 1)}
+            </h3>
+          </div>
+        )}
+        <small>
+          {session?.user?.firstName} {session?.user?.otherName}
+        </small>
+      </li>
+      <li className="text-purple-600 rounded-md p-4 flex gap-2 items-center">
+        {session?.user ? (
+          <>
+            <AiOutlineLogout className="text-xl" />
+            <button onClick={() => signOut()}>Logout</button>
+          </>
+        ) : (
+          <>
+            <AiOutlineLogin className="text-xl" />
+            <Link href={"/auth/login"}>Login</Link>
+          </>
+        )}
+      </li>
+      <li className={`rounded-full bg-purple-600 text-sm p-2 px-5 text-white`}>
+        <Link href={"/admin/application"}>Become admin</Link>
+      </li>
+    </ul>
   );
 };
 

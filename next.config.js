@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
-    reactStrictMode: true,
+    reactStrictMode: false,
     ignoreDuringBuilds: true,
   },
 };

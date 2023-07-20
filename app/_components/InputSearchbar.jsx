@@ -1,9 +1,9 @@
-import React from "react";
-import { FaSearch } from "react-icons/fa";
+import { BsSearch } from "react-icons/bs";
+
 const InputSearchbar = () => {
   return (
-    <div className="bg-purple-0 w-full md:w-2/3 p-2 rounded-md flex gap-5 items-center px-5 border-[1px]">
-      <FaSearch className="text-purple-600 text-xl md:text-2xl" />
+    <div className="bg-purple-0 w-full md:w-2/5 p-2 rounded-md flex gap-5 items-center px-5 border-[1px]">
+      <BsSearch className="text-purple-600 text-xl md:text-2xl" />
       <input
         type="search"
         placeholder="Enter mosque name"
