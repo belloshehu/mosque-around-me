@@ -13,7 +13,7 @@ export default function Home() {
   const { searchResultTitle, mosques } = useSelector((store) => store.mosque);
   return (
     <div
-      className={`${poppins.className} grid grid-cols-1 md:grid-cols-3 min-h-screen w-full gap-4 overflow-x-hidden `}>
+      className={`${poppins.className}  grid grid-cols-1 md:grid-cols-3 w-full gap-4 overflow-x-hidden overflow-y-auto`}>
       <div className="w-full col-span-2">
         <div className="flex flex-col space-y-3">
           {/* <LocationFilter /> */}

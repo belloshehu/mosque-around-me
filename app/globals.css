@@ -36,11 +36,12 @@ td {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(204, 153, 228);
+  background-color: gainsboro;
   border-radius: 10px;
 }
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 2px;
+  height: 2px;
 }
 
 ::-webkit-scrollbar-track {
@@ -49,18 +50,6 @@ td {
   border-radius: 10px;
 }
 
-.custom-scrollbar ::-webkit-scrollbar {
-  width: 3px;
-}
-
-.custom-scrollbar ::-webkit-scrollbar-thumb {
-  background-color: gray;
-}
-
-.custom-scrollbar ::-webkit-scrollbar-track {
-  padding: 1px;
-  border-radius: 10px;
-}
 .custom-styles {
   --ReactInputVerificationCode-itemWidth: 3rem;
   --ReactInputVerificationCode-itemHeight: 3rem;

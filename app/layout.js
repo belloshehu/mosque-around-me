@@ -22,14 +22,14 @@ export default function RootLayout({ children }) {
       <body className={`${inter.className} relative flex flex-col`}>
         <Providers>
           <AuthContextProvider>
-            {/* <Header /> */}
+            <Header />
             <main className="flex md:pr-10">
               <ToasterContext />
               <SideMenubar />
-              <section className="w-full p-1 md:p-10">{children}</section>
+              <section className="w-full p-2 md:p-10">{children}</section>
             </main>
             {/* <Footer /> */}
-            <Sidebar />
+            {/* <Sidebar /> */}
           </AuthContextProvider>
         </Providers>
       </body>

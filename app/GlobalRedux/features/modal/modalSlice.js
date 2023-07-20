@@ -24,6 +24,13 @@ const modalSlice = createSlice({
         state.dropDownOpen = true;
       }
     },
+    toggleModal: (state) => {
+      if (state.isOpened) {
+        state.isOpened = false;
+      } else {
+        state.isOpened = true;
+      }
+    },
     showForm: (state, { payload }) => {
       if (payload === "prayer") {
         state.prayerFormVisible = true;
@@ -58,5 +65,6 @@ export const {
   hideForm,
   showConfirmDelete,
   hideConfirmDelete,
+  toggleModal,
 } = modalSlice.actions;
 export default modalSlice.reducer;
