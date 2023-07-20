@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import Map from "./_components/Map";
 import CategoryFilter from "./_components/CategoryFilter";
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["200", "700"] });
 
 export default function Home() {
   const { searchResultTitle, mosques } = useSelector((store) => store.mosque);
@@ -20,7 +20,7 @@ export default function Home() {
           <InputSearchbar />
           <CategoryFilter />
         </div>
-        <div className="overflow-y-auto custom-scrollbar mt-5">
+        <div className="overflow-y-auto custom-scrollbar mt-5 py-5">
           <MosqueList />
         </div>
       </div>

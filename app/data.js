@@ -1,14 +1,8 @@
 import mosqueImage from "./_images/bread1.jpg";
-import {
-  FaPray,
-  FaPrayingHands,
-  FaBookOpen,
-  FaMosque,
-  FaWalking,
-} from "react-icons/fa";
+import { FaPray, FaPrayingHands, FaBookOpen, FaWalking } from "react-icons/fa";
 import { RiRidingLine } from "react-icons/ri";
-import { AiOutlineHeart, AiOutlineUser } from "react-icons/ai";
-import { BsSearch, BsBell, BsFillCarFrontFill, BsBook } from "react-icons/bs";
+import { AiOutlineHeart, AiOutlineUser, AiOutlineHome } from "react-icons/ai";
+import { BsBell, BsFillCarFrontFill, BsBook } from "react-icons/bs";
 import { MdOutlineMosque } from "react-icons/md";
 export const links = [
   {
@@ -107,34 +101,41 @@ export const programTypes = ["continous", "one-off"];
 export const programNature = ["hybrid", "virtual", "physical"];
 
 export const menuitems = [
-  // {
-  //   icon: <BsSearch />,
-  //   id: 1,
-  // },
+  {
+    icon: <AiOutlineHome />,
+    id: 1,
+    path: "/",
+    text: "Home",
+  },
   {
     icon: <AiOutlineHeart />,
-    text: "favorites",
+    text: "Favorites",
     id: 0,
+    path: "/favorites",
   },
   {
     icon: <BsBell />,
     id: 3,
-    text: "notifications",
+    text: "Notifications",
+    path: "/notifications",
   },
   {
     icon: <MdOutlineMosque />,
     id: 4,
-    text: "mosques",
+    text: "Mosques",
+    path: "/mosques",
   },
   {
     id: 5,
     icon: <BsBook />,
     text: "Verses",
+    path: "/verses",
   },
   {
     icon: <AiOutlineUser />,
     id: 6,
-    text: "profile",
+    text: "Profile",
+    path: "/profile",
   },
 ];
 
@@ -176,5 +177,16 @@ export const distances = [
     id: 2,
     text: "12 mins",
     icon: <BsFillCarFrontFill />,
+  },
+];
+
+export const notificationPageTabsData = [
+  {
+    id: "1",
+    heading: "Visible",
+  },
+  {
+    id: "2",
+    heading: "Hidden",
   },
 ];
