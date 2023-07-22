@@ -6,14 +6,20 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
-  const session = useSession();
   const router = useRouter();
+  const { status } = useSession({
+    required: true,
+    onAuthenticated() {
+      redirect("/");
+    },
+  });
 
   useEffect(() => {
-    if (session?.status === "authenticated") {
+    if (status === "authenticated") {
       router.push("/");
     }
-  }, [session]);
+  }, []);
+
   return (
     <div className="flex flex-col justify-center items-center gap-5">
       <H3Title text={"Login"} />

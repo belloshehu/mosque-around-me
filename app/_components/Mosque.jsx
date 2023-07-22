@@ -19,15 +19,15 @@ const Mosque = ({ name, image, address, city, state, country, _id }) => {
           className="object-contain w-1/2 bg-slate-300 rounded-e-md"
         />
         <div className="flex flex-col transition-all duration-250 gap-1 p-2 text-left text-black w-full">
-          <p className={`w-full text-sm font-semibold`}>{name}</p>
-          <div className="flex items-center gap-2 text-sm w-full text-slate-500">
+          <p className={`w-full font-semibold`}>{name}</p>
+          <div className="flex items-center gap-2  w-full text-slate-500">
             {/* <FaMapMarkerAlt className="text-purple-600" /> */}
             <small>{address}</small>
           </div>
-          <div className="flex items-center gap-2 font-thin text-xs text-slate-500">
-            <span>{city},</span>
-            <span>{state},</span>
-            <span>{country}</span>
+          <div className="flex items-center gap-2 font-thin  text-slate-500">
+            <small>{city},</small>
+            <small>{state},</small>
+            <small>{country}</small>
           </div>
           <div className="flex space-x-5 text-purple-600 text-2xl items-end mt-6">
             <AiOutlineHeart />

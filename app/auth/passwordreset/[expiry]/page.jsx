@@ -1,4 +1,3 @@
-"use client";
 import PasswordResetForm from "../../../_components/PasswordResetForm";
 export const metadata = {
   title: "password reset",

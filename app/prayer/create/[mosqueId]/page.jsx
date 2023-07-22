@@ -12,7 +12,7 @@ const CreatePrayerPage = ({ params }) => {
   const { data: session } = useSession({
     required: true,
     onUnauthenticated() {
-      redirect("/auth/login?callbackUrl=/dashboard");
+      redirect("/auth/login?callbackUrl=/profile");
     },
   });
   const { isSuccess } = useSelector((store) => store.form);

@@ -13,7 +13,7 @@ const SignupPage = () => {
     if (session?.status === "authenticated") {
       router.push("/");
     }
-  }, [session]);
+  }, []);
   return (
     <div className="flex flex-col justify-center items-center gap-5">
       <H3Title text={"Signup"} />

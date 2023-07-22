@@ -1,4 +1,3 @@
-"use client";
 import SendVerificationCodeForm from "../../../_components/SendVerificationCodeForm";
 
 export const metadata = {

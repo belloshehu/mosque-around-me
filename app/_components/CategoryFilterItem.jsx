@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import { FaHeart } from "react-icons/fa";
 
 const CategoryFilterItem = ({ text, icon }) => {

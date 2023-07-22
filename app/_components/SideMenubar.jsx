@@ -1,14 +1,15 @@
 "use client";
 import { menuitems } from "../data";
 import MenubarItem from "./MenubarItem";
-import { Inter, Righteous } from "next/font/google";
+import { Inter, Righteous, Poppins } from "next/font/google";
 import UserMenuItem from "./UserMenuItem";
 import Link from "next/link";
 import { LiaTimesSolid } from "react-icons/lia";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../GlobalRedux/features/modal/modalSlice";
 
-const righteous = Inter({ subsets: ["latin"], weight: ["400"] });
+const righteous = Righteous({ subsets: ["latin"], weight: ["400"] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["200", "700"] });
 
 const SideMenubar = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const SideMenubar = () => {
   };
   return (
     <aside
-      className={`${
+      className={`${poppins.className} ${
         isOpened ? "translate-x-0" : "-translate-x-[100%] md:translate-x-0"
       } flex flex-col items-start space-y-8 md:shadow-md p-5 h-screen transition-all duration-200 absolute bg-slate-100 md:bg-white md:sticky top-0 w-4/6  md:w-[270px] z-20 pr-4`}>
       <LiaTimesSolid

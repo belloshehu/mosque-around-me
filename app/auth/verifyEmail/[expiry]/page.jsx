@@ -1,8 +1,5 @@
 "use client";
 import VerificationForm from "../../../_components/VerificationForm";
-export const metadata = {
-  title: "verify email",
-};
 
 const EmailVerificationPage = ({ params }) => {
   const { expiry } = params;

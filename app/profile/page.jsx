@@ -10,17 +10,24 @@ import { profilePageTabsData } from "../data";
 
 const DashboardPage = () => {
   // redirect to this page after login
-  const { data: session } = useSession();
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect("/auth/login?callbackUrl=/profile");
+    },
+  });
+
   const [mosques, setMosques] = useState([]);
 
-  useEffect(async () => {
-    const mosquesData = await getMosques();
-    setMosques(mosquesData);
+  const getData = async () => {
+    const data = await getMosques();
+    setMosques(data);
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
 
-  if (!session) {
-    redirect("/auth/login?callbackUrl=/dashboard");
-  }
   return (
     <section className="w-full min-h-screen text-center flex-1 flex flex-col gap-4 justify-start items-start">
       <h2 className="text-2xl font-bold text-primary">Profile</h2>
@@ -40,7 +47,7 @@ const DashboardPage = () => {
               }>
               {mosques ? (
                 <ul className="">
-                  {mosques.map((mosque) => (
+                  {mosques?.map((mosque) => (
                     <li key={mosque._id}>{mosque._id}</li>
                   ))}
                 </ul>
