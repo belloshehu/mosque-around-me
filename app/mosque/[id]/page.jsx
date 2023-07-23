@@ -4,7 +4,7 @@ import axios from "axios";
 import mosqueImage from "../../_images/mosque.png";
 import avatarImage from "../../_images/avatar.jpg";
 import Image from "next/image";
-import { FaBell, FaMapMarkerAlt, FaPen } from "react-icons/fa";
+import { FaBell, FaMapMarkerAlt, FaPen, FaSpinner } from "react-icons/fa";
 import { styles } from "../../styles";
 import PrayerTimeTable from "../../_components/PrayerTimeTable";
 import { useSession } from "next-auth/react";
@@ -35,16 +35,35 @@ const MosqueDetailPage = async ({ params }) => {
     (store) => store.modal
   );
   const [mosque, setMosque] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   const { data: session } = useSession();
   const { id } = params;
 
-  useEffect(async () => {
-    const mosqueData = await getMosque(id);
-    setMosque(mosqueData);
+  const getData = async () => {
+    try {
+      setIsLoading(true);
+      const data = await getMosque(id);
+      setMosque(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center justify-items-center">
+        <FaSpinner className="text-xl animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full">
@@ -98,7 +117,7 @@ const MosqueDetailPage = async ({ params }) => {
         <article className="flex flex-col gap-4 text-left  my-5 lg:my-10">
           <div className="flex  items-center justify-between">
             <h3 className="text-lg border-b-4 border-slate-500 text-purple-800">
-              Prayer time table
+              Prayers
             </h3>
 
             {mosque?.user?.email === session?.user?.email ? (

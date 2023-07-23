@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Righteous } from "next/font/google";
@@ -8,7 +9,6 @@ import { TbUsersPlus } from "react-icons/tb";
 
 const righteous = Righteous({ subsets: ["latin"], weight: ["400"] });
 const Mosque = ({ name, image, address, city, state, country, _id }) => {
-  console.log(_id);
   return (
     <Link href={`/mosque/${_id}`} className="">
       <div className="relative flex items-center gap-3 w-full group hover:scale-105 duration-150 transition-all group p-2 border-[2px] hover:text-white rounded-md md:w-2/3">

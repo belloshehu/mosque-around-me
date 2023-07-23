@@ -4,6 +4,7 @@ import {
   FaCaretRight,
   FaClosedCaptioning,
   FaEye,
+  FaPray,
   FaFlipboard,
   FaPen,
   FaToggleOff,
@@ -22,9 +23,11 @@ import { hasSubscribed, subscribe, unSubscribe } from "../utils/subscriptions";
 import { useState } from "react";
 import SubscriptionButton from "./SubscriptionButton";
 import CancelSubscriptionButton from "./CancelSubscriptionButton";
+import { isDuePrayer } from "../utils/timeConverter";
 
 const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isDue, setIsDue] = useState(false);
   const [showEditDelete, setShowEditDelete] = useState(false);
   const { data: session } = useSession();
   const {
@@ -67,7 +70,7 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
     setIsLoading(true);
     try {
       const { subscription } = await unSubscribe(mosque_id, "prayer", _id);
-      // remove instance of subscription from the list of the subscriptions
+      // removew instance of subscription from the list of the subscriptions
       setSubscriptions((prev) =>
         prev.filter((item) => item._id !== subscription._id)
       );
@@ -79,9 +82,26 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   };
 
   useEffect(() => {}, [subscriptions]);
+  useEffect(() => {
+    let timer = null;
+    setInterval(() => {
+      // isDue(adhaanTime, iqaamaTime, );
+      setIsDue(isDuePrayer(adhaanTime, iqaamaTime));
+    }, 10000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   return (
-    <div className="w-full text-black h-full bg-slate-200 shadow-md hover:scale-[98%] hover:border-primary relative border-2 fast-transition flex flex-col gap-2 text-center rounded-full">
+    <div
+      className={`w-full text-black h-full ${
+        isDue ? "bg-slate-300 border-purple-300" : "bg-slate-200"
+      } shadow-md hover:scale-[98%] hover:border-primary relative border-2 fast-transition flex flex-col gap-2 text-center rounded-full`}>
+      {isDue && (
+        <FaPray className="absolute -top-1 -left-2 animate-ping text-purple-600" />
+      )}
       <div className="flex justify-around py-4">
         <div className="table-cell ">{title}</div>
         <div className="table-cell ">{adhaanTime}</div>

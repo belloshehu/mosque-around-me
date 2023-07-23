@@ -8,54 +8,57 @@ import User from "../../models/User";
 import { getServerSession } from "next-auth/next";
 
 export async function GET(request, { params }) {
-  await dbConnect();
+  try {
+    await dbConnect();
 
-  const id = params.id;
+    const id = params.id;
 
-  const result = await Mosque.aggregate([
-    {
-      $match: {
-        _id: new mongoose.Types.ObjectId(id),
+    const result = await Mosque.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(id),
+        },
       },
-    },
-    {
-      $lookup: {
-        from: "prayers",
-        localField: "_id",
-        foreignField: "mosque",
-        pipeline: [
-          {
-            $lookup: {
-              from: "subscriptions",
-              localField: "_id",
-              foreignField: "service",
-              as: "subscriptions",
+      {
+        $lookup: {
+          from: "prayers",
+          localField: "_id",
+          foreignField: "mosque",
+          pipeline: [
+            {
+              $lookup: {
+                from: "subscriptions",
+                localField: "_id",
+                foreignField: "service",
+                as: "subscriptions",
+              },
             },
-          },
-        ],
-        as: "prayers",
+          ],
+          as: "prayers",
+        },
       },
-    },
-    {
-      $lookup: {
-        from: "programs",
-        localField: "_id",
-        foreignField: "mosque",
-        pipeline: [
-          {
-            $lookup: {
-              from: "subscriptions",
-              localField: "_id",
-              foreignField: "service",
-              as: "subscriptions",
+      {
+        $lookup: {
+          from: "programs",
+          localField: "_id",
+          foreignField: "mosque",
+          pipeline: [
+            {
+              $lookup: {
+                from: "subscriptions",
+                localField: "_id",
+                foreignField: "service",
+                as: "subscriptions",
+              },
             },
-          },
-        ],
-        as: "programs",
+          ],
+          as: "programs",
+        },
       },
-    },
-  ]);
-
-  const mosque = await Mosque.populate(result, "user");
-  return NextResponse.json({ mosque: mosque[0] });
+    ]);
+    const mosque = await Mosque.populate(result, "user");
+    return NextResponse.json({ mosque: mosque[0] });
+  } catch (error) {
+    throw new Error(error.message);
+  }
 }

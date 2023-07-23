@@ -1,5 +1,4 @@
 "use client";
-import { signIn } from "next-auth/react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { styles } from "../styles";
@@ -11,6 +10,7 @@ import CustomInputField from "./CustomInputField";
 import { useRouter } from "next/navigation";
 import SubmitButton from "./SubmitButton";
 import { useState } from "react";
+import SocialLoginButton from "./SocialLoginButton";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -83,30 +83,20 @@ const LoginForm = () => {
               </div>
               <SubmitButton isLoading={isLoading} />
             </div>
-
-            <div className="flex flex-col lg:flex-row p-0 w-full">
-              <button
-                onClick={() => signIn("google")}
-                className={`${styles.buttonFluidPlain} flex gap-2 items-center justify-center text-black bg-purple-900 w-full shadow-lg`}>
-                <Image
-                  src={googleIcon}
-                  width={10}
-                  height={10}
-                  className="w-[30px]"
-                  alt="google-icon"
-                />
-                Sign in with Google
-              </button>
-            </div>
-            <div className="flex justify-center items-center gap-1">
-              <p>Have no account? </p>
-              <Link href="/auth/signup" className="underline">
-                Signup
-              </Link>
-            </div>
           </div>
         </Form>
       </Formik>
+      <SocialLoginButton
+        text={"Continue with Google"}
+        provider={"google"}
+        socialIcon={googleIcon}
+      />
+      <div className="flex justify-center items-center gap-1">
+        <p>Have no account? </p>
+        <Link href="/auth/signup" className="underline">
+          Signup
+        </Link>
+      </div>
     </div>
   );
 };

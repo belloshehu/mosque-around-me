@@ -1,6 +1,6 @@
 "use client";
-import { closeModal } from "../GlobalRedux/features/modal/modalSlice";
 import Link from "next/link";
+import { closeModal } from "../GlobalRedux/features/modal/modalSlice";
 import { useDispatch } from "react-redux";
 import { usePathname } from "next/navigation";
 

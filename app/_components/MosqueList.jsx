@@ -8,20 +8,31 @@ const MosqueList = () => {
   const [mosques, setMosques] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(async () => {
-    setIsLoading(true);
-    const mosquesData = await getMosques();
-    setMosques(mosquesData);
-    setIsLoading(false);
+  const getData = async () => {
+    try {
+      setIsLoading(true);
+      const data = await getMosques();
+      setMosques(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
 
   if (isLoading) {
     return <div>Loading mosques....</div>;
   }
-  if (!mosques) {
-    <section className="text-center w-full my-5 lg:my-10">
-      <p className="text-center">No mosques found</p>
-    </section>;
+  if (mosques?.length === 0) {
+    return (
+      <section className="text-center w-full my-5 lg:my-10">
+        <p className="text-center">No mosques found</p>
+      </section>
+    );
   }
 
   return (
