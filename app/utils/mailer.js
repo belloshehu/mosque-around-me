@@ -2,7 +2,39 @@ import nodemailer from "nodemailer";
 import User from "../api/models/User";
 import { getEmailTemplate } from "./mailTemplate";
 
-export const sendEmail = async ({ email, emailType, userId }) => {
+// email transport
+const transport = nodemailer.createTransport({
+  service: "gmail",
+  host: process.env.EMAIL_HOST,
+  port: process.env.EMAIL_PORT,
+  secure: false,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
+
+export const sendNotificationEmail = async ({
+  email,
+  subject,
+  templateHeading,
+  templateBody,
+}) => {
+  try {
+    const emailOptions = {
+      from: process.env.EMAIL_SENDER,
+      to: email,
+      subject,
+      html: getEmailTemplate(templateBody, templateHeading),
+    };
+    const emailResponse = await transport.sendMail(emailOptions);
+    return emailResponse;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const sendVerificationEmail = async ({ email, emailType, userId }) => {
   try {
     let verificationCode = Math.random().toString().substring(2, 8);
 
@@ -33,18 +65,6 @@ export const sendEmail = async ({ email, emailType, userId }) => {
         { runValidators: true, new: true }
       );
     }
-
-    // email transport
-    const transport = nodemailer.createTransport({
-      service: "gmail",
-      host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
 
     const emailTextHeading =
       emailType === "VERIFY_EMAIL"

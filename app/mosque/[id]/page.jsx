@@ -138,7 +138,7 @@ const MosqueDetailPage = async ({ params }) => {
           <PrayerTimeTable prayers={mosque?.prayers} user={mosque?.user} />
           {prayerFormVisible && (
             <ModalWrapper>
-              <PrayerForm mosqueId={mosque?._id} />
+              <PrayerForm mosque={mosque} />
             </ModalWrapper>
           )}
           {confirmDelete && (

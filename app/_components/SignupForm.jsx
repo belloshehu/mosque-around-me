@@ -5,14 +5,16 @@ import Link from "next/link";
 import { styles } from "../styles";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import Image from "next/image";
 import googleIcon from "../_images/google.png";
 import CustomInputField from "./CustomInputField";
 import PhoneNumberField from "./PhoneNumberField";
 import { useRouter } from "next/navigation";
 import SocialLoginButton from "./SocialLoginButton";
+import SubmitButton from "./SubmitButton";
+import { useState } from "react";
 
 const SignupForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   return (
     <div className="w-full lg:w-1/3 bg-gradient-to-tr">
@@ -28,17 +30,19 @@ const SignupForm = () => {
           passwordRepeat: "",
         }}
         onSubmit={async (values, { setSubmitting }) => {
+          setIsLoading(true);
           axios
             .post("/api/signup", values)
             .then((res) => {
               toast.success("Signed up successfully");
-              console.log(res.data);
+              setIsLoading(false);
               router.push(
                 `/auth/verifyEmail/${res.data.verificationCodeExpiry}`
               );
             })
             .catch((error) => {
               toast.error(error.response.data || "Something went wrong");
+              setIsLoading(false);
             });
         }}
         validationSchema={Yup.object({
@@ -111,9 +115,7 @@ const SignupForm = () => {
               />
             </div>
 
-            <button type="submit" className={`${styles.buttonFluid}`}>
-              Submit
-            </button>
+            <SubmitButton isLoading={isLoading} />
           </div>
         </Form>
       </Formik>

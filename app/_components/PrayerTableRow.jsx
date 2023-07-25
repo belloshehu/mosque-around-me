@@ -85,7 +85,6 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   useEffect(() => {
     let timer = null;
     setInterval(() => {
-      // isDue(adhaanTime, iqaamaTime, );
       setIsDue(isDuePrayer(adhaanTime, iqaamaTime));
     }, 10000);
 

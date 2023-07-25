@@ -1,14 +1,13 @@
 "use client";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
-import { styles } from "../styles";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
-import Image from "next/image";
 import googleIcon from "../_images/google.png";
 import CustomInputField from "./CustomInputField";
 import { useRouter } from "next/navigation";
 import SubmitButton from "./SubmitButton";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 import SocialLoginButton from "./SocialLoginButton";
 
@@ -36,8 +35,8 @@ const LoginForm = () => {
                 }
               }
               if (!callback.error && callback.ok) {
-                console.log(callback);
                 toast.success("Logged in successfully");
+                router.push("/");
               }
               setIsLoading(false);
             })

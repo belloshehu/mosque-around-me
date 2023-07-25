@@ -9,10 +9,10 @@ import clientPromise from "../../lib/mongodb";
 import { NextResponse } from "next/server";
 import { StatusCodes } from "http-status-codes";
 export const authOption = {
-  adapter: MongoDBAdapter(clientPromise, {
-    databaseName: "mosque-around-me",
-    collections: { Accounts: "accounts", Sessions: "sessions", Users: "users" },
-  }),
+  // adapter: MongoDBAdapter(clientPromise, {
+  //   databaseName: "mosque-around-me",
+  //   collections: { Accounts: "accounts", Sessions: "sessions", Users: "users" },
+  // }),
 
   providers: [
     GoogleProvider({
@@ -25,6 +25,7 @@ export const authOption = {
         await dbConnect();
 
         const { email, password } = credentials;
+        console.log(email, password);
         if (!email || !password) {
           throw new Error("Email and password required");
         }
@@ -57,28 +58,28 @@ export const authOption = {
       session.user = user;
       return session;
     },
-    async signIn({ profile }) {
-      try {
-        await dbConnect();
-        const { email, photo, given_name, family_name, email_verified } =
-          profile;
-        const userExists = await User.findOne({ email });
+    // async signIn({ profile }) {
+    //   try {
+    //     await dbConnect();
+    //     const { email, photo, given_name, family_name, email_verified } =
+    //       profile;
+    //     const userExists = await User.findOne({ email });
 
-        if (!userExists) {
-          const user = await User.create({
-            email,
-            image: picture,
-            firstName: given_name,
-            otherName: family_name,
-            emailVerified: email_verified,
-            authProvider: "google",
-          });
-        }
-        return true;
-      } catch (error) {
-        throw new Error(error.message);
-      }
-    },
+    //     if (!userExists) {
+    //       const user = await User.create({
+    //         email,
+    //         image: picture,
+    //         firstName: given_name,
+    //         otherName: family_name,
+    //         emailVerified: email_verified,
+    //         authProvider: "google",
+    //       });
+    //     }
+    //     return true;
+    //   } catch (error) {
+    //     throw new Error(error.message);
+    //   }
+    // },
   },
   pages: {
     signIn: "/auth/login",

@@ -7,7 +7,7 @@ export async function POST(request) {
   try {
     await dbConnect();
     const { code: verificationCode } = await request.json();
-    console.log(verificationCode.length);
+
     const user = await User.findOne({
       verificationCode,
       verificationCodeExpiry: { $gt: Date.now() },

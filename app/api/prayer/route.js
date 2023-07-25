@@ -33,7 +33,7 @@ export async function POST(request) {
       status: StatusCodes.BAD_REQUEST,
     });
   }
-  console.log(mosqueId);
+
   if (!mosqueId) {
     return new NextResponse("Provide mosque ID", {
       status: StatusCodes.BAD_REQUEST,
@@ -109,7 +109,7 @@ export async function PATCH(request) {
       status: StatusCodes.BAD_REQUEST,
     });
   }
-  console.log(mosqueId);
+
   if (!mosqueId) {
     return new NextResponse("Provide mosque ID", {
       status: StatusCodes.BAD_REQUEST,

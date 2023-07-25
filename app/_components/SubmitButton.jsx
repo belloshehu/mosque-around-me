@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import { FaSpinner } from "react-icons/fa";
 import { styles } from "../styles";
 

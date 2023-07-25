@@ -7,18 +7,13 @@ import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const router = useRouter();
-  const { status } = useSession({
-    required: true,
-    onAuthenticated() {
-      redirect("/");
-    },
-  });
+  const session = useSession();
 
   useEffect(() => {
-    if (status === "authenticated") {
+    if (session?.user) {
       router.push("/");
     }
-  }, []);
+  }, [session]);
 
   return (
     <div className="flex flex-col justify-center items-center gap-5">

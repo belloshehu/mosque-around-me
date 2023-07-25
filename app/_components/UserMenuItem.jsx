@@ -40,14 +40,22 @@ const UserMenuItem = () => {
         {session?.user ? (
           <>
             <AiOutlineLogout className="text-xl" />
-            <button onClick={() => signOut()} className="text-sm">
+            <button
+              onClick={() => {
+                signOut();
+                closeModalHandler();
+              }}
+              className="text-sm">
               Logout
             </button>
           </>
         ) : (
           <>
             <AiOutlineLogin className="text-xl" />
-            <Link href={"/auth/login"} className="text-sm">
+            <Link
+              href={"/auth/login"}
+              className="text-sm"
+              onClick={closeModalHandler}>
               Login
             </Link>
           </>

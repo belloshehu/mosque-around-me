@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { hideForm } from "../GlobalRedux/features/modal/modalSlice";
 import { clearSelectedPrayer } from "../GlobalRedux/features/prayer/prayerSlice";
 
-const PrayerForm = ({ mosqueId }) => {
+const PrayerForm = ({ mosque }) => {
   const { selectedPrayer } = useSelector((store) => store.prayer);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
@@ -39,13 +39,17 @@ const PrayerForm = ({ mosqueId }) => {
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           // set new values using the state and country names respectively
-          const newValues = { ...values, mosqueId };
+          const newValues = {
+            ...values,
+            mosqueId: mosque._id,
+            mosqueName: mosque.name,
+          };
           setIsLoading(true);
 
           if (selectedPrayer) {
             // update if form is opened with data in it
             axios
-              .patch("/api/prayer", newValues)
+              .patch(`/api/prayer/${selectedPrayer._id}`, newValues)
               .then(() => {
                 toast.success("Prayer saved successfully");
                 dispatch(hideForm("prayer"));

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "../lib/dbConnect";
 import User from "../models/User";
-import { sendEmail } from "../../utils/mailer";
+import { sendVerificationEmail } from "../../utils/mailer";
 import { StatusCodes } from "http-status-codes";
 
 export async function POST(request) {
@@ -44,7 +44,11 @@ export async function POST(request) {
   });
 
   // send email to user's email address
-  await sendEmail({ email, emailType: "VERIFY_EMAIL", userId: user._id });
+  await sendVerificationEmail({
+    email,
+    emailType: "VERIFY_EMAIL",
+    userId: user._id,
+  });
   return NextResponse.json(
     {
       message: "Signed up successfully",

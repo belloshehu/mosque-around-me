@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import User from "../../models/User";
 import dbConnect from "../../lib/dbConnect";
 import { StatusCodes } from "http-status-codes";
-import { sendEmail } from "../../../utils/mailer";
+import { sendVerificationEmail } from "../../../utils/mailer";
 
 export async function POST(request) {
   try {
@@ -22,7 +22,7 @@ export async function POST(request) {
         status: StatusCodes.BAD_REQUEST,
       });
     }
-    sendEmail({
+    sendVerificationEmail({
       email,
       emailType:
         verificationType === "email" ? "VERIFY_EMAIL" : "PASSWORD_RESET",
