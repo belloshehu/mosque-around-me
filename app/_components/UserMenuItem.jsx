@@ -22,6 +22,8 @@ const UserMenuItem = () => {
             <Image
               src={session?.user?.image}
               className="h-10 w-10 rounded-full ring-2"
+              width={50}
+              height={50}
             />
           ) : (
             <div className="h-10 w-10 ring-2 ring-purple-600 bg-purple-900 rounded-full flex items-center justify-center">

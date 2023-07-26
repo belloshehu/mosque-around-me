@@ -119,11 +119,11 @@ const SignupForm = () => {
           </div>
         </Form>
       </Formik>
-      <SocialLoginButton
+      {/* <SocialLoginButton
         text={"Continue with Google"}
         provider={"google"}
         socialIcon={googleIcon}
-      />
+      /> */}
       <div className="flex justify-center items-center gap-1">
         <p>Have an account? </p>
         <Link href="/auth/login" className="underline">

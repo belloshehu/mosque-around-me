@@ -1,11 +1,10 @@
 "use client";
 import { styles } from "../styles";
-import { Righteous, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { updateFormSuccess } from "../GlobalRedux/features/form/formSlice";
 
-const righteous = Righteous({ subsets: ["latin"], weight: ["400"] });
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
 /* COmponent to show success message upon successfull submission */
@@ -20,7 +19,7 @@ const Success = ({ titleText, message, redirectUrl, redirectText }) => {
         </h2>
         <p>{message}</p>
         <Link
-          href={redirectUrl || "/dashboard"}
+          href={redirectUrl || "/profile"}
           onClick={() => dispatch(updateFormSuccess(false))}
           className={`${styles.buttonFluid}`}>
           {redirectText || "Go to Dashboard"}

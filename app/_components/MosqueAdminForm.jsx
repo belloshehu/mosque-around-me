@@ -107,7 +107,6 @@ const MosqueAdminForm = () => {
 
           // set new values using the state and country names respectively
           const newValues = { ...values, state, country, user: session.user };
-          console.log("submitting..", newValues);
           setSubmitting(true);
           axios
             .post("/api/admin", newValues)

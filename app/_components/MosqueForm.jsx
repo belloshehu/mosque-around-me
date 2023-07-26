@@ -12,11 +12,11 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { updateFormSuccess } from "../GlobalRedux/features/form/formSlice";
 import { useDispatch, useSelector } from "react-redux";
+import SubmitButton from "./SubmitButton";
+import { hideForm } from "../GlobalRedux/features/modal/modalSlice";
 
 const MosqueForm = () => {
   const dispatch = useDispatch();
-  const { mosqueImage } = useSelector((store) => store.mosque);
-  const { data: session } = useSession();
   const [countryStateCity, setCountryStateCity] = useState({
     countries: Country.getAllCountries(),
     states: [],
@@ -92,7 +92,7 @@ const MosqueForm = () => {
   };
 
   return (
-    <div className="w-full lg:w-1/3 bg-gradient-to-tr lg:border-2 lg:p-10 rounded-md">
+    <div className="w-full lg:w-1/3 bg-gradient-to-tr lg:border-2 lg:p-10 rounded-md bg-white">
       <Formik
         initialValues={{
           address: "",
@@ -114,13 +114,15 @@ const MosqueForm = () => {
             .then(() => {
               toast.success("Mosque added successfully");
               resetForm();
+              setSubmitting(false);
+              dispatch(hideForm("mosque"));
               // set form success to show success message
-              dispatch(updateFormSuccess(true));
+              // dispatch(updateFormSuccess(true));
             })
             .catch((error) => {
               toast.error(error.response.data || "Something went wrong");
+              setSubmitting(false);
             });
-          setSubmitting(false);
         }}
         validationSchema={Yup.object({
           address: Yup.string().required("Address required"),
@@ -132,7 +134,7 @@ const MosqueForm = () => {
         })}>
         {({ isSubmitting, touched, values, setFieldValue }) => (
           <Form onChange={selectHandler}>
-            <div className="flex flex-col items-center justify-center gap-2 md:gap-5 w-full">
+            <div className="flex flex-col items-center text-left justify-center gap-2 md:gap-5 w-full">
               <CustomInputField
                 name="name"
                 label="Mosque name"
@@ -145,12 +147,7 @@ const MosqueForm = () => {
                 placeholder="Name of the Imam"
                 type="text"
               />
-              {/* <FileInputField
-                clickHandler={() => setShowPhotoUploader(true)}
-                name="image"
-                label="Mosque image"
-                labelStyle="p-2 px-4 w-full bg-purple-950 text-white text-center"
-              /> */}
+
               <CustomInputField
                 name="address"
                 label="Address"
@@ -183,17 +180,15 @@ const MosqueForm = () => {
                 ))}
               </CustomSelectField>
 
-              <button
-                type="submit"
-                className={`${styles.buttonFluid} flex gap-2 items-center justify-center`}
-                disabled={isSubmitting}>
-                Submit
-                {isSubmitting && (
-                  <FaSpinner
-                    className={`${isSubmitting ? "animate-spin" : ""}`}
-                  />
-                )}
-              </button>
+              <div className="grid grid-cols-2 w-full gap-4">
+                <SubmitButton isLoading={isSubmitting} />
+                <button
+                  type="button"
+                  className={`${styles.buttonFluidPlain} bg-slate-300`}
+                  onClick={() => dispatch(hideForm("mosque"))}>
+                  Cancel
+                </button>
+              </div>
             </div>
           </Form>
         )}

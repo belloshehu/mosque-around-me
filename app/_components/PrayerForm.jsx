@@ -26,7 +26,7 @@ const PrayerForm = ({ mosque }) => {
   }, []);
 
   return (
-    <div className="w-full bg-white lg:w-1/3 bg-gradient-to-tr lg:border-2 p-5 lg:p-10 rounded-md">
+    <div className="overflow-y-auto max-h-[98vh] w-full bg-white lg:w-1/3 bg-gradient-to-tr lg:border-2 p-5 lg:p-10 rounded-md">
       <h2 className={"text-center text-primary font-bold mb-4 lg:text-2xl"}>
         {selectedPrayer ? "Edit" : "New"} Prayer
       </h2>
@@ -121,7 +121,6 @@ const PrayerForm = ({ mosque }) => {
                   )}
                 </button>
                 <button
-                  type="button"
                   className={`${styles.buttonFluidPlain} bg-slate-400 text-black w-1/2`}
                   onClick={() => dispatch(hideForm("prayer"))}>
                   Cancel

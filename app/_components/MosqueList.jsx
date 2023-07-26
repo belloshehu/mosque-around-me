@@ -38,7 +38,7 @@ const MosqueList = () => {
   return (
     <section className="w-full">
       <div className="flex items-center gap-2">
-        <h3>Mosques</h3> <Badge text={mosques.length} />
+        <h3>Mosques</h3> <Badge text={mosques?.length} />
       </div>
       <div className="grid text-center grid-cols-1 gap-4 w-full my-5 lg:my-10">
         {mosques?.map((mosque) => (

@@ -55,7 +55,10 @@ export const authOption = {
     async session({ session }) {
       await dbConnect();
       const user = await User.findOne({ email: session.user.email });
-      session.user = user;
+      console.log(session);
+      if (user) {
+        session.user = user;
+      }
       return session;
     },
     // async signIn({ profile }) {

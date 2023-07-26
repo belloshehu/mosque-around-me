@@ -7,9 +7,16 @@ import { getMosques } from "../utils/api";
 import { useSession } from "next-auth/react";
 import TabCollection from "../_components/TabCollection";
 import { profilePageTabsData } from "../data";
+import { useDispatch, useSelector } from "react-redux";
+import { showForm } from "../GlobalRedux/features/modal/modalSlice";
+import ModalWrapper from "../_components/ModalWrapper";
+import MosqueForm from "../_components/MosqueForm";
+import Mosque from "../_components/Mosque";
 
 const DashboardPage = () => {
   // redirect to this page after login
+  const dispatch = useDispatch();
+  const { mosqueFormVisible } = useSelector((store) => store.modal);
   const { data: session } = useSession({
     required: true,
     onUnauthenticated() {
@@ -45,18 +52,18 @@ const DashboardPage = () => {
                   <span>loading mosques ...</span>
                 </div>
               }>
-              {mosques ? (
+              {mosques?.length > 0 ? (
                 <ul className="">
                   {mosques?.map((mosque) => (
-                    <li key={mosque._id}>{mosque._id}</li>
+                    <Mosque key={mosque._id} {...mosque} />
                   ))}
                 </ul>
               ) : (
-                <Link
-                  href={"/mosque/create"}
-                  className={`${styles.buttonFluidPlain} bg-purple-950 `}>
+                <button
+                  onClick={() => dispatch(showForm("mosque"))}
+                  className={`${styles.buttonFluidPlain} bg-purple-950 text-black w-fit `}>
                   Add mosque
-                </Link>
+                </button>
               )}
             </Suspense>
           </div>
@@ -80,6 +87,11 @@ const DashboardPage = () => {
           </div>
         </div>
       </TabCollection>
+      {mosqueFormVisible && (
+        <ModalWrapper>
+          <MosqueForm />
+        </ModalWrapper>
+      )}
     </section>
   );
 };

@@ -8,6 +8,7 @@ const modalSlice = createSlice({
     dropDownOpen: false,
     prayerFormVisible: false,
     programFormVisible: false,
+    mosqueFormVisible: false,
     confirmDelete: false,
   },
   reducers: {
@@ -36,6 +37,8 @@ const modalSlice = createSlice({
         state.prayerFormVisible = true;
       } else if (payload === "program") {
         state.programFormVisible = true;
+      } else if (payload === "mosque") {
+        state.mosqueFormVisible = true;
       }
     },
     hideForm: (state, { payload }) => {
@@ -43,6 +46,8 @@ const modalSlice = createSlice({
         state.prayerFormVisible = false;
       } else if (payload === "program") {
         state.programFormVisible = false;
+      } else if (payload === "mosque") {
+        state.mosqueFormVisible = false;
       } else {
         state.prayerFormVisible = false;
         state.programFormVisible = false;
