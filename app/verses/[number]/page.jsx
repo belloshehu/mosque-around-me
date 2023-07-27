@@ -1,9 +1,12 @@
+"use client";
 import Image from "next/image";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsGear } from "react-icons/bs";
-import { FaHeart } from "react-icons/fa";
+import Verse from "../../_components/Verse";
 
-const VersesPage = () => {
+const VersesPage = async ({ params }) => {
+  const verseNumber = params.number;
+
   return (
     <div>
       <h2 className="text-2xl font-bold text-primary">Verses</h2>
@@ -33,12 +36,7 @@ const VersesPage = () => {
         </div>
         <div className="flex flex-col items-center justify-center min-h-screen w-full bg-purple-300 bg-opacity-50 rounded-md p-2">
           <div className="w-full h-full flex flex-col items-center justify-center rounded-md bg-black bg-opacity-40 relative">
-            <p className="text-white text-center p-4">show verses here</p>
-
-            {/* favorite section */}
-            <div className="absolute -bottom-8 md:-bottom-12 right-0 p-2 hover:bg-purple-900 group rounded-md">
-              <AiOutlineHeart className="relative text-2xl md:text-3xl text-purple-900 hover:scale-105 fast-transition group-hover:text-white" />
-            </div>
+            <Verse verseNumber={verseNumber} />
           </div>
         </div>
       </div>

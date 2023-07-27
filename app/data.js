@@ -4,6 +4,9 @@ import { RiRidingLine } from "react-icons/ri";
 import { AiOutlineHeart, AiOutlineUser, AiOutlineHome } from "react-icons/ai";
 import { BsBell, BsFillCarFrontFill, BsBook } from "react-icons/bs";
 import { MdOutlineMosque } from "react-icons/md";
+
+const randomVerse = Math.floor(Math.random() * 6666);
+
 export const links = [
   {
     linkText: "Programs",
@@ -129,7 +132,7 @@ export const menuitems = [
     id: 5,
     icon: <BsBook />,
     text: "Verses",
-    path: "/verses",
+    path: `/verses/${randomVerse}`,
   },
   {
     icon: <AiOutlineUser />,
@@ -203,5 +206,16 @@ export const profilePageTabsData = [
   {
     id: "3",
     heading: "Application",
+  },
+];
+
+export const favoritePageTabs = [
+  {
+    id: "1",
+    heading: "Mosques",
+  },
+  {
+    id: "2",
+    heading: "Verses",
   },
 ];

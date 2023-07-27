@@ -52,7 +52,7 @@ const DashboardPage = () => {
                   <span>loading mosques ...</span>
                 </div>
               }>
-              {mosques?.length > 0 ? (
+              {mosques ? (
                 <ul className="">
                   {mosques?.map((mosque) => (
                     <Mosque key={mosque._id} {...mosque} />

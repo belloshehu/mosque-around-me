@@ -25,7 +25,6 @@ export const authOption = {
         await dbConnect();
 
         const { email, password } = credentials;
-        console.log(email, password);
         if (!email || !password) {
           throw new Error("Email and password required");
         }
@@ -55,7 +54,6 @@ export const authOption = {
     async session({ session }) {
       await dbConnect();
       const user = await User.findOne({ email: session.user.email });
-      console.log(session);
       if (user) {
         session.user = user;
       }
@@ -87,7 +85,7 @@ export const authOption = {
   pages: {
     signIn: "/auth/login",
   },
-  secret: process.env.NEXT_AUTH_SECRET,
+  // secret: process.env.NEXT_AUTH_SECRET,
 };
 
 const handler = NextAuth(authOption);
