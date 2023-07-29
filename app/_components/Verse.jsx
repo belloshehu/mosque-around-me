@@ -1,11 +1,13 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import axios from "axios";
 import { getFavoriteVerse } from "../utils/api";
+import FavoriteButton from "./FavoriteButton";
 
 const Verse = ({ refresh, verseNumber }) => {
   const [isAddingFavorite, setIsAddingFavorite] = useState(false);
   const [fovorite, setFavorite] = useState(null);
+  const [fetchError, setFetchError] = useState("");
   const [verse, setVerse] = useState({
     dataEnglish: {},
     dataArabic: {},
@@ -13,45 +15,35 @@ const Verse = ({ refresh, verseNumber }) => {
 
   const [loading, setLoading] = useState(true);
 
-  const addToFavorites = async () => {
-    setIsAddingFavorite(true);
-    try {
-      const res = await axios.post("/api/verse", {
-        verseNumber: verse.dataEnglish.surah.englishName,
-        surah: verse.dataEnglish.numberInSurah,
-      });
-      toast.success(res.data.message);
-      setFavorite(true);
-    } catch (error) {
-      toast.error(error.data.message);
-    } finally {
-      setIsAddingFavorite(false);
-    }
-  };
+  const getData = useMemo(() => {
+    return async () => {
+      // return data for a verse in Arabic and English
 
-  const getData = async () => {
-    // return data for a verse in Arabic and English
+      const randomVerse = verseNumber;
+      try {
+        const response = await fetch(
+          `https://api.alquran.cloud/v1/ayah/${randomVerse}/en.asad`
+        );
+        const dataEnglish = await response.json();
 
-    const randomVerse = verseNumber;
-    const response = await fetch(
-      `https://api.alquran.cloud/v1/ayah/${randomVerse}/en.asad`
-    );
-    const dataEnglish = await response.json();
+        const response2 = await fetch(
+          `https://api.alquran.cloud/v1/ayah/${randomVerse}/ar.alafasy`
+        );
+        const dataArabic = await response2.json();
+        setVerse({
+          ...verse,
+          dataArabic: dataArabic.data,
+          dataEnglish: dataEnglish.data,
+        });
+      } catch (error) {
+        setFetchError("Failed to fetch verse. Check internet connection");
+      } finally {
+        setLoading(false);
+      }
 
-    const response2 = await fetch(
-      `https://api.alquran.cloud/v1/ayah/${randomVerse}/ar.alafasy`
-    );
-    const dataArabic = await response2.json();
-
-    // console.log(dataAudio.data)
-
-    setVerse({
-      ...verse,
-      dataArabic: dataArabic.data,
-      dataEnglish: dataEnglish.data,
-    });
-    setLoading(false);
-  };
+      // console.log(dataAudio.data)
+    };
+  }, [verseNumber]);
 
   useEffect(() => {
     getData();
@@ -64,6 +56,9 @@ const Verse = ({ refresh, verseNumber }) => {
 
   if (loading) {
     return <div className="p-2 text-center text-white">loading verse...</div>;
+  }
+  if (fetchError) {
+    return <div className="p-2 text-center text-slate-100">{fetchError}</div>;
   }
   return (
     <div className="bg-slate-200 p-2 my-2 text-center rounded-md shadow-md transition-all duration-200 ">
@@ -80,12 +75,11 @@ const Verse = ({ refresh, verseNumber }) => {
           {verse.dataEnglish?.numberInSurah}
         </strong>
         {/* favorite section */}
-        <div className="absolute -bottom-8 md:-bottom-12 right-0 p-2 hover:bg-purple-900 group rounded-md">
-          <AiOutlineHeart
-            onClick={addToFavorites}
-            className="relative text-2xl md:text-3xl text-purple-900 hover:scale-105 fast-transition group-hover:text-white"
-          />
-        </div>
+        <FavoriteButton
+          addToFavorites={addToFavorites}
+          removeFromFavorites={removeFromFavorites}
+          isFavorite={true}
+        />
       </div>
     </div>
   );

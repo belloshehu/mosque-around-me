@@ -34,8 +34,8 @@ const VersesPage = async ({ params }) => {
             <BsGear className="text-xl md:text-2xl text-white  hover:scale-110 group-hover:text-purple-950" />
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center min-h-screen w-full bg-purple-300 bg-opacity-50 rounded-md p-2">
-          <div className="w-full h-full flex flex-col items-center justify-center rounded-md bg-black bg-opacity-40 relative">
+        <div className="flex flex-col items-center justify-center h-screen w-full bg-purple-300 bg-opacity-50 rounded-md p-2">
+          <div className="w-full min-h-[50%] flex flex-col items-center justify-center rounded-md bg-black bg-opacity-40 relative">
             <Verse verseNumber={verseNumber} />
           </div>
         </div>

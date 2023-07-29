@@ -11,10 +11,14 @@ const FavoriteMosques = () => {
   const getData = async () => {
     setIsLoading(true);
     try {
-      const { data } = await axios.get("/api/favorites/mosque");
+      const { data } = await axios.get("/api/favorites/mosque", {
+        next: {
+          invalidate: "0",
+        },
+      });
       setMosques(data.favoriteMosques);
+      console.log(data);
     } catch (error) {
-      console.log(error);
       toast.error(error.data.message);
     } finally {
       setIsLoading(false);

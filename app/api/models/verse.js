@@ -10,6 +10,10 @@ const verseSchema = new mongoose.Schema(
       type: String,
       required: [true, "Surah required "],
     },
+    user: {
+      type: mongoose.Types.ObjectId,
+      required: [true, "User Id required"],
+    },
   },
   { timestamps: true }
 );

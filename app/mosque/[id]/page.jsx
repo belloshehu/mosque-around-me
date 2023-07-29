@@ -16,6 +16,9 @@ import Prayer from "../../_components/Prayer";
 import ConfirmDelete from "../../_components/ConfirmDelete";
 import ProgramForm from "../../_components/ProgramForm";
 import ProgramList from "../../_components/ProgramList";
+import FavoriteButton from "../../_components/FavoriteButton";
+import { useAddFavorite, useRemoveFavorite } from "../../utils/customHooks";
+import RemoveFavoriteButton from "../../_components/RemoveFavoriteButton";
 
 const getMosque = async (id) => {
   let mosque = null;
@@ -34,6 +37,7 @@ const MosqueDetailPage = async ({ params }) => {
   const { prayerFormVisible, confirmDelete, programFormVisible } = useSelector(
     (store) => store.modal
   );
+  const [favorite, setFavorite] = useState(null);
   const [mosque, setMosque] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
@@ -45,7 +49,9 @@ const MosqueDetailPage = async ({ params }) => {
     try {
       setIsLoading(true);
       const data = await getMosque(id);
+      console.log(data);
       setMosque(data);
+      setFavorite(data.favorite[0]);
     } catch (error) {
       console.log(error);
     } finally {
@@ -53,10 +59,40 @@ const MosqueDetailPage = async ({ params }) => {
     }
   };
 
+  const [addFavorite, isAdding] = useAddFavorite(
+    `/api/favorites/mosque/${mosque?._id}`,
+    {}
+  );
+  const [removeFavorite, isRemoving] = useRemoveFavorite(
+    `/api/favorites/mosque/${mosque?._id}`,
+    {}
+  );
+
   useEffect(() => {
     getData();
   }, []);
 
+  const addFavoriteHandler = async () => {
+    await addFavorite()
+      .then((res) => {
+        setMosque((prev) => ({ ...prev, favorite: res.favoriteMosque }));
+        setFavorite(res.favoriteMosque);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const removeFavoriteHandler = async () => {
+    await removeFavorite()
+      .then((res) => {
+        setMosque((prev) => ({ ...prev, favorite: null }));
+        setFavorite(null);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   if (isLoading) {
     return (
       <div className="flex justify-center items-center justify-items-center">
@@ -68,7 +104,14 @@ const MosqueDetailPage = async ({ params }) => {
   return (
     <div className="min-h-screen w-full">
       <header className="h-[250px] lg:h-[400px] w-full relative text-white rounded-md">
-        <FaPen className="absolute top-5 right-5 z-10 bg-slate-400 p-1 w-10 h-10 rounded-full text-xl lg:text-3xl" />
+        <div className="flex flex-col md:flex-row space-y-3 gap-5 absolute top-5 right-5 z-10">
+          <FaPen className=" bg-slate-400 p-1 w-10 h-10 rounded-full text-xl lg:text-3xl" />
+          {favorite ? (
+            <RemoveFavoriteButton removeFromFavorites={removeFavoriteHandler} />
+          ) : (
+            <FavoriteButton addToFavorites={addFavoriteHandler} />
+          )}
+        </div>
         <Image
           src={mosque?.image || mosqueImage}
           alt="mosque"
@@ -181,4 +224,4 @@ const MosqueDetailPage = async ({ params }) => {
   );
 };
 
-export default MosqueDetailPage;
+export default React.memo(MosqueDetailPage);

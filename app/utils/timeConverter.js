@@ -14,9 +14,9 @@ export const isDuePrayer = (prayerAdhaanTime, prayerIqaamaTime) => {
   let [currentHours, currentMinutes] = new Date()
     .toLocaleTimeString()
     .split(":");
-  console.log(currentHours, currentMinutes);
-  console.log(adhaanHours, adhaanMinutes);
-  console.log(iqaamaHours, iqaamaMinutes);
+  // console.log(currentHours, currentMinutes);
+  // console.log(adhaanHours, adhaanMinutes);
+  // console.log(iqaamaHours, iqaamaMinutes);
   if (adhaanHours == currentHours && currentMinutes >= adhaanMinutes) {
     if (currentMinutes <= iqaamaMinutes) {
       return true;

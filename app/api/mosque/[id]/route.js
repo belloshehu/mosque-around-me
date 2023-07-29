@@ -10,8 +10,26 @@ import { getServerSession } from "next-auth/next";
 export async function GET(request, { params }) {
   try {
     await dbConnect();
+    const session = await getServerSession(authOption);
 
     const id = params.id;
+
+    // this pipeline associates user's favorite mosque data to a matching mosque
+    const favoritePipeline = {
+      $lookup: {
+        from: "favoritemosques",
+        localField: "_id",
+        foreignField: "mosqueId",
+        pipeline: [
+          {
+            $match: {
+              user: new mongoose.Types.ObjectId(session.user._id),
+            },
+          },
+        ],
+        as: "favorite",
+      },
+    };
 
     const result = await Mosque.aggregate([
       {
@@ -37,6 +55,7 @@ export async function GET(request, { params }) {
           as: "prayers",
         },
       },
+      session.user ? favoritePipeline : {},
       {
         $lookup: {
           from: "programs",
