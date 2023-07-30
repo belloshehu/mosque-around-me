@@ -66,7 +66,6 @@ export async function POST(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
-  console.log("removing from fav");
   await dbConnect();
   try {
     const session = await getServerSession(authOption);
