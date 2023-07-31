@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { AiOutlineHeart } from "react-icons/ai";
 import { BsGear } from "react-icons/bs";
 import Verse from "../../_components/Verse";
 
@@ -31,9 +30,8 @@ const VersesPage = async ({ params }) => {
           </div>
         </div>
         <div className="flex flex-col items-center justify-center h-screen w-full bg-opacity-50 rounded-md p-2">
-          <div className="w-full min-h-[50%] flex flex-col items-center justify-center rounded-md bg-black bg-opacity-90 relative">
-            <Verse verseNumber={verseNumber} />
-          </div>
+          <Verse verseNumber={verseNumber} />
+          {/* <div className="w-full min-h-[50%] flex flex-col items-center justify-center rounded-md bg-black bg-opacity-90 relative"></div> */}
         </div>
       </div>
     </div>

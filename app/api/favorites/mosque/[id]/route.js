@@ -8,7 +8,6 @@ import User from "../../../models/User";
 import Mosque from "../../../models/mosque";
 
 export async function POST(request, { params }) {
-  console.log("addding to fav");
   await dbConnect();
   const session = await getServerSession(authOption);
   try {

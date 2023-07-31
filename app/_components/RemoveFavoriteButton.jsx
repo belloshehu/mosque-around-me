@@ -1,5 +1,6 @@
 "use client";
 import { FaHeartBroken } from "react-icons/fa";
+import { TbHeartMinus } from "react-icons/tb";
 
 const RemoveFavoriteButton = ({ removeFromFavorites }) => {
   return (
@@ -8,7 +9,7 @@ const RemoveFavoriteButton = ({ removeFromFavorites }) => {
       onClick={() => {
         removeFromFavorites();
       }}>
-      <FaHeartBroken className="relative text-2xl md:text-3xl text-purple-900 hover:scale-105 fast-transition group-hover:text-white" />
+      <TbHeartMinus className="relative text-2xl md:text-3xl text-purple-900 hover:scale-105 fast-transition group-hover:text-white" />
     </div>
   );
 };

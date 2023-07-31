@@ -1,3 +1,4 @@
+"use client";
 import { favoritePageTabs } from "../data";
 import TabCollection from "../_components/TabCollection";
 import FavoriteMosques from "../_components/FavoriteMosques";
