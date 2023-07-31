@@ -26,7 +26,7 @@ export async function GET(request) {
 
     const favoriteMosques = await FavoriteMosque.find({
       user: user._id,
-    }).populate(["user", "mosqueId"]);
+    }).populate("mosqueId");
 
     return NextResponse.json({
       count: favoriteMosques.length,
