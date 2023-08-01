@@ -13,9 +13,7 @@ export const subscribe = async (mosqueId, serviceName, serviceId) => {
   // handle subscription for a prayer or program with a given ID
   // serviceName takes 'prayer' or 'program' as value
   return axios
-    .post(
-      `http://localhost:3000/api/subscription/${mosqueId}/${serviceName}/${serviceId}`
-    )
+    .post(`/api/subscription/${mosqueId}/${serviceName}/${serviceId}`)
     .then(({ data }) => {
       toast.success("subscribed successfully");
       return data;
@@ -29,9 +27,7 @@ export const unSubscribe = async (mosqueId, serviceName, serviceId) => {
   // handle subscription for a prayer or program with a given ID
   // serviceName takes 'prayer' or 'program' as value
   return axios
-    .patch(
-      `http://localhost:3000/api/subscription/${mosqueId}/${serviceName}/${serviceId}`
-    )
+    .patch(`/api/subscription/${mosqueId}/${serviceName}/${serviceId}`)
     .then(({ data }) => {
       toast.success("Unsubscribed successfully");
       return data;

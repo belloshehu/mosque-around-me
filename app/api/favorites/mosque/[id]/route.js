@@ -11,8 +11,8 @@ export async function POST(request, { params }) {
   await dbConnect();
   const session = await getServerSession(authOption);
   try {
-    if (!session.user) {
-      return new NextResponse("Unthentication required", {
+    if (!session) {
+      return new NextResponse("Please login", {
         status: StatusCodes.UNAUTHORIZED,
       });
     }
@@ -66,10 +66,9 @@ export async function POST(request, { params }) {
 
 export async function DELETE(request, { params }) {
   await dbConnect();
+  const session = await getServerSession(authOption);
   try {
-    const session = await getServerSession(authOption);
-
-    if (!session.user) {
+    if (!session) {
       return new NextResponse("Unthentication required", {
         status: StatusCodes.UNAUTHORIZED,
       });

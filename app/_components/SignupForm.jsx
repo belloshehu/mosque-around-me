@@ -5,7 +5,6 @@ import Link from "next/link";
 import { styles } from "../styles";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import googleIcon from "../_images/google.png";
 import CustomInputField from "./CustomInputField";
 import PhoneNumberField from "./PhoneNumberField";
 import { useRouter } from "next/navigation";

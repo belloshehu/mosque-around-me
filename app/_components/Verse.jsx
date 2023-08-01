@@ -1,23 +1,21 @@
 "use client";
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { getFavoriteVerse } from "../utils/api";
-import FavoriteButton from "./FavoriteButton";
-import { useAddFavorite } from "../utils/customHooks";
 import { getRandomVerse } from "../utils/randomNumber";
-import { FcNext, FcPrevious, FcRefresh } from "react-icons/fc";
-import { TbPlayerTrackNext, TbPlayerTrackPrev } from "react-icons/tb";
 
-const Verse = ({ verseNumber }) => {
+import AudioPlayer from "./AudioPlayer";
+
+const Verse = () => {
   const [fovorite, setFavorite] = useState(null);
   const [fetchError, setFetchError] = useState("");
-  const [randomVerseNumber, setRandomVerseNumber] = useState(verseNumber);
+  const randomNumber = getRandomVerse();
+  const [randomVerseNumber, setRandomVerseNumber] = useState(randomNumber);
   const [verse, setVerse] = useState({
     dataEnglish: {},
     dataArabic: {},
   });
 
   const [loading, setLoading] = useState(true);
-  const [addFavorite, isAdding] = useAddFavorite("", {});
 
   const getNextVerse = () => {
     if (randomVerseNumber < 6666) {
@@ -33,7 +31,6 @@ const Verse = ({ verseNumber }) => {
   const getData = useMemo(() => {
     return async () => {
       // return data for a verse in Arabic and English
-
       try {
         const response = await fetch(
           `https://api.alquran.cloud/v1/ayah/${randomVerseNumber}/en.asad`
@@ -55,17 +52,18 @@ const Verse = ({ verseNumber }) => {
         setLoading(false);
       }
     };
-  }, [randomVerseNumber]);
+  }, []);
 
   const refresh = () => {
     setRandomVerseNumber(getRandomVerse());
   };
+
   useEffect(() => {
     getData();
   }, [refresh, getNextVerse, getPreviousVerse]);
 
   useEffect(() => {
-    const data = getFavoriteVerse(verseNumber);
+    const data = getFavoriteVerse(randomVerseNumber);
     setFavorite(data);
   }, []);
 
@@ -92,19 +90,14 @@ const Verse = ({ verseNumber }) => {
           -- {verse.dataEnglish?.surah?.englishName} : verse{" "}
           {verse.dataEnglish?.numberInSurah} --
         </small>
-        {/* favorite section */}
       </div>
-      <div className="mx-auto mt-4 ">
-        <audio controls autoPlay className="mx-auto rounded-full">
-          <source src={verse.dataArabic.audio} type="audio/mpeg" />
-        </audio>
-      </div>
-      <div className="flex gap-10 items-center text-xl absolute -bottom-4 md:-bottom-8 left-0 p-4 bg-black border-[1px] border-slate-200 border-transparent">
-        <FcRefresh onClick={refresh} className="text-white" />
-        <TbPlayerTrackPrev onClick={getPreviousVerse} className="" />
-        <TbPlayerTrackNext onClick={getNextVerse} className="" />
-        <FavoriteButton addToFavorites={addFavorite} style={"relative"} />
-      </div>
+
+      <AudioPlayer
+        src={verse.dataArabic.audio}
+        getNextVerse={getNextVerse}
+        getPreviousVerse={getPreviousVerse}
+        refresh={refresh}
+      />
     </div>
   );
 };

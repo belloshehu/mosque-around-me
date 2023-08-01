@@ -15,7 +15,7 @@ const UserMenuItem = () => {
 
   const { data: session } = useSession();
   return (
-    <ul className="flex flex-col items-center place-self-end mx-auto list-none gap-1">
+    <ul className="flex flex-col items-center place-self-end mx-auto list-none gap-1 mb-5">
       {session && (
         <li className={`text-sm px-5 text-black flex gap-2 items-center`}>
           {session?.user?.image ? (

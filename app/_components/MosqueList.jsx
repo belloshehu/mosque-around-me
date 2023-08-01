@@ -12,6 +12,7 @@ const MosqueList = () => {
     try {
       setIsLoading(true);
       const data = await getMosques();
+      console.log("mosques: ", data);
       setMosques(data);
     } catch (error) {
       console.log(error);

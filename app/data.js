@@ -132,7 +132,7 @@ export const menuitems = [
     id: 5,
     icon: <BsBook />,
     text: "Verses",
-    path: `/verses/${randomVerse}`,
+    path: `/verses`,
   },
   {
     icon: <AiOutlineUser />,

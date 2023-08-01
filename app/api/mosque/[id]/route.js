@@ -4,16 +4,13 @@ import dbConnect from "../../lib/dbConnect";
 import mongoose from "mongoose";
 import { StatusCodes } from "http-status-codes";
 import { authOption } from "../../auth/[...nextauth]/route";
-import User from "../../models/User";
 import { getServerSession } from "next-auth/next";
 
 export async function GET(request, { params }) {
+  await dbConnect();
+  const session = await getServerSession(authOption);
   try {
-    await dbConnect();
-    const session = await getServerSession(authOption);
-
     const id = params.id;
-
     // this pipeline associates user's favorite mosque data to a matching mosque
     const favoritePipeline = {
       $lookup: {
@@ -23,7 +20,7 @@ export async function GET(request, { params }) {
         pipeline: [
           {
             $match: {
-              user: new mongoose.Types.ObjectId(session.user._id),
+              user: new mongoose.Types.ObjectId(session?.user?._id),
             },
           },
         ],
@@ -55,7 +52,7 @@ export async function GET(request, { params }) {
           as: "prayers",
         },
       },
-      session.user ? favoritePipeline : {},
+      favoritePipeline,
       {
         $lookup: {
           from: "programs",

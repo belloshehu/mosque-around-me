@@ -13,6 +13,7 @@ const useAddFavorite = (url, values) => {
       toast.success(res.data.message);
       return res.data;
     } catch (error) {
+      console.log(error);
       toast.error(error.response.data);
     } finally {
       setIsAdding(false);

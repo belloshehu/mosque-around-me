@@ -21,7 +21,7 @@ const SideMenubar = () => {
     <aside
       className={`${poppins.className} ${
         isOpened ? "translate-x-0" : "-translate-x-[100%] md:translate-x-0"
-      } flex flex-col items-start space-y-8 md:shadow-md p-5 h-screen transition-all duration-200 absolute bg-slate-100 md:bg-white md:sticky top-0 w-4/6  md:w-[270px] z-20 pr-4`}>
+      } flex flex-col items-start space-y-4 md:space-y-8 md:shadow-md p-5 h-screen bg-black transition-all duration-200 fixed  md:bg-white md:sticky top-0 w-4/6  md:w-[270px] z-20 pr-4`}>
       <LiaTimesSolid
         className="visible inline md:hidden text-purple-600 absolute z-20 top-2 right-2 text-3xl"
         onClick={closeModalHandler}

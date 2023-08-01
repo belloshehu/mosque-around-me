@@ -14,7 +14,7 @@ const MenubarItem = ({ icon, text, path }) => {
     dispatch(closeModal());
   };
   return (
-    <li className="w-full">
+    <li className="w-full p-0">
       <Link
         onClick={closeModalHandler}
         href={path}
@@ -22,9 +22,9 @@ const MenubarItem = ({ icon, text, path }) => {
           text.toLowerCase() === currentPath.toLowerCase()
             ? "bg-purple-200"
             : ""
-        } flex items-center group hover:gap-3 gap-0 relative hover:bg-purple-200 hover:scale-[102%] text-xl transition-all duration-150 hover:text-white text-purple-600 rounded-md p-4 py-3 w-full`}>
+        } flex items-center group gap-3 relative hover:bg-purple-200  transition-all duration-150 hover:text-white text-purple-600 rounded-md p-4 py-1 md:p-3 w-full`}>
         <span className="text-3xl">{icon}</span>
-        <span className="group-hover:scale-95 group-hover:text-white scale-75 text-purple-400 w-full">
+        <span className=" group-hover:text-white  text-purple-400 w-full">
           {text}
         </span>
       </Link>

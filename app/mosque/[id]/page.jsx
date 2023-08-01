@@ -4,7 +4,7 @@ import axios from "axios";
 import mosqueImage from "../../_images/mosque.png";
 import avatarImage from "../../_images/avatar.jpg";
 import Image from "next/image";
-import { FaBell, FaMapMarkerAlt, FaPen, FaSpinner } from "react-icons/fa";
+import { FaEnvelope, FaMapMarkerAlt, FaPen, FaSpinner } from "react-icons/fa";
 import { styles } from "../../styles";
 import PrayerTimeTable from "../../_components/PrayerTimeTable";
 import { useSession } from "next-auth/react";
@@ -19,45 +19,19 @@ import ProgramList from "../../_components/ProgramList";
 import FavoriteButton from "../../_components/FavoriteButton";
 import { useAddFavorite, useRemoveFavorite } from "../../utils/customHooks";
 import RemoveFavoriteButton from "../../_components/RemoveFavoriteButton";
+import { baseUrl } from "../../utils/api";
 
-const getMosque = async (id) => {
-  let mosque = null;
-  try {
-    const { data } = await axios.get(`http://localhost:3000/api/mosque/${id}`, {
-      cache: "no-cache",
-    });
-    mosque = await data.mosque;
-  } catch (error) {
-    console.log(error);
-  }
-  return mosque;
-};
-
-const MosqueDetailPage = async ({ params }) => {
+const MosqueDetailPage = ({ params }) => {
   const { prayerFormVisible, confirmDelete, programFormVisible } = useSelector(
     (store) => store.modal
   );
-  const [favorite, setFavorite] = useState(null);
-  const [mosque, setMosque] = useState(null);
+  const [favorite, setFavorite] = useState({});
+  const [mosque, setMosque] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   const { data: session } = useSession();
   const { id } = params;
-
-  const getData = async () => {
-    try {
-      setIsLoading(true);
-      const data = await getMosque(id);
-      console.log(data);
-      setMosque(data);
-      setFavorite(data.favorite[0]);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const [addFavorite, isAdding] = useAddFavorite(
     `/api/favorites/mosque/${mosque?._id}`,
@@ -69,13 +43,31 @@ const MosqueDetailPage = async ({ params }) => {
   );
 
   useEffect(() => {
-    getData();
+    const getMosque = async () => {
+      setIsLoading(true);
+      try {
+        const { data } = await axios.get(`${baseUrl}/api/mosque/${id}`, {
+          next: {
+            invalidate: 0,
+          },
+        });
+        setMosque(data.mosque);
+        setFavorite(data.mosque?.favorite[0]);
+        console.log(mosque);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getMosque();
   }, []);
 
   const addFavoriteHandler = async () => {
     await addFavorite()
       .then((res) => {
-        setMosque((prev) => ({ ...prev, favorite: res.favoriteMosque }));
+        console.log(res);
+        setMosque((prev) => ({ ...prev, favorite: res?.favoriteMosque }));
         setFavorite(res.favoriteMosque);
       })
       .catch((error) => {
@@ -93,6 +85,7 @@ const MosqueDetailPage = async ({ params }) => {
         console.log(error);
       });
   };
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center justify-items-center">
@@ -104,12 +97,20 @@ const MosqueDetailPage = async ({ params }) => {
   return (
     <div className="min-h-screen w-full">
       <header className="h-[250px] lg:h-[400px] w-full relative text-white rounded-md">
-        <div className="flex flex-col md:flex-row space-y-3 gap-5 absolute top-5 right-5 z-10">
+        <div className="flex flex-col gap-2 items-center absolute top-1 md:top-5 right-1 md:right-5 z-10">
           <FaPen className=" bg-slate-400 p-1 w-10 h-10 rounded-full text-xl lg:text-3xl" />
           {favorite ? (
-            <RemoveFavoriteButton removeFromFavorites={removeFavoriteHandler} />
+            <RemoveFavoriteButton
+              removeFromFavorites={removeFavoriteHandler}
+              isRemoving={isRemoving}
+              style={"relative text-white"}
+            />
           ) : (
-            <FavoriteButton addToFavorites={addFavoriteHandler} />
+            <FavoriteButton
+              addToFavorites={addFavoriteHandler}
+              isAdding={isAdding}
+              style={"relative text-white"}
+            />
           )}
         </div>
         <Image
@@ -172,7 +173,7 @@ const MosqueDetailPage = async ({ params }) => {
             ) : (
               <button
                 className={`${styles.buttonFluidPlain} bg-purple-950 flex gap-2 items-center`}>
-                <FaBell /> Subscribe for notification
+                <FaEnvelope /> Subscribe
               </button>
             )}
           </div>
@@ -206,7 +207,7 @@ const MosqueDetailPage = async ({ params }) => {
             ) : (
               <button
                 className={`${styles.buttonFluidPlain} bg-purple-950 flex gap-2 items-center`}>
-                <FaBell /> Subscribe for notification
+                <FaEnvelope /> Subscribe
               </button>
             )}
           </div>
