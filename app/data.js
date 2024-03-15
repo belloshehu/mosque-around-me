@@ -168,17 +168,17 @@ export const categories = [
 export const distances = [
   {
     id: 0,
-    text: "40 mins",
+    text: "40",
     icon: <FaWalking />,
   },
   {
     id: 1,
-    text: "20 mins",
+    text: "20",
     icon: <RiRidingLine />,
   },
   {
     id: 2,
-    text: "12 mins",
+    text: "12",
     icon: <BsFillCarFrontFill />,
   },
 ];
