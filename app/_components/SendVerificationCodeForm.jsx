@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import SubmitButton from "./SubmitButton";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const SendVerificationCodeForm = ({
   form_description,
@@ -36,16 +37,12 @@ const SendVerificationCodeForm = ({
   };
 
   return (
-    <div className="w-full lg:w-1/3">
+    <div className="w-full lg:w-2/5 shadow-xl md:p-10">
       <form
         action=""
         onSubmit={handleSubmit}
         className="flex flex-col items-center h-full w-full">
-        <div className="mt-5 text-center">
-          <h2
-            className={`text-2xl font-bold lg:text-4xl text-center mb-5 text-primary`}>
-            {form_heading}
-          </h2>
+        <div className="mt-5 text-center w-full">
           <p>{form_description}</p>
         </div>
 
@@ -61,8 +58,13 @@ const SendVerificationCodeForm = ({
             />
           </div>
 
-          <div className="flex flex-col justify-center items-center w-full my-5">
+          <div className="flex flex-col justify-center items-center w-full my-5 gap-5">
             <SubmitButton isLoading={isLoading} />
+            <Link
+              href="/auth/login"
+              className="underline text-blue-600 w-full text-left">
+              Login
+            </Link>
           </div>
         </section>
       </form>

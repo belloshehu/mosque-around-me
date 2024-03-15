@@ -1,3 +1,4 @@
+import H3Title from "../../../_components/H3Title";
 import SendVerificationCodeForm from "../../../_components/SendVerificationCodeForm";
 
 export const metadata = {
@@ -7,7 +8,12 @@ export const metadata = {
 const SendVerificationCodePage = ({ params }) => {
   const { verificationType } = params;
   return (
-    <div className=" flex-1 py-auto py-10 pb-auto flex flex-col justify-center items-center">
+    <div className=" flex-1 py-auto py-10 pb-auto gap-5 flex flex-col justify-center items-center">
+      <H3Title
+        text={
+          verificationType === "email" ? "Email verification" : "Password reset"
+        }
+      />
       <SendVerificationCodeForm
         form_heading={
           verificationType === "email" ? "Email verification" : "Password reset"

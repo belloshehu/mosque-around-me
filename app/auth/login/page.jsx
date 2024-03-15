@@ -16,7 +16,7 @@ const LoginPage = () => {
   }, [session]);
 
   return (
-    <div className="flex flex-col justify-center items-center gap-5">
+    <div className="flex flex-col justify-center items-center gap-5 pt-10 md:pt-2">
       <H3Title text={"Login"} />
       <LoginForm />
     </div>

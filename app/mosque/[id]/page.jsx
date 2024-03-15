@@ -46,14 +46,13 @@ const MosqueDetailPage = ({ params }) => {
     const getMosque = async () => {
       setIsLoading(true);
       try {
-        const { data } = await axios.get(`${baseUrl}/api/mosque/${id}`, {
+        const { data } = await axios.get(`/api/mosque/${id}`, {
           next: {
             invalidate: 0,
           },
         });
         setMosque(data.mosque);
         setFavorite(data.mosque?.favorite[0]);
-        console.log(mosque);
       } catch (error) {
         console.log(error);
       } finally {

@@ -9,10 +9,9 @@ const MosqueList = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const getData = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       const data = await getMosques();
-      console.log("mosques: ", data);
       setMosques(data);
     } catch (error) {
       console.log(error);
@@ -27,8 +26,7 @@ const MosqueList = () => {
 
   if (isLoading) {
     return <div>Loading mosques....</div>;
-  }
-  if (mosques?.length === 0) {
+  } else if (!mosques) {
     return (
       <section className="text-center w-full my-5 lg:my-10">
         <p className="text-center">No mosques found</p>

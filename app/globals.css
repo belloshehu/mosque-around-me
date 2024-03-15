@@ -63,7 +63,7 @@
 }
 
 .verification-form-body {
-  @apply w-full shadow-xl p-2 lg:p-5 text-center flex flex-col justify-center items-center;
+  @apply w-full p-5 text-center flex flex-col justify-center items-center;
 }
 
 .control-btn {

@@ -14,6 +14,7 @@ const TabHeadingCollection = ({ tabDataArray, setVisible, visible }) => {
           clickHandler={() => handleClick(id)}
           id={id}
           visible={visible}
+          key={id}
         />
       ))}
     </div>

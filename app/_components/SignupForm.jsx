@@ -16,7 +16,7 @@ const SignupForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   return (
-    <div className="w-full lg:w-1/3 bg-gradient-to-tr">
+    <div className="w-full lg:w-2/5 md:shadow-xl md:p-10">
       <Formik
         initialValues={{
           email: "",

@@ -65,12 +65,12 @@ const PrayerForm = ({ mosque }) => {
                 resetForm();
                 // set form success to show success message
                 dispatch(updateFormSuccess(true));
+                dispatch(clearSelectedPrayer());
               })
               .catch((error) => {
                 toast.error(error.response.data || "Something went wrong");
               });
           }
-          dispatch(clearSelectedPrayer());
           setIsLoading(false);
         }}
         validationSchema={Yup.object({

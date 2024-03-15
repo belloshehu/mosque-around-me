@@ -1,17 +1,7 @@
 "use client";
 import { useEffect } from "react";
-import {
-  FaCaretRight,
-  FaClosedCaptioning,
-  FaEye,
-  FaPray,
-  FaFlipboard,
-  FaPen,
-  FaToggleOff,
-  FaTrash,
-} from "react-icons/fa";
+import { FaPen, FaTrash } from "react-icons/fa";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { LiaTimesSolid } from "react-icons/lia";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import {
@@ -24,6 +14,7 @@ import { useState } from "react";
 import SubscriptionButton from "./SubscriptionButton";
 import CancelSubscriptionButton from "./CancelSubscriptionButton";
 import { isDuePrayer } from "../utils/timeConverter";
+import { FcAlarmClock } from "react-icons/fc";
 
 const PrayerTableRow = ({ prayer, user, mosque_id }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -99,7 +90,7 @@ const PrayerTableRow = ({ prayer, user, mosque_id }) => {
         isDue ? "bg-slate-300 border-purple-300" : "bg-slate-200"
       } shadow-md hover:scale-[98%] hover:border-primary relative border-2 fast-transition flex flex-col gap-2 text-center rounded-full`}>
       {isDue && (
-        <FaPray className="absolute -top-1 -left-2 animate-ping text-purple-600" />
+        <FcAlarmClock className="absolute -top-1 -left-2 animate-ping text-purple-600" />
       )}
       <div className="flex justify-around py-4">
         <div className="table-cell ">{title}</div>

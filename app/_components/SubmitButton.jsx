@@ -6,11 +6,12 @@ const SubmitButton = ({ isLoading }) => {
   return (
     <button
       type="submit"
-      className={`${styles.buttonFluid} flex gap-2 items-center justify-center w-full`}
+      className={`${styles.buttonFluidPlain} bg-purple-600 flex gap-2 items-center justify-center w-full`}
       disabled={isLoading}>
-      Submit
-      {isLoading && (
+      {isLoading ? (
         <FaSpinner className={`${isLoading ? "animate-spin" : ""}`} />
+      ) : (
+        <span>Submit</span>
       )}
     </button>
   );
