@@ -32,7 +32,7 @@ const AdminUserSchema = new mongoose.Schema(
     mosqueName: {
       type: String,
       required: [true, "Mosque name required"],
-      minlength: [5, "Country must be 5 or more characters"],
+      minlength: [5, "Mosque name must be 5 or more characters"],
     },
     // person's position in the mosque he is applying to be admin for
     position: {

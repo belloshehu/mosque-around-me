@@ -4,7 +4,6 @@ import { getEmailTemplate } from "./mailTemplate";
 
 // email transport
 const transport = nodemailer.createTransport({
-  service: "gmail",
   host: process.env.EMAIL_HOST,
   port: process.env.EMAIL_PORT,
   secure: false,
@@ -27,9 +26,12 @@ export const sendNotificationEmail = async ({
       subject,
       html: getEmailTemplate(templateBody, templateHeading),
     };
+    console.log(emailOptions);
     const emailResponse = await transport.sendMail(emailOptions);
+    console.log("sent email");
     return emailResponse;
   } catch (error) {
+    console.log("failed to send email");
     throw new Error(error.message);
   }
 };

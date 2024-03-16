@@ -6,6 +6,9 @@ import AuthContextProvider from "./context/AuthContext";
 import ToasterContext from "./context/ToasterContext";
 import SideMenubar from "./_components/SideMenubar";
 import Footer from "./_components/Footer";
+import RightSidebar from "./_components/RightSidebar";
+import IslamicDate from "./_components/IslamicDate";
+
 const poppins = Poppins({ subsets: ["latin"], weight: ["200", "700"] });
 export const metadata = {
   title: "Mosque connect",
@@ -21,10 +24,19 @@ export default async function RootLayout({ children }) {
         <Providers>
           <AuthContextProvider>
             <Header />
-            <main className="flex md:pr-10">
+            <main className="flex md:pr-0">
               <ToasterContext />
               <SideMenubar />
               <section className="w-full p-2 md:p-10">{children}</section>
+              <RightSidebar>
+                <IslamicDate
+                  day={5}
+                  month={"Ramadan"}
+                  year={1444}
+                  monthPosition={"8th"}
+                />
+                
+              </RightSidebar>
             </main>
             <Footer />
             {/* <Sidebar /> */}

@@ -4,10 +4,7 @@ import User from "../../models/User";
 import bcryptjs from "bcryptjs";
 import dbConnect from "../../lib/dbConnect";
 import GoogleProvider from "next-auth/providers/google";
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "../../lib/mongodb";
-import { NextResponse } from "next/server";
-import { StatusCodes } from "http-status-codes";
+
 export const authOption = {
   // adapter: MongoDBAdapter(clientPromise, {
   //   databaseName: "mosque-around-me",

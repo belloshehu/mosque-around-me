@@ -87,30 +87,24 @@ export async function PATCH(request, { params }) {
     await prayer.save();
 
     const subscribersEmail = await getSubscribersEmailOnly(prayerId);
-
+    const receivers = subscribersEmail.join(", ");
     // send notification only when there is change in time
     if (oldAdhaanTime !== adhaanTime || oldIqaamaTime !== iqaamaTime) {
-      await sendNotificationEmail(
-        subscribersEmail[0],
-        "Prayer time update",
-        `${prayer.title} prayer time updated`,
-        `
-          Assalamu alaikum, 
-          <br/>
-          We are pleased to inform you that ${prayer.title} prayer time has been updated as follows:
-          <br />
-          <h3>Adhaan time: ${prayer.adhaanTime}</h3>
-          <h3>Iqaama time: ${prayer.iqaamaTime}</h3>
-  
-          <br/>
-  
-          May Allah make it easy for us all. 
-          <br/>
-  
-          <p>Not interested in receiving this notification anymore? </p>
-          <a>Unsubscribe</a>
-          `
-      );
+      await sendNotificationEmail({
+        email: receivers,
+        subject: "Prayer time update",
+        templateHeading: `${prayer.title} prayer time updated`,
+        templateBody: `
+          <p>Assalamu alaikum,</p> 
+          <p> We are pleased to inform you that ${prayer.title} prayer time at <b>${mosqueName}</b> has been updated as follows:</p>
+          <div style="background-color: rgba(0, 200, 0, 0.2);">
+            <h3>Adhaan time: ${prayer.adhaanTime}</h3>
+            <h3>Iqaama time: ${prayer.iqaamaTime}</h3>
+          </div>
+          <p>May Allah make it easy for us all. </p>
+          <p>Stay blessed.</p>
+          `,
+      });
     }
     return NextResponse.json(
       {

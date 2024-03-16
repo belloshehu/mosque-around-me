@@ -6,7 +6,7 @@ const DistanceListItem = ({ icon, text }) => {
       <span className="group-hover:scale-105 transition-all duration-150 text-lg">
         {icon}
       </span>
-      <small className="text-xs text-slate-700 absolute -top-2 -right-1 z-10 bg-white rounded-full">
+      <small className="text-xs text-slate-700 absolute -top-3 -right-2 z-10 bg-purple-200 p-1 rounded-full">
         {text}
       </small>
     </li>
