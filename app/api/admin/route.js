@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "../lib/dbConnect";
 import User from "../models/User";
 import AdminUser from "../models/admin";
+import { StatusCodes } from "http-status-codes";
 
 export async function POST(request) {
   try {
@@ -57,4 +58,19 @@ export async function POST(request) {
     success: true,
     status: 201,
   });
+}
+
+export async function GET(request) {
+  const adminUsers = await AdminUser.find().populate("user");
+  return NextResponse.json(
+    {
+      adminUsers,
+    },
+    { status: StatusCodes.OK }
+  );
+}
+
+export async function PATCH(request) {
+  const { id } = request.params;
+  return NextResponse.json({});
 }

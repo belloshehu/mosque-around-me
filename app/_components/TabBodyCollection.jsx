@@ -5,7 +5,12 @@ const TabBodyCollection = ({ tabDataArray, visible, children }) => {
   return (
     <div className="flex space-x-5">
       {tabDataArray.map(({ id }, index) => (
-        <TabBody children={children[index]} id={id} visible={visible} />
+        <TabBody
+          children={children[index]}
+          id={id}
+          visible={visible}
+          key={index}
+        />
       ))}
     </div>
   );

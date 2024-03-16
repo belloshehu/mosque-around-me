@@ -1,7 +1,12 @@
 import mosqueImage from "./_images/bread1.jpg";
 import { FaPray, FaPrayingHands, FaBookOpen, FaWalking } from "react-icons/fa";
 import { RiRidingLine } from "react-icons/ri";
-import { AiOutlineHeart, AiOutlineUser, AiOutlineHome } from "react-icons/ai";
+import {
+  AiOutlineHeart,
+  AiOutlineUser,
+  AiOutlineHome,
+  AiOutlineUsergroupAdd,
+} from "react-icons/ai";
 import { BsBell, BsFillCarFrontFill, BsBook } from "react-icons/bs";
 import { MdOutlineMosque } from "react-icons/md";
 
@@ -140,6 +145,12 @@ export const menuitems = [
     text: "Profile",
     path: "/profile",
   },
+  {
+    icon: <AiOutlineUsergroupAdd />,
+    id: 6,
+    text: "Admins",
+    path: "/admin/users",
+  },
 ];
 
 export const categories = [
@@ -191,6 +202,21 @@ export const notificationPageTabsData = [
   {
     id: "2",
     heading: "Hidden",
+  },
+];
+
+export const usersPageTabsData = [
+  {
+    id: "1",
+    heading: "Applications",
+  },
+  {
+    id: "2",
+    heading: "Approved",
+  },
+  {
+    id: "3",
+    heading: "Suspended",
   },
 ];
 
