@@ -6,7 +6,7 @@ const righteous = Righteous({ subsets: ["latin"], weight: ["400"] });
 
 const Brand = ({ textColor = "text-primary" }) => {
   return (
-    <Link href={"/"} className="w-fit">
+    <Link href={"/"} className="w-fit ">
       <div className={`text-center ${textColor}`}>
         <Image src={"/logo.png"} alt="logo" height={100} width={100} />
         <p className="text-xs">MosqueConnect</p>

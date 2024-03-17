@@ -34,7 +34,6 @@ export async function GET(request) {
       user: user._id,
     }).populate("user");
 
-    console.log(existingAdminUser, user._id);
     return NextResponse.json(
       {
         adminUser: existingAdminUser,

@@ -6,10 +6,11 @@ import { getServerSession } from "next-auth/next";
 import Prayer from "../../models/prayer";
 import {
   getSubscribersEmailOnly,
-  getSubscribersInfo,
+  getSubscribersIds,
   getSubscribersPhoneNunmberOnly,
 } from "../../lib/getPrayerSubscribers";
 import { sendNotificationEmail } from "../../../utils/mailer";
+import Notification from "../../models/notification";
 
 // update handler
 export async function PATCH(request, { params }) {
@@ -87,8 +88,18 @@ export async function PATCH(request, { params }) {
     await prayer.save();
 
     const subscribersEmail = await getSubscribersEmailOnly(prayerId);
+    const usersIds = await getSubscribersIds(prayerId);
+
+    // created notification
+    await Notification.create({
+      title: `${prayer.title} time update`,
+      from: mosqueId,
+      to: usersIds,
+      message: `${prayer.title} prayer time has been updated as follows: Adhaan time is ${prayer.adhaanTime} and Iqaama time is ${prayer.iqaamaTime}`,
+    });
+
     const receivers = subscribersEmail.join(", ");
-    // send notification only when there is change in time
+    // send email notification only when there is change in time
     if (oldAdhaanTime !== adhaanTime || oldIqaamaTime !== iqaamaTime) {
       await sendNotificationEmail({
         email: receivers,

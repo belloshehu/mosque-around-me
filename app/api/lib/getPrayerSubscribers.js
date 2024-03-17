@@ -77,6 +77,16 @@ export const getSubscribersEmailOnly = async (prayerId) => {
   }
 };
 
+export const getSubscribersIds = async (prayerId) => {
+  try {
+    const subscribers = await getPrayerSubscribers(prayerId);
+    const subscribersIds = subscribers.map(({ user: { _id } }) => _id);
+    return subscribersIds;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 export const getSubscribersPhoneNunmberOnly = async (prayerId) => {
   try {
     const subscribers = await getPrayerSubscribers(prayerId);
