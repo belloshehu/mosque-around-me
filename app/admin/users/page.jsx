@@ -59,7 +59,7 @@ const MosqueAdminUsers = () => {
     <div className="flex flex-col justify-center items-center gap-5">
       <TabCollection tabDataArray={usersPageTabsData}>
         <div>
-          <div>
+          <div className="flex gap-3 flex-col">
             {adminUsers?.map((user, index) => (
               <User user={user} key={index} />
             ))}

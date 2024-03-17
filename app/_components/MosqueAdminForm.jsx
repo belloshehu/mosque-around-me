@@ -91,7 +91,7 @@ const MosqueAdminForm = () => {
   };
 
   return (
-    <div className="w-full lg:w-1/3 bg-gradient-to-tr lg:border-2 lg:p-10 rounded-md">
+    <div className="w-full md:w-1/2 bg-gradient-to-tr lg:border-2 lg:p-10 rounded-md">
       <Formik
         initialValues={{
           address: "",
@@ -118,8 +118,10 @@ const MosqueAdminForm = () => {
             })
             .catch((error) => {
               toast.error(error.response.data || "Something went wrong");
+            })
+            .finally(() => {
+              setSubmitting(false);
             });
-          setSubmitting(false);
         }}
         validationSchema={Yup.object({
           address: Yup.string().required("Address required"),
@@ -181,14 +183,10 @@ const MosqueAdminForm = () => {
 
               <button
                 type="submit"
-                className={`${styles.buttonFluid} flex gap-2 items-center justify-center`}
+                className={`${styles.buttonFluid} flex gap-2 items-center justify-center disabled:bg-slate-500`}
                 disabled={isSubmitting}>
                 Submit
-                {isSubmitting && (
-                  <FaSpinner
-                    className={`${isSubmitting ? "animate-spin" : ""}`}
-                  />
-                )}
+                {isSubmitting && <FaSpinner className={"animate-spin"} />}
               </button>
             </div>
           </Form>

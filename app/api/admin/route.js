@@ -3,6 +3,7 @@ import dbConnect from "../lib/dbConnect";
 import User from "../models/User";
 import AdminUser from "../models/admin";
 import { StatusCodes } from "http-status-codes";
+import { sendNotificationEmail } from "../../utils/mailer";
 
 export async function POST(request) {
   try {
@@ -52,6 +53,23 @@ export async function POST(request) {
     country,
     user: existingUser._id,
   });
+
+  // send email notification to mosqueconnect email
+  await sendNotificationEmail({
+    email: process.env.EMAIL_USER,
+    subject: "Admin Application",
+    templateHeading: `${adminUser.adminType} application`,
+    templateBody: `
+          <p>Application for ${adminUser.adminType} received.</p>
+          <p>Application details:</p>
+
+          <div style="background-color: rgba(0, 0, 0, 0.2); padding: 2rem;>
+            <p>User: <span>${user.firstName} ${user.otherName}</span></p>
+            <p>Mosque: <span>${mosqueName} at${address}, ${city}, ${state}, ${country}</span></p>
+          </div>
+          `,
+  });
+
   return NextResponse.json({
     adminUser,
     message: "Successfully applied",

@@ -17,7 +17,7 @@ const MosqueAdminPage = () => {
   const { isSuccess } = useSelector((store) => store.form);
 
   return (
-    <div className="flex flex-col justify-center items-center gap-5">
+    <div className="flex flex-col justify-center items-center gap-5 w-full">
       {!isSuccess && (
         /* do not show  after successful form submission */
         <>
