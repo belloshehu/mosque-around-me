@@ -16,6 +16,21 @@ export const getMosques = async () => {
   return response;
 };
 
+export const getAPIPayload = async (url) => {
+  let response = null;
+  try {
+    const { data } = await axios.get(url, {
+      next: {
+        invalidate: 50,
+      },
+    });
+    response = data;
+  } catch (error) {
+    console.log(error);
+  }
+  return response;
+};
+
 export const getFavoriteVerse = async ({ verseNumber }) => {
   let response = null;
   try {

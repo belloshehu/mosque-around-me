@@ -33,7 +33,7 @@ const UserMenuItem = () => {
               </h3>
             </div>
           )}
-          <small>
+          <small className="text-slate-200">
             {session?.user?.firstName} {session?.user?.otherName}
           </small>
         </li>

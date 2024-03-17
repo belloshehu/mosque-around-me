@@ -69,8 +69,3 @@ export async function GET(request) {
     { status: StatusCodes.OK }
   );
 }
-
-export async function PATCH(request) {
-  const { id } = request.params;
-  return NextResponse.json({});
-}

@@ -3,7 +3,7 @@ import { Suspense, useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { styles } from "../styles";
-import { getMosques } from "../utils/api";
+import { getAPIPayload, getMosques } from "../utils/api";
 import { useSession } from "next-auth/react";
 import TabCollection from "../_components/TabCollection";
 import { profilePageTabsData } from "../data";
@@ -12,6 +12,7 @@ import { showForm } from "../GlobalRedux/features/modal/modalSlice";
 import ModalWrapper from "../_components/ModalWrapper";
 import MosqueForm from "../_components/MosqueForm";
 import Mosque from "../_components/Mosque";
+import PositionApplication from "../_components/PositionApplication";
 
 const DashboardPage = () => {
   // redirect to this page after login
@@ -25,10 +26,14 @@ const DashboardPage = () => {
   });
 
   const [mosques, setMosques] = useState([]);
+  const [application, setApplication] = useState(null);
 
   const getData = async () => {
     const data = await getMosques();
+    const response = await getAPIPayload(`/api/admin/applications`);
+    setApplication(response?.adminUser);
     setMosques(data);
+    console.log(response);
   };
 
   useEffect(() => {
@@ -79,11 +84,25 @@ const DashboardPage = () => {
         </div>
         <div className="flex flex-col gap-4 text-left my-5 lg:my-10">
           <div>
-            <Link
-              href={"/admin/mosque"}
-              className={`${styles.buttonFluidPlain} bg-purple-950 `}>
-              Apply for mosque admin
-            </Link>
+            <Suspense
+              fallback={
+                <div>
+                  <span>loading application ...</span>
+                </div>
+              }>
+              {application ? (
+                <PositionApplication application={application} />
+              ) : (
+                <div className="flex flex-col gap-3 items-center">
+                  <p>You have no applications</p>
+                  <Link
+                    href={"/admin/mosque"}
+                    className={`${styles.buttonFluidPlain} bg-purple-950`}>
+                    Apply for mosque admin
+                  </Link>
+                </div>
+              )}
+            </Suspense>
           </div>
         </div>
       </TabCollection>

@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import AdminUser from "../../models/admin";
 import { StatusCodes } from "http-status-codes";
+import User from "../../models/User";
+import { getServerSession } from "next-auth";
+import { authOption } from "../../auth/[...nextauth]/route";
 
 export async function PATCH(request, { params }) {
   const { id: adminUserId } = params;

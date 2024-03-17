@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleAdminUserApproval } from "../GlobalRedux/features/user/userSlice";
+import { toggleAdminUserApproval } from "../GlobalRedux/user/userSlice";
 import { FaSpinner } from "react-icons/fa";
 import { useEffect } from "react";
 

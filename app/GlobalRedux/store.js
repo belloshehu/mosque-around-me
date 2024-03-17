@@ -6,7 +6,7 @@ import modalReducer from "./features/modal/modalSlice";
 import formReducer from "./features/form/formSlice";
 import prayerReducer from "./features/prayer/prayerSlice";
 import programReducer from "./features/program/programSlice";
-import userReducer from "./features/user/userSlice";
+import userReducer from "./user/userSlice";
 
 export const store = configureStore({
   reducer: {

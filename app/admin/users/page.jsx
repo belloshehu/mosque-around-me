@@ -7,7 +7,7 @@ import { FaSpinner } from "react-icons/fa";
 import TabCollection from "../../_components/TabCollection";
 import { usersPageTabsData } from "../../data";
 import User from "../../_components/User";
-import { setAdminUsers } from "../../GlobalRedux/features/user/userSlice";
+import { setAdminUsers } from "../../GlobalRedux/user/userSlice";
 import axios from "axios";
 
 const MosqueAdminUsers = () => {
