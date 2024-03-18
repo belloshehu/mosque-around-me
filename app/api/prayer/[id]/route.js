@@ -95,7 +95,7 @@ export async function PATCH(request, { params }) {
       title: `${prayer.title} time update`,
       from: mosqueId,
       to: usersIds,
-      message: `${prayer.title} prayer time has been updated as follows: Adhaan time is ${prayer.adhaanTime} and Iqaama time is ${prayer.iqaamaTime}`,
+      message: `${prayer.title} prayer time at ${mosqueName} has been updated as follows: Adhaan time is ${prayer.adhaanTime} and Iqaama time is ${prayer.iqaamaTime}`,
     });
 
     const receivers = subscribersEmail.join(", ");
