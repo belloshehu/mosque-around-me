@@ -29,13 +29,7 @@ export default async function RootLayout({ children }) {
               <SideMenubar />
               <section className="w-full p-2 md:p-10">{children}</section>
               <RightSidebar>
-                <IslamicDate
-                  day={5}
-                  month={"Ramadan"}
-                  year={1444}
-                  monthPosition={"8th"}
-                />
-                
+                <IslamicDate />
               </RightSidebar>
             </main>
             <Footer />

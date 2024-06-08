@@ -1,7 +1,7 @@
 "use client";
 import { menuitems } from "../data";
 import MenubarItem from "./MenubarItem";
-import { Inter, Righteous, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import UserMenuItem from "./UserMenuItem";
 import { LiaTimesSolid } from "react-icons/lia";
 import { useDispatch, useSelector } from "react-redux";

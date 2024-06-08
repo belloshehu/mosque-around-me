@@ -11,7 +11,6 @@ const Page = async () => {
 
   const getData = async () => {
     const response = await getAPIPayload("/api/notification");
-    console.log(response);
     setNotifications(response?.notifications);
   };
 

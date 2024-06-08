@@ -2,7 +2,7 @@
 import { Poppins } from "next/font/google";
 import InputSearchbar from "./_components/InputSearchbar";
 import MosqueList from "./_components/MosqueList";
-
+import IslamicDate from "./_components/IslamicDate";
 import Map from "./_components/Map";
 import CategoryFilter from "./_components/CategoryFilter";
 
@@ -15,6 +15,7 @@ export default function Home() {
       <div className="w-full col-span-2">
         <div className="flex flex-col space-y-3">
           {/* <LocationFilter /> */}
+          <IslamicDate className=" gap-1 block md:hidden" />
           <InputSearchbar />
           <CategoryFilter />
         </div>

@@ -1,19 +1,52 @@
-import React from "react";
+"use client";
+import React, { memo, useEffect, useState } from "react";
+import { getAPIPayload } from "../utils/api";
+import { twMerge } from "tailwind-merge";
 
-const IslamicDate = ({ month, monthPosition, day, year }) => {
+const renderedDate = (date) => {
   return (
-    <div className="relative rounded-md p-6 bg-white flex flex-col gap-5 justify-center items-center w-full">
-      <h1>
-        {month}({monthPosition})
-      </h1>
-      <small className="absolute -top-2 right-0 bg-slate-50 p-1 shadow-md">
-        {year}
+    <div className="w-full">
+      <small className="absolute -top-1 right-0 bg-slate-50 p-1 shadow-md text-green-700 w-full text-center">
+        {date?.date} AH {date?.month?.ar}
       </small>
-      <div className="bg-slate-200 p-2 px-5 shadow-md rounded-sm">
-        <h1 className="text-5xl font-extrabold text-green-600">{day}</h1>
+      <div className="bg-slate-200 p-2 px-5 shadow-md rounded-sm text-center w-full">
+        <h1 className="text-2xl md:text-5xl font-extrabold text-green-600">
+          {date.day}
+        </h1>
+        <h1>{date?.month?.en}</h1>
       </div>
     </div>
   );
 };
 
-export default IslamicDate;
+const IslamicDate = ({ className, dateClassName }) => {
+  const isoDateString = new Date().toISOString();
+  const [y, m, dStr] = isoDateString.split("-");
+  const d = dStr.split("T")[0];
+  const gregorianDate = `${d}-${m}-${y}`;
+  const [date, setDate] = useState(null);
+
+  const getHijriDate = async (greDate) => {
+    const response = await getAPIPayload(
+      `http://api.aladhan.com/v1/gToH/${greDate}`
+    );
+    setDate(response.data.hijri);
+  };
+
+  useEffect(() => {
+    getHijriDate(gregorianDate);
+  }, []);
+
+  if (!date) return null;
+  return (
+    <div
+      className={twMerge(
+        "relative rounded-md py-5 flex flex-col gap-5 justify-center items-center w-full",
+        className
+      )}>
+      {date ? renderedDate(date) : <h1>No date</h1>}
+    </div>
+  );
+};
+
+export default memo(IslamicDate);
