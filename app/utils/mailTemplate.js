@@ -22,17 +22,17 @@ export const getEmailTemplate = (textBody, textHeading) => {
                         flex-direction: column;
                         align-items: center;
                         justify-content: center;
-                        gap: 5rem;
+                        gap: 3.5rem;
                         width: 100%;
                         padding: auto;
                     }
                     .heading {
-                        font-size: 1.5rem;
+                        font-size: 1rem;
                         text-align: center;
                     }
                     .header {
                         text-align: center;
-                        background-color: rgb(59, 7, 100);
+                        background-color: rgba(59, 7, 100, 0.5);
                         color: white;
                         padding: 5px;
                         border-radius: 20px 20px 0px 0px;
@@ -59,7 +59,7 @@ export const getEmailTemplate = (textBody, textHeading) => {
                         padding: 20px;
                         color: black;
                         margin: 1rem auto;    
-                        font-size: 2rem; 
+                        font-size: 1.5rem; 
                         width: 100%;          
                     }
                     ul {
@@ -87,7 +87,7 @@ export const getEmailTemplate = (textBody, textHeading) => {
                             margin: 1rem auto;
                         }
                         .heading {
-                            font-size: 2.5rem;
+                            font-size: 1.5rem;
                             text-align: center;
                         }
                         .header, .footer, .main{
@@ -98,6 +98,7 @@ export const getEmailTemplate = (textBody, textHeading) => {
             </head>
             <body>
                     <header class="header">
+                        <img src="https://belloshehu.github.io/deploy/mosqueconnect.png" alt="logo" height="30" width="30" style="border-radius: 50%; margin-bottom: 1.5rem;"/>
                         <h3 class="heading">${textHeading}</h3>
                     </header>
                     <div class="main">
