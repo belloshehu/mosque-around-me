@@ -96,7 +96,7 @@ export async function PATCH(request, { params }) {
         templateHeading: `${prayer.title} prayer time updated`,
         templateBody: `
           <p>Assalamu alaikum,</p> 
-          <p> We are pleased to inform you that ${prayer.title} prayer time at <b>${mosqueName}</b> has been updated as follows:</p>
+          <p> We are pleased to inform you that <b>${prayer.title}</b> prayer time at <b>${mosqueName}</b> has been updated as follows:</p>
           <div style="background-color: rgba(0, 200, 0, 0.2);">
             <h3>Adhaan time: ${prayer.adhaanTime}</h3>
             <h3>Iqaama time: ${prayer.iqaamaTime}</h3>

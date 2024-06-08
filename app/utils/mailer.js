@@ -26,9 +26,7 @@ export const sendNotificationEmail = async ({
       subject,
       html: getEmailTemplate(templateBody, templateHeading),
     };
-    console.log(emailOptions);
     const emailResponse = await transport.sendMail(emailOptions);
-    console.log("sent email");
     return emailResponse;
   } catch (error) {
     console.log("failed to send email");
