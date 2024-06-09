@@ -29,7 +29,7 @@ export default async function RootLayout({ children }) {
               <SideMenubar />
               <section className="w-full p-2 md:p-10">{children}</section>
               <RightSidebar>
-                <IslamicDate />
+                <IslamicDate className={""} />
               </RightSidebar>
             </main>
             <Footer />

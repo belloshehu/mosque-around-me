@@ -1,7 +1,6 @@
 "use client";
 import React, { memo, useEffect, useState } from "react";
-import { getAPIPayload } from "../utils/api";
-import { twMerge } from "tailwind-merge";
+import { cn, getAPIPayload } from "../utils/api";
 
 const renderedDate = (date) => {
   return (
@@ -19,7 +18,7 @@ const renderedDate = (date) => {
   );
 };
 
-const IslamicDate = ({ className, dateClassName }) => {
+const IslamicDate = ({ className }) => {
   const isoDateString = new Date().toISOString();
   const [y, m, dStr] = isoDateString.split("-");
   const d = dStr.split("T")[0];
@@ -40,7 +39,7 @@ const IslamicDate = ({ className, dateClassName }) => {
   if (!date) return null;
   return (
     <div
-      className={twMerge(
+      className={cn(
         "relative rounded-md py-5 flex flex-col gap-5 justify-center items-center w-full",
         className
       )}>

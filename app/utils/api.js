@@ -1,5 +1,6 @@
 import axios from "axios";
-import { toast } from "react-hot-toast";
+import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export const baseUrl =
   process.env.NODE_ENV === "development"
@@ -40,4 +41,8 @@ export const getFavoriteVerse = async ({ verseNumber }) => {
     console.log(error);
   }
   return response;
+};
+
+export const cn = (...args) => {
+  return twMerge(clsx(args));
 };

@@ -6,6 +6,7 @@ import {
   AiOutlineUser,
   AiOutlineHome,
   AiOutlineUsergroupAdd,
+  AiOutlineSetting,
 } from "react-icons/ai";
 import { BsBell, BsFillCarFrontFill, BsBook } from "react-icons/bs";
 import { MdOutlineMosque } from "react-icons/md";
@@ -150,6 +151,12 @@ export const menuitems = [
     id: 6,
     text: "Admins",
     path: "/admin/users",
+  },
+  {
+    icon: <AiOutlineSetting />,
+    id: 6,
+    text: "Settings",
+    path: "/settings",
   },
 ];
 
