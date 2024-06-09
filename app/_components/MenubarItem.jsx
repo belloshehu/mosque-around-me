@@ -15,18 +15,19 @@ const MenubarItem = ({ icon, text, path }) => {
     dispatch(closeModal());
   };
   return (
-    <li className="w-full p-0">
+    <li className="w-full p-0 hover:translate-x-2 translate-x-0 transition-all duration-300">
       <Link
         onClick={closeModalHandler}
         href={path}
         className={cn(
-          "flex items-center group gap-3 relative hover:bg-gray-200  transition-all duration-150 text-purple-600 rounded-md p-4 py-1 md:p-3 w-full",
+          "flex items-center group gap-3 relative hover:bg-gray-200 transition-all duration-150 text-primary rounded-md p-4 py-1 md:p-3 w-full",
           {
-            "bg-purple-200": text.toLowerCase() === currentPath.toLowerCase(),
+            "bg-primary text-white hover:bg-primary hover:text-gray-400":
+              text.toLowerCase() === currentPath.toLowerCase(),
           }
         )}>
         <span className="text-2xl">{icon}</span>
-        <span className=" text-purple-400 w-full text-sm">{text}</span>
+        <span className="w-full text-sm">{text}</span>
       </Link>
     </li>
   );

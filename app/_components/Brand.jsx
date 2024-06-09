@@ -8,7 +8,7 @@ const Brand = ({ textColor = "text-primary" }) => {
   return (
     <Link href={"/"} className="w-fit ">
       <div className={`text-center ${textColor}`}>
-        <Image src={"/logo.png"} alt="logo" height={100} width={100} />
+        <Image src={"/logo.png"} alt="logo" height={70} width={100} />
         <p className="text-xs">MosqueConnect</p>
       </div>
     </Link>

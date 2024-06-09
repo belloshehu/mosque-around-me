@@ -3,13 +3,14 @@ import React, { memo, useEffect, useState } from "react";
 import { cn, getAPIPayload } from "../utils/api";
 
 const renderedDate = (date) => {
+  if (!date) return null;
   return (
     <div className="w-full">
-      <small className="absolute -top-1 right-0 bg-slate-50 p-1 shadow-md text-green-700 w-full text-center">
+      <small className="absolute -top-1 right-0 bg-white p-1 shadow-2xl text-primary w-full text-center">
         {date?.date} AH {date?.month?.ar}
       </small>
-      <div className="bg-slate-200 p-2 px-5 shadow-md rounded-sm text-center w-full">
-        <h1 className="text-2xl md:text-5xl font-extrabold text-green-600">
+      <div className="bg-primary p-2 px-5 shadow-md rounded-sm text-center w-full text-white">
+        <h1 className="text-2xl md:text-5xl font-extrabold text-white">
           {date.day}
         </h1>
         <h1>{date?.month?.en}</h1>
@@ -36,7 +37,6 @@ const IslamicDate = ({ className }) => {
     getHijriDate(gregorianDate);
   }, []);
 
-  if (!date) return null;
   return (
     <div
       className={cn(

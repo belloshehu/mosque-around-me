@@ -30,12 +30,12 @@ const Mosque = ({ name, image, address, city, state, country, _id }) => {
             <small>{country}</small>
           </div>
           <div className="flex flex-col md:flex-row-reverse w-full justify-between">
-            <div className="flex space-x-3 text-purple-600 text-lg items-end mt-2">
+            <div className="flex space-x-3 text-primary text-lg items-end mt-2">
               <AiOutlineHeart />
               <BsBell />
               <TbUsersPlus />
             </div>
-            <div className="flex space-x-6 text-purple-600 text-2xl items-end mt-6">
+            <div className="flex space-x-6 text-primary text-2xl items-end mt-6">
               <DistanceList />
             </div>
           </div>
