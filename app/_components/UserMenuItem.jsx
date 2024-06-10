@@ -73,14 +73,14 @@ const UserMenuItem = () => {
   const { data: session } = useSession();
   return (
     <ul className="flex flex-col items-center place-self-end mx-auto list-none gap-4 mb-5">
-      <li className="flex gap-2 items-center">
-        {renderUserAvatar(session)} {renderAuthButton(session)}
-      </li>
       <li
         className={`rounded-full bg-primary text-sm p-2 px-5 text-white block`}>
         <Link href={"/admin/application"} onClick={closeModalHandler}>
           Become admin
         </Link>
+      </li>
+      <li className="flex gap-2 items-center">
+        {renderUserAvatar(session)} {renderAuthButton(session)}
       </li>
     </ul>
   );
