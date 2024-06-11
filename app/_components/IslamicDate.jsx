@@ -28,7 +28,7 @@ const IslamicDate = ({ className }) => {
 
   const getHijriDate = async (greDate) => {
     const response = await getAPIPayload(
-      `http://api.aladhan.com/v1/gToH/${greDate}`
+      `https://api.aladhan.com/v1/gToH/${greDate}`
     );
     setDate(response.data.hijri);
   };
