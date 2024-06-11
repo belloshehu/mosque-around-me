@@ -8,7 +8,6 @@ import axios from "axios";
 import CustomInputField from "./CustomInputField";
 import PhoneNumberField from "./PhoneNumberField";
 import { useRouter } from "next/navigation";
-import SocialLoginButton from "./SocialLoginButton";
 import SubmitButton from "./SubmitButton";
 import { useState } from "react";
 
@@ -16,7 +15,7 @@ const SignupForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   return (
-    <div className="w-full lg:w-2/5 md:shadow-xl md:p-10">
+    <div className="w-full lg:w-3/5 md:shadow-xl md:p-10">
       <Formik
         initialValues={{
           email: "",
@@ -68,7 +67,7 @@ const SignupForm = () => {
           //   terms: Yup.string().required("You must accept the terms to proceed"),
         })}>
         <Form>
-          <div className="flex flex-col items-center justify-center gap-2 md:gap-5 w-full">
+          <div className="flex flex-col items-center justify-center gap-2 md:gap-3 w-full">
             <div className="flex flex-col lg:flex-row gap-0 lg:gap-2 w-full">
               <CustomInputField
                 name="firstName"

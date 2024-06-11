@@ -11,7 +11,7 @@ const CustomInputField = ({ ...props }) => {
       <Field
         name={props.name}
         type={props.type || "text"}
-        className={`${styles.input} focus:border-4 w-full`}
+        className={`${styles.input} focus:border-black w-full`}
         placeholder={props.placeholder}
       />
       <ErrorMessage

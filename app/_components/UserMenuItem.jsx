@@ -31,36 +31,36 @@ const renderUserAvatar = (session) => {
 };
 
 const renderAuthButton = (session) => {
-  if (!session) return null;
-  if (session) {
-    return (
-      <div className="text-primary rounded-md inline-flex gap-2 items-center">
-        {session?.user ? (
-          <>
-            <AiOutlineLogout className="text-xl" />
-            <button
-              onClick={() => {
-                signOut();
-                closeModalHandler();
-              }}
-              className="text-sm">
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <AiOutlineLogin className="text-xl" />
-            <Link
-              href={"/auth/login"}
-              className="text-sm"
-              onClick={closeModalHandler}>
-              Login
-            </Link>
-          </>
-        )}
-      </div>
-    );
-  }
+  const closeModalHandler = () => {
+    dispatch(closeModal());
+  };
+  return (
+    <div className="text-primary rounded-md inline-flex gap-2 items-center">
+      {session?.user ? (
+        <>
+          <AiOutlineLogout className="text-xl" />
+          <button
+            onClick={() => {
+              signOut();
+              closeModalHandler();
+            }}
+            className="text-sm">
+            Logout
+          </button>
+        </>
+      ) : (
+        <>
+          <AiOutlineLogin className="text-xl" />
+          <Link
+            href={"/auth/login"}
+            className="text-sm"
+            onClick={closeModalHandler}>
+            Login
+          </Link>
+        </>
+      )}
+    </div>
+  );
 };
 
 const UserMenuItem = () => {
