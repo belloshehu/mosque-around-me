@@ -22,7 +22,7 @@ const SideMenubar = () => {
   return (
     <aside
       className={cn(
-        "flex flex-col items-start space-y-4 md:space-y-5 md:shadow-md p-5 h-screen bg-black transition-all duration-200 fixed  md:bg-white md:sticky top-0 w-4/6  md:w-[270px] z-20 pr-4 -translate-x-[100%] md:translate-x-0",
+        "flex flex-col items-start self-start space-y-4 md:space-y-5 md:shadow-md px-5 h-screen bg-black transition-all duration-200 fixed  md:bg-white md:sticky top-0 w-4/6  md:w-[270px] z-20 pr-4 -translate-x-[100%] md:translate-x-0",
         { "translate-x-0": isOpened }
       )}>
       <LiaTimesSolid

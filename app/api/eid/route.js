@@ -4,6 +4,21 @@ import User from "../models/User";
 import EidPrayer from "../models/eidPrayer";
 import { StatusCodes } from "http-status-codes";
 
+export async function GET() {
+  await dbConnect();
+  try {
+    const eidPrayers = await EidPrayer.find({});
+    return NextResponse.json({
+      eidPrayers,
+      count: eidPrayers.length,
+      success: true,
+      status: StatusCodes.OK,
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 export async function POST(request) {
   // connect to database
   await dbConnect();
