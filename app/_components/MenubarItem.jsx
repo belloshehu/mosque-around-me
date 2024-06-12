@@ -23,7 +23,7 @@ const MenubarItem = ({ icon, text, path }) => {
           "flex items-center group gap-3 relative hover:bg-gray-200 transition-all duration-150 text-primary rounded-md p-4 py-1 md:p-3 w-full",
           {
             "bg-primary text-white hover:bg-primary hover:text-gray-400":
-              text.toLowerCase() === currentPath.toLowerCase(),
+              path.toLowerCase() === pathName.toLowerCase(),
           }
         )}>
         <span className="text-2xl">{icon}</span>

@@ -14,6 +14,77 @@ import MosqueForm from "../_components/MosqueForm";
 import Mosque from "../_components/Mosque";
 import PositionApplication from "../_components/PositionApplication";
 
+const renderMosqueTabContent = (mosques) => {
+  return (
+    <article className="flex flex-col gap-4 text-left  my-5 lg:my-10">
+      <div className="grid grid-flo grid-cols-1 gap-2 p-0">
+        <Suspense
+          fallback={
+            <div>
+              <span>loading mosques ...</span>
+            </div>
+          }>
+          {mosques ? (
+            <ul className="">
+              {mosques?.map((mosque) => (
+                <Mosque key={mosque._id} {...mosque} />
+              ))}
+            </ul>
+          ) : (
+            <button
+              onClick={() => dispatch(showForm("mosque"))}
+              className={`${styles.buttonFluidPlain} bg-primary text-white w-fit `}>
+              Add mosque
+            </button>
+          )}
+        </Suspense>
+      </div>
+    </article>
+  );
+};
+
+const renderProgramTabContent = () => {
+  return (
+    <div className="flex flex-col gap-4 text-left  my-5 lg:my-10">
+      <div>
+        <Link
+          href={"/eid/create"}
+          className={`${styles.buttonFluidPlain} bg-primary `}>
+          Add Eid ground/mosque
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+const renderApplicationTabContent = (application) => {
+  return (
+    <div className="flex flex-col gap-4 text-left my-5 lg:my-10">
+      <div>
+        <Suspense
+          fallback={
+            <div>
+              <span>loading application ...</span>
+            </div>
+          }>
+          {application ? (
+            <PositionApplication application={application} />
+          ) : (
+            <div className="flex flex-col gap-3 items-center">
+              <p>You have no applications</p>
+              <Link
+                href={"/admin/mosque"}
+                className={`${styles.buttonFluidPlain} bg-primary`}>
+                Apply for mosque admin
+              </Link>
+            </div>
+          )}
+        </Suspense>
+      </div>
+    </div>
+  );
+};
+
 const DashboardPage = () => {
   // redirect to this page after login
   const dispatch = useDispatch();
@@ -49,62 +120,14 @@ const DashboardPage = () => {
         </p>
       </div>
       <TabCollection tabDataArray={profilePageTabsData}>
-        <article className="flex flex-col gap-4 text-left  my-5 lg:my-10">
-          <div className="grid grid-flo grid-cols-1 gap-2 p-0">
-            <Suspense
-              fallback={
-                <div>
-                  <span>loading mosques ...</span>
-                </div>
-              }>
-              {mosques ? (
-                <ul className="">
-                  {mosques?.map((mosque) => (
-                    <Mosque key={mosque._id} {...mosque} />
-                  ))}
-                </ul>
-              ) : (
-                <button
-                  onClick={() => dispatch(showForm("mosque"))}
-                  className={`${styles.buttonFluidPlain} bg-purple-950 text-black w-fit `}>
-                  Add mosque
-                </button>
-              )}
-            </Suspense>
-          </div>
-        </article>
-        <div className="flex flex-col gap-4 text-left  my-5 lg:my-10">
-          <div>
-            <Link
-              href={"/eid/create"}
-              className={`${styles.buttonFluidPlain} bg-purple-950 `}>
-              Add Eid ground/mosque
-            </Link>
-          </div>
-        </div>
-        <div className="flex flex-col gap-4 text-left my-5 lg:my-10">
-          <div>
-            <Suspense
-              fallback={
-                <div>
-                  <span>loading application ...</span>
-                </div>
-              }>
-              {application ? (
-                <PositionApplication application={application} />
-              ) : (
-                <div className="flex flex-col gap-3 items-center">
-                  <p>You have no applications</p>
-                  <Link
-                    href={"/admin/mosque"}
-                    className={`${styles.buttonFluidPlain} bg-purple-950`}>
-                    Apply for mosque admin
-                  </Link>
-                </div>
-              )}
-            </Suspense>
-          </div>
-        </div>
+        {/* render mosque tab content: added mosque or button to add a mosque */}
+        {renderMosqueTabContent(mosques)}
+
+        {/* render eid program tab contents: programs, eid prayer or button to add any */}
+        {renderProgramTabContent()}
+
+        {/* render user submitted application/requests: request for adding a mosque, eid prayer etc */}
+        {renderApplicationTabContent(application)}
       </TabCollection>
       {mosqueFormVisible && (
         <ModalWrapper>

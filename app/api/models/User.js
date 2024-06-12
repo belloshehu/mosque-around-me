@@ -87,7 +87,7 @@ const UserSchema = new mongoose.Schema(
       required: [true, "Please provide user role"],
       default: "user",
       enum: {
-        values: ["staff", "admin", "user"],
+        values: ["staff", "admin", "user", "owner"],
         message: "Please select valid role",
       },
     },

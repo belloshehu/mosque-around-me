@@ -91,7 +91,7 @@ const EidForm = () => {
   };
 
   return (
-    <div className="w-full lg:w-1/3 bg-gradient-to-tr lg:border-2 lg:p-10 rounded-md">
+    <div className="w-full lg:w-3/5 bg-gradient-to-tr lg:border-2 lg:p-10 rounded-md">
       <Formik
         initialValues={{
           address: "",
