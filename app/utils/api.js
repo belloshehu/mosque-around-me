@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 export const baseUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
-    : "https://mosqueconnect.org";
+    : "mosqueconnect.org";
 
 export const getMosques = async () => {
   let response = null;
