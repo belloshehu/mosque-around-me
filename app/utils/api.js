@@ -21,7 +21,7 @@ export const getMosques = async () => {
 export const getAPIPayload = async (url) => {
   let response = null;
   try {
-    const { data } = await axios.get(`${baseUrl}/${url}`, {
+    const { data } = await axios.get(`/${url}`, {
       next: {
         invalidate: 50,
       },
