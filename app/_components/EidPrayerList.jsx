@@ -4,7 +4,7 @@ import Badge from "./Badge";
 import { getAPIPayload } from "../utils/api";
 
 export default async function EidPrayerList() {
-  const res = await getAPIPayload("/api/eid");
+  const res = await getAPIPayload("api/eid");
   const eidPrayers = res.eidPrayers;
   return (
     <Suspense
