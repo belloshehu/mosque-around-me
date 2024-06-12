@@ -8,6 +8,7 @@ import SideMenubar from "./_components/SideMenubar";
 import Footer from "./_components/Footer";
 import RightSidebar from "./_components/RightSidebar";
 import IslamicDate from "./_components/IslamicDate";
+import EidPrayerList from "./_components/EidPrayerList";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["200", "700"] });
 export const metadata = {
@@ -30,6 +31,7 @@ export default async function RootLayout({ children }) {
               <section className="w-full p-2 md:p-10">{children}</section>
               <RightSidebar>
                 <IslamicDate className={""} />
+                <EidPrayerList />
               </RightSidebar>
             </main>
             <Footer />

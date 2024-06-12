@@ -148,13 +148,13 @@ export const menuitems = [
   },
   {
     icon: <AiOutlineUsergroupAdd />,
-    id: 6,
+    id: 7,
     text: "Admins",
     path: "/admin/users",
   },
   {
     icon: <AiOutlineSetting />,
-    id: 6,
+    id: 8,
     text: "Settings",
     path: "/settings",
   },

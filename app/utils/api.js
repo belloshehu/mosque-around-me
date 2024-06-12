@@ -5,7 +5,8 @@ import { twMerge } from "tailwind-merge";
 export const baseUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
-    : "https://mosque-around-me.vercel.app";
+    : "https://mosqueconnect.org";
+
 export const getMosques = async () => {
   let response = null;
   try {
@@ -20,6 +21,22 @@ export const getMosques = async () => {
 export const getAPIPayload = async (url) => {
   let response = null;
   try {
+    const { data } = await axios.get(`${baseUrl}/${url}`, {
+      next: {
+        invalidate: 50,
+      },
+    });
+    response = data;
+  } catch (error) {
+    console.error(error);
+  } finally {
+    return response;
+  }
+};
+
+export const getExternalAPIPayload = async (url) => {
+  let response = null;
+  try {
     const { data } = await axios.get(url, {
       next: {
         invalidate: 50,
@@ -27,9 +44,10 @@ export const getAPIPayload = async (url) => {
     });
     response = data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+  } finally {
+    return response;
   }
-  return response;
 };
 
 export const getFavoriteVerse = async ({ verseNumber }) => {
