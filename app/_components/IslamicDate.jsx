@@ -26,7 +26,7 @@ export default async function IslamicDate({ className }) {
   const response = await getExternalAPIPayload(
     `https://api.aladhan.com/v1/gToH/${gregorianDate}`
   );
-  const date = response.data.hijri;
+  const date = response?.data?.hijri;
 
   return (
     <div

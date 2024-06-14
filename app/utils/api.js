@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 export const baseUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
-    : "www.mosqueconnect.org";
+    : "https://www.mosqueconnect.org";
 
 export const getMosques = async () => {
   let response = null;
@@ -21,12 +21,12 @@ export const getMosques = async () => {
 export const getAPIPayload = async (url) => {
   let response = null;
   try {
-    const { data } = await axios.get(`/${url}`, {
+    const res = await axios.get(`${baseUrl}/${url}`, {
       next: {
         invalidate: 50,
       },
     });
-    response = data;
+    response = res.data;
   } catch (error) {
     console.error(error);
   } finally {

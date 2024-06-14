@@ -4,7 +4,7 @@ import User from "../models/User";
 import EidPrayer from "../models/eidPrayer";
 import { StatusCodes } from "http-status-codes";
 
-export async function GET() {
+export async function GET(request) {
   await dbConnect();
   try {
     const eidPrayers = await EidPrayer.find({});
