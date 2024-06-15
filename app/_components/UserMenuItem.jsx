@@ -72,7 +72,7 @@ const UserMenuItem = () => {
 
   const { data: session } = useSession();
   return (
-    <ul className="flex flex-col items-center place-self-end mx-auto list-none gap-4 mb-5">
+    <ul className="flex flex-col items-center mx-auto list-none gap-4 mb-8">
       <li
         className={`rounded-full bg-primary text-white text-sm p-2 px-5 block`}>
         <Link href={"/admin/application"} onClick={closeModalHandler}>
