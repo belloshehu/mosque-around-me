@@ -9,7 +9,7 @@ const CustomSelectField = ({ label, ...props }) => {
       <select
         {...field}
         {...props}
-        className={`${styles.input} focus:border-4`}>
+        className={`${styles.input} focus:border-black`}>
         {props.children}
       </select>
       {meta.error && meta.touched ? (
